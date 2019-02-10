@@ -1,12 +1,4 @@
-
-<script>
-exports = {};
-</script>
-<script src="../node_modules/assemblyscript/lib/loader/index.js"></script>
-<script>
-loader = exports;
-</script>
-
+<script src="Loader.js"></script>
 
 <script>
 
@@ -18,9 +10,14 @@ loader = exports;
 		imports.env = {};
 		imports.env.memoryBase = 0;
 		imports.env.tableBase = 0;
+		if (!imports.env.memory) {
+			imports.env.memory = new WebAssembly.Memory({ initial: 20 });
+		}
+		if (!imports.env.table) {
+			imports.env.table = new WebAssembly.Table({ initial: 0, element: 'anyfunc' });
+		}
 
-
-		module = loader.instantiateBuffer(buffer, imports);
+		module = Loader.instantiateBuffer(buffer, imports);
 	}
 
 	main().then(function() {
