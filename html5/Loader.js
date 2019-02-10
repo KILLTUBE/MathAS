@@ -235,7 +235,8 @@ Loader.instantiate = instantiate;
 
 /** Instantiates an AssemblyScript module from a buffer using the specified imports. */
 function instantiateBuffer(buffer, imports) {
-	return instantiate(new WebAssembly.Module(buffer), imports);
+	var module = new WebAssembly.Module(buffer);
+	return instantiate(module, imports);
 }
 
 Loader.instantiateBuffer = instantiateBuffer;

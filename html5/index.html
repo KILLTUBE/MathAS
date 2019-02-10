@@ -4,9 +4,12 @@
 
 	async function main() {
 		response = await fetch("../build/untouched.wasm");
-		buffer = await response.arrayBuffer();
+		//buffer = await response.arrayBuffer();
+		
 			
 		imports = {};
+		
+		/*
 		imports.env = {};
 		imports.env.memoryBase = 0;
 		imports.env.tableBase = 0;
@@ -16,8 +19,10 @@
 		if (!imports.env.table) {
 			imports.env.table = new WebAssembly.Table({ initial: 0, element: 'anyfunc' });
 		}
-
-		module = Loader.instantiateBuffer(buffer, imports);
+		*/
+		
+		//module = Loader.instantiateBuffer(buffer, imports);
+		module = await Loader.instantiateStreaming(response, imports);
 	}
 
 	main().then(function() {
