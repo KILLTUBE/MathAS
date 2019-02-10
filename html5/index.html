@@ -1,0 +1,30 @@
+
+<script>
+exports = {};
+</script>
+<script src="../node_modules/assemblyscript/lib/loader/index.js"></script>
+<script>
+loader = exports;
+</script>
+
+
+<script>
+
+	async function main() {
+		response = await fetch("../build/untouched.wasm");
+		buffer = await response.arrayBuffer();
+			
+		imports = {};
+		imports.env = {};
+		imports.env.memoryBase = 0;
+		imports.env.tableBase = 0;
+
+
+		module = loader.instantiateBuffer(buffer, imports);
+	}
+
+	main().then(function() {
+		console.log(module.I8.length);
+	});
+
+</script>
