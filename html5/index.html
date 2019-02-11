@@ -32,19 +32,31 @@
 		console.log("a.add(b)", a.add(b));
 		
 		
-		constructor_vec3 = instance.exports["Vec3#constructor"];
+		vec3_constructor = instance.exports["Vec3#constructor"];
+		vec3_add         = instance.exports["Vec3#add"];
+		vec3_add2        = instance.exports["Vec3#add2"];
 		
 		pc = {};
 		pc.Vec3 = function(x, y, z) {
 			// `>> 2` is same as `/ 4`, used to quickly lookup the value in module.F32,
 			// so `this.idx32` is for indexing the module.F32 array
-			this.idx32 = constructor_vec3(0, x, y, z) >> 2;
+			this.idx32 = vec3_constructor(0, x, y, z) >> 2;
 		}
 		
 		pc.Vec3.wrap = function(idx32) {
 			var tmp = Object.create(pc.Vec3.prototype);
 			tmp.idx32 = idx32;
 			return tmp;
+		}
+		
+		pc.Vec3.prototype.add = function(rhs) {
+			vec3_add(this.idx32 << 2, rhs.idx32 << 2);
+			return this;
+		}
+		
+		pc.Vec3.prototype.add2 = function(lhs, rhs) {
+			vec3_add2(this.idx32 << 2, lhs.idx32 << 2, rhs.idx32 << 2);
+			return this;
 		}
 		
 		Object.defineProperty(pc.Vec3.prototype, 'x', {
@@ -75,8 +87,9 @@
 		});
 		
 		
-		vec = new pc.Vec3(1, 22, 333);
-		console.log("new pc.Vec3(1, 22, 333)", vec);
+		vec_a = new pc.Vec3(1, 2, 3);
+		vec_b = new pc.Vec3(4, 5, 6);
+		console.log(vec_a, vec_b);
 		
 	});
 
