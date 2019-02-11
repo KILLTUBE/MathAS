@@ -38,51 +38,49 @@
 		
 		pc = {};
 		pc.Vec3 = function(x, y, z) {
-			// `>> 2` is same as `/ 4`, used to quickly lookup the value in module.F32,
-			// so `this.idx32` is for indexing the module.F32 array
-			this.idx32 = vec3_constructor(0, x, y, z) >> 2;
+			this.ptr = vec3_constructor(0, x, y, z);
 		}
 		
-		pc.Vec3.wrap = function(idx32) {
+		pc.Vec3.wrap = function(ptr) {
 			var tmp = Object.create(pc.Vec3.prototype);
-			tmp.idx32 = idx32;
+			tmp.ptr = ptr;
 			return tmp;
 		}
 		
 		pc.Vec3.prototype.add = function(rhs) {
-			vec3_add(this.idx32 << 2, rhs.idx32 << 2);
+			vec3_add(this.ptr, rhs.ptr);
 			return this;
 		}
 		
 		pc.Vec3.prototype.add2 = function(lhs, rhs) {
-			vec3_add2(this.idx32 << 2, lhs.idx32 << 2, rhs.idx32 << 2);
+			vec3_add2(this.ptr, lhs.ptr, rhs.ptr);
 			return this;
 		}
 		
 		Object.defineProperty(pc.Vec3.prototype, 'x', {
 			get: function() {
-				return module.F32[this.idx32];
+				return module.F32[this.ptr >> 2]; // `>> 2` is same as `/ 4`, used to quickly lookup the value in module.F32
 			},
 			set: function(newValue) {
-				module.F32[this.idx32] = newValue;
+				module.F32[this.ptr >> 2] = newValue;
 			}
 		});
 		
 		Object.defineProperty(pc.Vec3.prototype, 'y', {
 			get: function() {
-				return module.F32[this.idx32 + 1];
+				return module.F32[(this.ptr >> 2) + 1];
 			},
 			set: function(newValue) {
-				module.F32[this.idx32 + 1] = newValue;
+				module.F32[(this.ptr >> 2) + 1] = newValue;
 			}
 		});
 		
 		Object.defineProperty(pc.Vec3.prototype, 'z', {
 			get: function() {
-				return module.F32[this.idx32 + 2];
+				return module.F32[(this.ptr >> 2) + 2];
 			},
 			set: function(newValue) {
-				module.F32[this.idx32 + 2] = newValue;
+				module.F32[(this.ptr >> 2) + 2] = newValue;
 			}
 		});
 		
@@ -90,6 +88,8 @@
 		vec_a = new pc.Vec3(1, 2, 3);
 		vec_b = new pc.Vec3(4, 5, 6);
 		console.log(vec_a, vec_b);
+		vec_c = (new pc.Vec3()).add2(vec_a, vec_b);
+		console.log(vec_c);
 		
 	});
 
