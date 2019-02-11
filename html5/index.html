@@ -32,9 +32,25 @@
 		console.log("a.add(b)", a.add(b));
 		
 		
-		vec3_constructor = instance.exports["Vec3#constructor"];
-		vec3_add         = instance.exports["Vec3#add"];
-		vec3_add2        = instance.exports["Vec3#add2"];
+		vec3_add          = instance.exports["Vec3#add"];
+		vec3_add2         = instance.exports["Vec3#add2"];
+		vec3_clone        = instance.exports["Vec3#clone"];
+		vec3_constructor  = instance.exports["Vec3#constructor"];
+		vec3_copy         = instance.exports["Vec3#copy"];
+		vec3_cross        = instance.exports["Vec3#cross"];
+		vec3_dot          = instance.exports["Vec3#dot"];
+		vec3_equals       = instance.exports["Vec3#equals"];
+		vec3_length       = instance.exports["Vec3#length"];
+		vec3_lengthSq     = instance.exports["Vec3#lengthSq"];
+		vec3_lerp         = instance.exports["Vec3#lerp"];
+		vec3_mul          = instance.exports["Vec3#mul"];
+		vec3_mul2         = instance.exports["Vec3#mul2"];
+		vec3_normalize    = instance.exports["Vec3#normalize"];
+		vec3_project      = instance.exports["Vec3#project"];
+		vec3_scale        = instance.exports["Vec3#scale"];
+		vec3_set          = instance.exports["Vec3#set"];
+		vec3_sub          = instance.exports["Vec3#sub"];
+		vec3_sub2         = instance.exports["Vec3#sub2"];
 		
 		pc = {};
 		pc.Vec3 = function(x, y, z) {
@@ -54,6 +70,17 @@
 		
 		pc.Vec3.prototype.add2 = function(lhs, rhs) {
 			vec3_add2(this.ptr, lhs.ptr, rhs.ptr);
+			return this;
+		}
+		
+		// todo
+		pc.Vec3.prototype.clone = function(lhs, rhs) {
+			//vec3_clone(this.ptr, lhs.ptr, rhs.ptr);
+			//return this;
+		}
+		
+		pc.Vec3.prototype.copy = function(rhs) {
+			vec3_copy(this.ptr, rhs.ptr);
 			return this;
 		}
 		
