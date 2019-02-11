@@ -27,9 +27,10 @@
 
 	main().then(function() {
 		console.log(module.I8.length);
+		// next three lines just test the auto-generated demangled class, which isn't so useful currently
 		a = new module.Vec3(1,2,3)
 		b = new module.Vec3(11,22,33)
-		console.log("a.add(b)", a.add(b));
+		console.log("a.add(b)", a.add(b)); // returns no class but a raw pointer
 		
 		
 		vec3_add          = instance.exports["Vec3#add"];
@@ -83,6 +84,73 @@
 			vec3_copy(this.ptr, rhs.ptr);
 			return this;
 		}
+		
+		pc.Vec3.prototype.cross = function(lhs, rhs) {
+			vec3_cross(this.ptr, lhs.ptr, rhs.ptr);
+			return this;
+		}
+		
+		pc.Vec3.prototype.dot = function(rhs) {
+			return vec3_dot(this.ptr, rhs.ptr);
+		}
+		
+		pc.Vec3.prototype.equals = function(rhs) {
+			return !!vec3_equals(this.ptr, rhs.ptr);
+		}
+		
+		pc.Vec3.prototype.length = function() {
+			return vec3_length(this.ptr);
+		}
+		
+		pc.Vec3.prototype.lengthSq = function() {
+			return vec3_lengthSq(this.ptr);
+		}
+		
+		pc.Vec3.prototype.lerp = function(lhs, rhs, alpha) {
+			vec3_lerp(this.ptr, lhs.ptr, rhs.ptr, alpha);
+			return this;
+		}
+		
+		pc.Vec3.prototype.mul = function(rhs) {
+			vec3_mul(this.ptr, rhs.ptr);
+			return this;
+		}
+		
+		pc.Vec3.prototype.mul2 = function(lhs, rhs) {
+			vec3_mul2(this.ptr, lhs.ptr, rhs.ptr);
+			return this;
+		}
+		
+		pc.Vec3.prototype.normalize = function() {
+			vec3_normalize(this.ptr);
+			return this;
+		}
+		
+		pc.Vec3.prototype.project = function(rhs) {
+			vec3_project(this.ptr, rhs.ptr);
+			return this;
+		}
+		
+		pc.Vec3.prototype.scale = function(scalar) {
+			vec3_scale(this.ptr, scalar);
+			return this;
+		}
+		
+		pc.Vec3.prototype.set = function(x, y, z) {
+			vec3_set(this.ptr, x, y, z);
+			return this;
+		}
+		
+		pc.Vec3.prototype.sub = function(rhs) {
+			vec3_sub(this.ptr, rhs.ptr);
+			return this;
+		}
+		
+		pc.Vec3.prototype.sub2 = function(lhs, rhs) {
+			vec3_sub2(this.ptr, lhs.ptr, rhs.ptr);
+			return this;
+		}
+		
 		
 		Object.defineProperty(pc.Vec3.prototype, 'x', {
 			get: function() {
