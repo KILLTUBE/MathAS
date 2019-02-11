@@ -55,7 +55,11 @@
 		
 		pc = {};
 		pc.Vec3 = function(x, y, z) {
-			this.ptr = vec3_constructor(0, x, y, z);
+			if (x && x.length === 3) {
+				this.ptr = vec3_constructor(0, x[0], x[1], x[2]);
+			} else {
+				this.ptr = vec3_constructor(0, x || 0, y || 0, z || 0);
+			}
 		}
 		
 		pc.Vec3.wrap = function(ptr) {
@@ -74,10 +78,9 @@
 			return this;
 		}
 		
-		// todo
-		pc.Vec3.prototype.clone = function(lhs, rhs) {
-			//vec3_clone(this.ptr, lhs.ptr, rhs.ptr);
-			//return this;
+		pc.Vec3.prototype.clone = function() {
+			var tmp = vec3_clone(this.ptr);
+			return pc.Vec3.wrap(tmp);
 		}
 		
 		pc.Vec3.prototype.copy = function(rhs) {

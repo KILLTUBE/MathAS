@@ -16,6 +16,7 @@ export class Vec3 {
 
 	// AS is more strict than TS... need to replace all occuranves of this in PlayCanvasTS at some point
 	//constructor(x?: any, y?: number, z?: number)
+	//constructor(x: f32 = 0, y: f32 = 0, z: f32 = 0) // causes error: wasm-0000006e:45 Uncaught (in promise) RuntimeError: unreachable at assembly/Vec3/Vec3#constructor|trampoline (wasm-function[44]:21)
 	constructor(x: f32, y: f32, z: f32)
 	{
 		//if (x && x.length === 3) {
@@ -90,12 +91,14 @@ export class Vec3 {
 	 * var vclone = v.clone();
 	 * console.log("The result of the cloning is: " + vclone.toString());
 	 */
-	 
-	// currently fails: ERROR AS100: Operation not supported.
-	 
-	//clone(): Vec3 {
-	//	return new Vec3().copy(this);
-	//}
+	clone(): Vec3 {
+		// original code: return new Vec3().copy(this);
+		// currently fails: ERROR AS100: Operation not supported.
+		// AS doesn't support that yet
+		var tmp = new Vec3(0, 0, 0);
+		tmp.copy(this);
+		return tmp;
+	}
 
 	/**
 	 * @function
