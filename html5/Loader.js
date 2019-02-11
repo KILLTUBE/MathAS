@@ -46,6 +46,7 @@ function preInstantiate(imports) {
 
 /** Prepares the final module once instantiation is complete. */
 function postInstantiate(baseModule, instance) {
+	window.instance = instance;
 	var rawExports = instance.exports;
 	var memory = rawExports.memory;
 	var memory_allocate = rawExports["memory.allocate"];

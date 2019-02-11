@@ -3,20 +3,20 @@
  * @name pc.Vec3
  * @classdesc A 3-dimensional vector.
  * @description Creates a new Vec3 object.
- * @param {Number} [x] The x value. If x is an array of length 3, the array will be used to populate all components.
- * @param {Number} [y] The y value.
- * @param {Number} [z] The z value.
+ * @param {f32} [x] The x value. If x is an array of length 3, the array will be used to populate all components.
+ * @param {f32} [y] The y value.
+ * @param {f32} [z] The z value.
  * @example
  * var v = new pc.Vec3(1, 2, 3);
  */
 export class Vec3 {
-	x: number;
-	y: number;
-	z: number;
+	x: f32;
+	y: f32;
+	z: f32;
 
 	// AS is more strict than TS... need to replace all occuranves of this in PlayCanvasTS at some point
 	//constructor(x?: any, y?: number, z?: number)
-	constructor(x: number, y: number, z: number)
+	constructor(x: f32, y: f32, z: f32)
 	{
 		//if (x && x.length === 3) {
 		//	this.x = x[0];

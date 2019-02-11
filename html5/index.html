@@ -27,6 +27,51 @@
 
 	main().then(function() {
 		console.log(module.I8.length);
+		a = new module.Vec3(1,2,3)
+		b = new module.Vec3(11,22,33)
+		console.log("a.add(b)", a.add(b));
+		
+		
+		constructor_vec3 = instance.exports["Vec3#constructor"];
+		
+		pc = {};
+		pc.Vec3 = function(x, y, z) {
+			// `>> 2` is same as `/ 4`, used to quickly lookup the value in module.F32,
+			// so `this.i32` is for indexing the module.F32 array
+			this.i32 = constructor_vec3(0, x, y, z) >> 2;
+		}
+		
+		Object.defineProperty(pc.Vec3.prototype, 'x', {
+			get: function() {
+				return module.F32[this.i32];
+			},
+			set: function(newValue) {
+				module.F32[this.i32] = newValue;
+			}
+		});
+		
+		Object.defineProperty(pc.Vec3.prototype, 'y', {
+			get: function() {
+				return module.F32[this.i32 + 1];
+			},
+			set: function(newValue) {
+				module.F32[this.i32 + 1] = newValue;
+			}
+		});
+		
+		Object.defineProperty(pc.Vec3.prototype, 'z', {
+			get: function() {
+				return module.F32[this.i32 + 2];
+			},
+			set: function(newValue) {
+				module.F32[this.i32 + 2] = newValue;
+			}
+		});
+		
+		
+		vec = new pc.Vec3(1, 22, 333);
+		console.log("new pc.Vec3(1, 22, 333)", vec);
+		
 	});
 
 </script>
