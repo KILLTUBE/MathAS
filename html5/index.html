@@ -37,34 +37,40 @@
 		pc = {};
 		pc.Vec3 = function(x, y, z) {
 			// `>> 2` is same as `/ 4`, used to quickly lookup the value in module.F32,
-			// so `this.i32` is for indexing the module.F32 array
-			this.i32 = constructor_vec3(0, x, y, z) >> 2;
+			// so `this.idx32` is for indexing the module.F32 array
+			this.idx32 = constructor_vec3(0, x, y, z) >> 2;
+		}
+		
+		pc.Vec3.wrap = function(idx32) {
+			var tmp = Object.create(pc.Vec3.prototype);
+			tmp.idx32 = idx32;
+			return tmp;
 		}
 		
 		Object.defineProperty(pc.Vec3.prototype, 'x', {
 			get: function() {
-				return module.F32[this.i32];
+				return module.F32[this.idx32];
 			},
 			set: function(newValue) {
-				module.F32[this.i32] = newValue;
+				module.F32[this.idx32] = newValue;
 			}
 		});
 		
 		Object.defineProperty(pc.Vec3.prototype, 'y', {
 			get: function() {
-				return module.F32[this.i32 + 1];
+				return module.F32[this.idx32 + 1];
 			},
 			set: function(newValue) {
-				module.F32[this.i32 + 1] = newValue;
+				module.F32[this.idx32 + 1] = newValue;
 			}
 		});
 		
 		Object.defineProperty(pc.Vec3.prototype, 'z', {
 			get: function() {
-				return module.F32[this.i32 + 2];
+				return module.F32[this.idx32 + 2];
 			},
 			set: function(newValue) {
-				module.F32[this.i32 + 2] = newValue;
+				module.F32[this.idx32 + 2] = newValue;
 			}
 		});
 		
