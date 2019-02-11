@@ -151,6 +151,9 @@
 			return this;
 		}
 		
+		pc.Vec3.prototype.toString = function() {
+			return '[' + this.x + ', ' + this.y + ', ' + this.z + ']';
+		}
 		
 		Object.defineProperty(pc.Vec3.prototype, 'x', {
 			get: function() {

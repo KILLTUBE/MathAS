@@ -443,6 +443,7 @@ export class Vec3 {
 	 * // Should output '[20, 10, 5]'
 	 * console.log(v.toString());
 	 */
+	// AS can't compile this, so it's implemented via JS wrapper
 	//toString(): string {
 	//	return '[' + this.x + ', ' + this.y + ', ' + this.z + ']';
 	//}	
