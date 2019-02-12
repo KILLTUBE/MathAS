@@ -14,7 +14,7 @@ export class Vec3 {
 	y: f32;
 	z: f32;
 
-	// AS is more strict than TS... need to replace all occuranves of this in PlayCanvasTS at some point
+	// AS is more strict than TS... need to replace all occurances of this in PlayCanvasTS at some point
 	//constructor(x?: any, y?: number, z?: number)
 	//constructor(x: f32 = 0, y: f32 = 0, z: f32 = 0) // causes error: wasm-0000006e:45 Uncaught (in promise) RuntimeError: unreachable at assembly/Vec3/Vec3#constructor|trampoline (wasm-function[44]:21)
 	constructor(x: f32, y: f32, z: f32)
