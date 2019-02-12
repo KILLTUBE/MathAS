@@ -2,6 +2,11 @@ mat4_constructor  = instance.exports["Mat4#constructor"];
 mat4_add          = instance.exports["Mat4#add"];
 mat4_add2         = instance.exports["Mat4#add2"];
 mat4_clone        = instance.exports["Mat4#clone"];
+mat4_copy         = instance.exports["Mat4#copy"];
+mat4_equals       = instance.exports["Mat4#equals"];
+mat4_isIdentity   = instance.exports["Mat4#isIdentity"];
+mat4_mul2         = instance.exports["Mat4#mul2"];
+mat4_mul          = instance.exports["Mat4#mul"];
 
 pc.Mat4 = function() {
 	this.ptr = mat4_constructor(0);
@@ -37,3 +42,27 @@ pc.Mat4.prototype.clone = function() {
 	var tmp = pc.Mat4.wrap(ptr);
 	return tmp;
 }
+
+pc.Mat4.prototype.copy = function(rhs) {
+	mat4_copy(this.ptr, rhs.ptr);
+	return this;
+}
+
+pc.Mat4.prototype.equals = function(rhs) {
+	return !!mat4_equals(this.ptr, rhs.ptr);
+}
+
+pc.Mat4.prototype.isIdentity = function() {
+	return !!mat4_isIdentity(this.ptr);
+}
+
+pc.Mat4.prototype.mul2 = function(lhs, rhs) {
+	mat4_mul2(this.ptr, lhs.ptr, rhs.ptr);
+	return this;
+}
+
+pc.Mat4.prototype.mul = function(rhs) {
+	mat4_mul(this.ptr, rhs.ptr);
+	return this;
+}
+
