@@ -1,7 +1,14 @@
 # print the commands via -x/+y
 set -x
 
-time npx asc assembly/index.ts assembly/Vec3.ts assembly/Mat4.ts -b build/untouched.wasm -t build/untouched.wat --sourceMap --validate --debug
+time npx asc \
+assembly/index.ts \
+assembly/Mat4.ts \
+assembly/Quat.ts \
+assembly/Vec2.ts \
+assembly/Vec3.ts \
+assembly/Vec4.ts \
+-b build/untouched.wasm -t build/untouched.wat --sourceMap --validate --debug
 
 # build times are quite slow for optimized builds (like 5 to 10 seconds) for 2 files, uncomment what you need:
 
