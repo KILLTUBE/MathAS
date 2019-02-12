@@ -45,12 +45,16 @@
 		// namespace for all pc_*.js files
 		pc = {};
 		await fetch_script("pc_vec3.js");
+		await fetch_script("pc_mat4.js");
 		
 		vec_a = new pc.Vec3(1, 2, 3);
 		vec_b = new pc.Vec3(4, 5, 6);
 		console.log(vec_a, vec_b);
 		vec_c = (new pc.Vec3()).add2(vec_a, vec_b);
 		console.log(vec_c);
+		
+		mat_a = new pc.Mat4();
+		mat_b = new pc.Mat4();
 	}
 
 	main().then(function() {
