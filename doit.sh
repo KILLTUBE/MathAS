@@ -3,6 +3,7 @@ set -x
 
 time npx asc \
 assembly/index.ts \
+assembly/Mat3.ts \
 assembly/Mat4.ts \
 assembly/Quat.ts \
 assembly/Vec2.ts \
