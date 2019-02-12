@@ -55,6 +55,9 @@
 		
 		mat_a = new pc.Mat4();
 		mat_b = new pc.Mat4();
+		mat_c = new pc.Mat4();
+		mat_c.add2(mat_a, mat_b);
+		console.log(mat_c);
 	}
 
 	main().then(function() {
