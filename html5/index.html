@@ -42,22 +42,39 @@
 		b = new module.Vec3(11,22,33)
 		console.log("a.add(b)", a.add(b)); // returns no class but a raw pointer
 		
-		// namespace for all pc_*.js files
-		pc = {};
-		await fetch_script("pc_vec3.js");
+		pc = {}; // namespace for all pc_*.js files
+		await fetch_script("pc_mat3.js");
 		await fetch_script("pc_mat4.js");
+		await fetch_script("pc_quat.js");
+		await fetch_script("pc_vec2.js");
+		await fetch_script("pc_vec3.js");
+		await fetch_script("pc_vec4.js");
 		
-		vec_a = new pc.Vec3(1, 2, 3);
-		vec_b = new pc.Vec3(4, 5, 6);
-		console.log(vec_a, vec_b);
-		vec_c = (new pc.Vec3()).add2(vec_a, vec_b);
-		console.log(vec_c);
 		
-		mat_a = new pc.Mat4();
-		mat_b = new pc.Mat4();
-		mat_c = new pc.Mat4();
-		mat_c.add2(mat_a, mat_b);
-		console.log(mat_c);
+		mat3_a = new pc.Mat4();
+		mat3_b = new pc.Mat4();
+		mat3_c = new pc.Mat4();
+		
+		mat4_a = new pc.Mat4();
+		mat4_b = new pc.Mat4();
+		mat4_c = new pc.Mat4();
+		
+		quat_a = new pc.Quat();
+		quat_b = new pc.Quat();
+		quat_c = new pc.Quat();
+		
+		vec2_a = new pc.Vec3(1, 2);
+		vec2_b = new pc.Vec3(11, 22);
+		vec2_c = new pc.Vec3(111, 222);
+		
+		vec3_a = new pc.Vec3(1, 2, 3);
+		vec3_b = new pc.Vec3(11, 22, 33);
+		vec3_c = new pc.Vec3(111, 222, 333);
+		
+		vec4_a = new pc.Vec3(1, 2, 3, 4);
+		vec4_b = new pc.Vec3(11, 22, 33, 44);
+		vec4_c = new pc.Vec3(111, 222, 333, 444);
+		
 	}
 
 	main().then(function() {
