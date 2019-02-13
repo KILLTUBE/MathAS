@@ -18,6 +18,10 @@ vec3_set          = instance.exports["Vec3#set"];
 vec3_sub          = instance.exports["Vec3#sub"];
 vec3_sub2         = instance.exports["Vec3#sub2"];
 
+/**
+ * @constructor
+ */
+
 pc.Vec3 = function(x, y, z) {
 	if (x && x.length === 3) {
 		this.ptr = vec3_constructor(0, x[0], x[1], x[2]);

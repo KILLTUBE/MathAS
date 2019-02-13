@@ -1,6 +1,10 @@
 vec4_constructor  = instance.exports["Vec4#constructor"];
 vec4_add          = instance.exports["Vec4#add"];
 
+/**
+ * @constructor
+ */
+
 pc.Vec4 = function(x, y, z, w) {
 	if (x && x.length === 4) {
 		this.ptr = vec4_constructor(0, x[0], x[1], x[2], x[3]);
