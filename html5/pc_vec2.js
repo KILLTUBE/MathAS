@@ -1,3 +1,4 @@
+vec2_constructor  = instance.exports["Vec2#constructor"];
 vec2_add          = instance.exports["Vec2#add"];
 
 pc.Vec2 = function(x, y) {

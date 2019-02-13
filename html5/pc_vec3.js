@@ -124,7 +124,7 @@ pc.Vec3.prototype.toString = function() {
 
 Object.defineProperty(pc.Vec3.prototype, 'x', {
 	get: function() {
-		return module.F32[this.ptr >> 2]; // `>> 2` is same as `/ 4`, used to quickly lookup the value in module.F32
+		return module.F32[this.ptr >> 2]; // the shifting is same as dividing by 4, used to quickly lookup the value in module.F32
 	},
 	set: function(newValue) {
 		module.F32[this.ptr >> 2] = newValue;

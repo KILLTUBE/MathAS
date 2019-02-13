@@ -51,9 +51,9 @@
 		await fetch_script("pc_vec4.js");
 		
 		
-		mat3_a = new pc.Mat4();
-		mat3_b = new pc.Mat4();
-		mat3_c = new pc.Mat4();
+		mat3_a = new pc.Mat3();
+		mat3_b = new pc.Mat3();
+		mat3_c = new pc.Mat3();
 		
 		mat4_a = new pc.Mat4();
 		mat4_b = new pc.Mat4();
@@ -63,17 +63,29 @@
 		quat_b = new pc.Quat();
 		quat_c = new pc.Quat();
 		
-		vec2_a = new pc.Vec3(1, 2);
-		vec2_b = new pc.Vec3(11, 22);
-		vec2_c = new pc.Vec3(111, 222);
+		vec2_a = new pc.Vec2(1, 2);
+		vec2_b = new pc.Vec2(11, 22);
+		vec2_c = new pc.Vec2(111, 222);
 		
 		vec3_a = new pc.Vec3(1, 2, 3);
 		vec3_b = new pc.Vec3(11, 22, 33);
 		vec3_c = new pc.Vec3(111, 222, 333);
 		
-		vec4_a = new pc.Vec3(1, 2, 3, 4);
-		vec4_b = new pc.Vec3(11, 22, 33, 44);
-		vec4_c = new pc.Vec3(111, 222, 333, 444);
+		vec4_a = new pc.Vec4(1, 2, 3, 4);
+		vec4_b = new pc.Vec4(11, 22, 33, 44);
+		vec4_c = new pc.Vec4(111, 222, 333, 444);
+		
+		console.log("vec2_a", vec2_a.toString());
+		console.log("vec2_b", vec2_b.toString());
+		console.log("vec2_c", vec2_c.toString());
+		
+		console.log("vec3_a", vec3_a.toString());
+		console.log("vec3_b", vec3_b.toString());
+		console.log("vec3_c", vec3_c.toString());
+		
+		console.log("vec4_a", vec4_a.toString());
+		console.log("vec4_b", vec4_b.toString());
+		console.log("vec4_c", vec4_c.toString());
 		
 	}
 
