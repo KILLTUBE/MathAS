@@ -1,96 +1,166 @@
-<script src="Loader.js"></script>
+<html>
+	<head>
+	
+		<style>
+			test {
+				border-bottom: 1px solid black;
+				display: block;
+			}
+		</style>
+	
+		<script src="Loader.js"></script>
 
-<script>
+		<script>
 
-	function fetch_script(url) {
-		return new Promise(function(resolve, reject) {
-			var script = document.createElement("script");
-			script.type = "text/javascript";
-			script.onload = function () {
-				resolve(script);
-			};
-			script.src = url /* + "?now=" + Date.now()*/;
-			document.head.appendChild(script);
-		});
-	}
+			function fetch_script(url) {
+				return new Promise(function(resolve, reject) {
+					var script = document.createElement("script");
+					script.type = "text/javascript";
+					script.onload = function () {
+						resolve(script);
+					};
+					script.src = url /* + "?now=" + Date.now()*/;
+					document.head.appendChild(script);
+				});
+			}
 
-	async function main() {
-		response = await fetch("../build/untouched.wasm");
-		//buffer = await response.arrayBuffer();
-		
-		imports = {};
-		
-		/*
-		imports.env = {};
-		imports.env.memoryBase = 0;
-		imports.env.tableBase = 0;
-		if (!imports.env.memory) {
-			imports.env.memory = new WebAssembly.Memory({ initial: 20 });
-		}
-		if (!imports.env.table) {
-			imports.env.table = new WebAssembly.Table({ initial: 0, element: 'anyfunc' });
-		}
-		*/
-		
-		//module = Loader.instantiateBuffer(buffer, imports);
-		module = await Loader.instantiateStreaming(response, imports);
-		
-		//console.log(module.I8.length);
-		
-		// next three lines just test the auto-generated demangled class, which isn't so useful currently
-		a = new module.Vec3(1,2,3)
-		b = new module.Vec3(11,22,33)
-		console.log("a.add(b)", a.add(b)); // returns no class but a raw pointer
-		
-		pc = {}; // namespace for all pc_*.js files
-		await fetch_script("pc_mat3.js");
-		await fetch_script("pc_mat4.js");
-		await fetch_script("pc_quat.js");
-		await fetch_script("pc_vec2.js");
-		await fetch_script("pc_vec3.js");
-		await fetch_script("pc_vec4.js");
-		
-		
-		mat3_a = new pc.Mat3();
-		mat3_b = new pc.Mat3();
-		mat3_c = new pc.Mat3();
-		
-		mat4_a = new pc.Mat4();
-		mat4_b = new pc.Mat4();
-		mat4_c = new pc.Mat4();
-		
-		quat_a = new pc.Quat();
-		quat_b = new pc.Quat();
-		quat_c = new pc.Quat();
-		
-		vec2_a = new pc.Vec2(1, 2);
-		vec2_b = new pc.Vec2(11, 22);
-		vec2_c = new pc.Vec2(111, 222);
-		
-		vec3_a = new pc.Vec3(1, 2, 3);
-		vec3_b = new pc.Vec3(11, 22, 33);
-		vec3_c = new pc.Vec3(111, 222, 333);
-		
-		vec4_a = new pc.Vec4(1, 2, 3, 4);
-		vec4_b = new pc.Vec4(11, 22, 33, 44);
-		vec4_c = new pc.Vec4(111, 222, 333, 444);
-		
-		console.log("vec2_a", vec2_a.toString());
-		console.log("vec2_b", vec2_b.toString());
-		console.log("vec2_c", vec2_c.toString());
-		
-		console.log("vec3_a", vec3_a.toString());
-		console.log("vec3_b", vec3_b.toString());
-		console.log("vec3_c", vec3_c.toString());
-		
-		console.log("vec4_a", vec4_a.toString());
-		console.log("vec4_b", vec4_b.toString());
-		console.log("vec4_c", vec4_c.toString());
-		
-	}
+			async function main() {
+				response = await fetch("../build/untouched.wasm");
+				//buffer = await response.arrayBuffer();
+				
+				imports = {};
+				
+				/*
+				imports.env = {};
+				imports.env.memoryBase = 0;
+				imports.env.tableBase = 0;
+				if (!imports.env.memory) {
+					imports.env.memory = new WebAssembly.Memory({ initial: 20 });
+				}
+				if (!imports.env.table) {
+					imports.env.table = new WebAssembly.Table({ initial: 0, element: 'anyfunc' });
+				}
+				*/
+				
+				//module = Loader.instantiateBuffer(buffer, imports);
+				module = await Loader.instantiateStreaming(response, imports);
+				
+				//console.log(module.I8.length);
+				
+				// next three lines just test the auto-generated demangled class, which isn't so useful currently
+				// this PR might change it: https://github.com/AssemblyScript/assemblyscript/pull/437
+				// a = new module.Vec3(1,2,3)
+				// b = new module.Vec3(11,22,33)
+				// console.log("a.add(b)", a.add(b)); // returns no class but a raw pointer
+				
+				pc = {}; // namespace for all pc_*.js files
+				await fetch_script("pc_mat3.js");
+				await fetch_script("pc_mat4.js");
+				await fetch_script("pc_quat.js");
+				await fetch_script("pc_vec2.js");
+				await fetch_script("pc_vec3.js");
+				await fetch_script("pc_vec4.js");
+				
+				
+				mat3_a = new pc.Mat3();
+				mat3_b = new pc.Mat3();
+				mat3_c = new pc.Mat3();
+				
+				mat4_a = new pc.Mat4();
+				mat4_b = new pc.Mat4();
+				mat4_c = new pc.Mat4();
+				
+				quat_a = new pc.Quat();
+				quat_b = new pc.Quat();
+				quat_c = new pc.Quat();
+				
+				vec2_a = new pc.Vec2(1, 2);
+				vec2_b = new pc.Vec2(11, 22);
+				vec2_c = new pc.Vec2(111, 222);
+				
+				vec3_a = new pc.Vec3(1, 2, 3);
+				vec3_b = new pc.Vec3(11, 22, 33);
+				vec3_c = new pc.Vec3(111, 222, 333);
+				
+				vec4_a = new pc.Vec4(1, 2, 3, 4);
+				vec4_b = new pc.Vec4(11, 22, 33, 44);
+				vec4_c = new pc.Vec4(111, 222, 333, 444);
+				
+				console.log("vec2_a", vec2_a.toString());
+				console.log("vec2_b", vec2_b.toString());
+				console.log("vec2_c", vec2_c.toString());
+				
+				console.log("vec3_a", vec3_a.toString());
+				console.log("vec3_b", vec3_b.toString());
+				console.log("vec3_c", vec3_c.toString());
+				
+				console.log("vec4_a", vec4_a.toString());
+				console.log("vec4_b", vec4_b.toString());
+				console.log("vec4_c", vec4_c.toString());
+				
+			}
 
-	main().then(function() {
-		console.log("main() called");
-	});
+			main().then(function() {
+				console.log("main() called");
+			});
 
-</script>
+		</script>
+	</head>
+	<body>
+	
+		<tests>
+
+			<!-- Vec2 stuff -->
+
+			<test>
+				<test-code>vec2_a.toString()
+				<test-expect>[1, 2]
+			</test>
+			
+			<test>
+				<test-code>vec2_b.toString()
+				<test-expect>[11, 22]
+			</test>
+			
+			<test>
+				<test-code>vec2_c.toString()
+				<test-expect>[111, 222]
+			</test>
+			
+			<!-- Vec3 stuff -->
+			
+			<test>
+				<test-code>vec3_a.toString()
+				<test-expect>[1, 2, 3]
+			</test>
+			
+			<test>
+				<test-code>vec3_b.toString()
+				<test-expect>[11, 22, 33]
+			</test>
+			
+			<test>
+				<test-code>vec3_c.toString()
+				<test-expect>[111, 222, 333]
+			</test>
+			
+			<!-- Vec4 stuff -->
+			
+			<test>
+				<test-code>vec4_a.toString()
+				<test-expect>[1, 2, 3, 4]
+			</test>
+			
+			<test>
+				<test-code>vec4_b.toString()
+				<test-expect>[11, 22, 33, 44]
+			</test>
+			
+			<test>
+				<test-code>vec4_c.toString()
+				<test-expect>[111, 222, 333, 4444]
+			</test>
+		</tests>
+
+	</body>
+</html>
