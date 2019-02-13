@@ -1,3 +1,6 @@
+import {Vec3} from "./Vec3.ts";
+import {Mat4} from "./Mat4.ts";
+
 /**
  * @constructor
  * @name pc.Quat
@@ -97,7 +100,7 @@ export class Quat {
 	 * console.log("The result of the cloning is: " + q.toString());
 	 */
 	clone(): Quat {
-		return new pc.Quat(this.x, this.y, this.z, this.w);
+		return new Quat(this.x, this.y, this.z, this.w);
 	}
 
 	conjugate(): Quat {
@@ -196,16 +199,18 @@ export class Quat {
 	 * correspond to the supplied quaternion.
 	 */
 	getEulerAngles(eulers?: Vec3): Vec3 {
-		var x, y, z, qx, qy, qz, qw, a2;
+		var x: f32;
+		var y: f32;
+		var z: f32;
 
 		eulers = (eulers === undefined) ? new pc.Vec3() : eulers;
 
-		qx = this.x;
-		qy = this.y;
-		qz = this.z;
-		qw = this.w;
+		var qx = this.x;
+		var qy = this.y;
+		var qz = this.z;
+		var qw = this.w;
 
-		a2 = 2 * (qw * qy - qx * qz);
+		var a2 = 2 * (qw * qy - qx * qz);
 		if (a2 <= -0.99999) {
 			x = 2 * Math.atan2(qx, qw);
 			y = -Math.PI / 2;
@@ -286,17 +291,15 @@ export class Quat {
 	 * console.log("The result of the multiplication is: " a.toString());
 	 */
 	mul(rhs: Quat): Quat {
-		var q1x, q1y, q1z, q1w, q2x, q2y, q2z, q2w;
+		var q1x = this.x;
+		var q1y = this.y;
+		var q1z = this.z;
+		var q1w = this.w;
 
-		q1x = this.x;
-		q1y = this.y;
-		q1z = this.z;
-		q1w = this.w;
-
-		q2x = rhs.x;
-		q2y = rhs.y;
-		q2z = rhs.z;
-		q2w = rhs.w;
+		var q2x = rhs.x;
+		var q2y = rhs.y;
+		var q2z = rhs.z;
+		var q2w = rhs.w;
 
 		this.x = q1w * q2x + q1x * q2w + q1y * q2z - q1z * q2y;
 		this.y = q1w * q2y + q1y * q2w + q1z * q2x - q1x * q2z;
@@ -325,17 +328,15 @@ export class Quat {
 	 * console.log("The result of the multiplication is: " r.toString());
 	 */
 	mul2(lhs: Quat, rhs: Quat): Quat {
-		var q1x, q1y, q1z, q1w, q2x, q2y, q2z, q2w;
+		var q1x = lhs.x;
+		var q1y = lhs.y;
+		var q1z = lhs.z;
+		var q1w = lhs.w;
 
-		q1x = lhs.x;
-		q1y = lhs.y;
-		q1z = lhs.z;
-		q1w = lhs.w;
-
-		q2x = rhs.x;
-		q2y = rhs.y;
-		q2z = rhs.z;
-		q2w = rhs.w;
+		var q2x = rhs.x;
+		var q2y = rhs.y;
+		var q2z = rhs.z;
+		var q2w = rhs.w;
 
 		this.x = q1w * q2x + q1x * q2w + q1y * q2z - q1z * q2y;
 		this.y = q1w * q2y + q1y * q2w + q1z * q2x - q1x * q2z;
@@ -411,12 +412,10 @@ export class Quat {
 	 * q.setFromAxisAngle(pc.Vec3.UP, 90);
 	 */
 	setFromAxisAngle(axis: Vec3, angle: f32): Quat {
-		var sa, ca;
-
 		angle *= 0.5 * pc.math.DEG_TO_RAD;
 
-		sa = Math.sin(angle);
-		ca = Math.cos(angle);
+		var sa = Math.sin(angle);
+		var ca = Math.cos(angle);
 
 		this.x = sa * axis.x;
 		this.y = sa * axis.y;
@@ -439,19 +438,17 @@ export class Quat {
 	 * q.setFromEulerAngles(45, 90, 180);
 	 */
 	setFromEulerAngles(ex: f32, ey: f32, ez: f32): Quat {
-		var sx, cx, sy, cy, sz, cz, halfToRad;
-
-		halfToRad = 0.5 * pc.math.DEG_TO_RAD;
+		var halfToRad = 0.5 * pc.math.DEG_TO_RAD;
 		ex *= halfToRad;
 		ey *= halfToRad;
 		ez *= halfToRad;
 
-		sx = Math.sin(ex);
-		cx = Math.cos(ex);
-		sy = Math.sin(ey);
-		cy = Math.cos(ey);
-		sz = Math.sin(ez);
-		cz = Math.cos(ez);
+		var sx = Mathf.sin(ex);
+		var cx = Mathf.cos(ex);
+		var sy = Mathf.sin(ey);
+		var cy = Mathf.cos(ey);
+		var sz = Mathf.sin(ez);
+		var cz = Mathf.cos(ez);
 
 		this.x = sx * cy * cz - cx * sy * sz;
 		this.y = cx * sy * cz + sx * cy * sz;
@@ -477,26 +474,26 @@ export class Quat {
 	 * var q = new pc.Quat().setFromMat4(rot);
 	 */
 	setFromMat4(m_: Mat4): Quat {
-		var m00, m01, m02, m10, m11, m12, m20, m21, m22,
-			tr, s, rs, lx, ly, lz;
-
+		var s: f32;
+		var rs: f32;
+		
 		var m = m_.data;
 
 		// Cache matrix values for super-speed
-		m00 = m[0];
-		m01 = m[1];
-		m02 = m[2];
-		m10 = m[4];
-		m11 = m[5];
-		m12 = m[6];
-		m20 = m[8];
-		m21 = m[9];
-		m22 = m[10];
+		var m00 = m[0];
+		var m01 = m[1];
+		var m02 = m[2];
+		var m10 = m[4];
+		var m11 = m[5];
+		var m12 = m[6];
+		var m20 = m[8];
+		var m21 = m[9];
+		var m22 = m[10];
 
 		// Remove the scale from the matrix
-		lx = 1 / Math.sqrt(m00 * m00 + m01 * m01 + m02 * m02);
-		ly = 1 / Math.sqrt(m10 * m10 + m11 * m11 + m12 * m12);
-		lz = 1 / Math.sqrt(m20 * m20 + m21 * m21 + m22 * m22);
+		var lx = 1.0 / Mathf.sqrt(m00 * m00 + m01 * m01 + m02 * m02);
+		var ly = 1.0 / Mathf.sqrt(m10 * m10 + m11 * m11 + m12 * m12);
+		var lz = 1.0 / Mathf.sqrt(m20 * m20 + m21 * m21 + m22 * m22);
 
 		m00 *= lx;
 		m01 *= lx;
@@ -510,7 +507,7 @@ export class Quat {
 
 		// http://www.cs.ucr.edu/~vbz/resources/quatut.pdf
 
-		tr = m00 + m11 + m22;
+		var tr = m00 + m11 + m22;
 		if (tr >= 0) {
 			s = Math.sqrt(tr + 1);
 			this.w = s * 0.5;
@@ -590,15 +587,15 @@ export class Quat {
 	slerp(lhs: Quat, rhs: Quat, alpha: f32): Quat {
 		// Algorithm sourced from:
 		// http://www.euclideanspace.com/maths/algebra/realNormedAlgebra/quaternions/slerp/
-		var lx, ly, lz, lw, rx, ry, rz, rw;
-		lx = lhs.x;
-		ly = lhs.y;
-		lz = lhs.z;
-		lw = lhs.w;
-		rx = rhs.x;
-		ry = rhs.y;
-		rz = rhs.z;
-		rw = rhs.w;
+
+		var lx = lhs.x;
+		var ly = lhs.y;
+		var lz = lhs.z;
+		var lw = lhs.w;
+		var rx = rhs.x;
+		var ry = rhs.y;
+		var rz = rhs.z;
+		var rw = rhs.w;
 
 		// Calculate angle between them.
 		var cosHalfTheta = lw * rw + lx * rx + ly * ry + lz * rz;
