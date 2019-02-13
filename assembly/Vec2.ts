@@ -12,8 +12,9 @@ export class Vec2 {
 	x: f32;
 	y: f32;
 
-	//constructor(x?: any, y?: number) {
-	constructor(x: f32 = 0, y: f32 = 0) {
+	//constructor(x?: any, y?: number) { // TypeScript
+	//constructor(x: f32 = 0, y: f32 = 0) { // AS: doesn't work yet for some reason
+	constructor(x: f32, y: f32) {
 		//if (x && x.length === 2) {
 		//	this.x = x[0];
 		//	this.y = x[1];
@@ -83,7 +84,7 @@ export class Vec2 {
 	 */
 	clone(): Vec2 {
 		// original, AS doesn't support yet: return new Vec2().copy(this);
-		var tmp = new Vec2();
+		var tmp = new Vec2(0, 0);
 		tmp.copy(this);
 		return tmp;
 	}
