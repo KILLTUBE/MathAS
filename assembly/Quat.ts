@@ -1,5 +1,6 @@
-import {Vec3} from "./Vec3.ts";
-import {Mat4} from "./Mat4.ts";
+import {Vec3} from "./Vec3";
+import {Mat4} from "./Mat4";
+import {pc_math} from "./Math"
 
 /**
  * @constructor
@@ -168,8 +169,8 @@ export class Quat {
 	 * console.log(v.toString());
 	 */
 	getAxisAngle(axis: Vec3): f32 {
-		var rad = Math.acos(this.w) * 2;
-		var s = Math.sin(rad / 2);
+		var rad = Mathf.acos(this.w) * 2;
+		var s = Mathf.sin(rad / 2);
 		if (s !== 0) {
 			axis.x = this.x / s;
 			axis.y = this.y / s;
@@ -187,7 +188,7 @@ export class Quat {
 			axis.y = 0;
 			axis.z = 0;
 		}
-		return rad * pc.math.RAD_TO_DEG;
+		return rad * pc_math.RAD_TO_DEG;
 	}
 
 	/**
@@ -198,34 +199,36 @@ export class Quat {
 	 * @returns {pc.Vec3} The 3-dimensional vector holding the Euler angles that
 	 * correspond to the supplied quaternion.
 	 */
-	getEulerAngles(eulers?: Vec3): Vec3 {
+	//getEulerAngles(eulers?: Vec3): Vec3 { // TypeScript
+	getEulerAngles(eulers: Vec3): Vec3 {
 		var x: f32;
 		var y: f32;
 		var z: f32;
 
-		eulers = (eulers === undefined) ? new pc.Vec3() : eulers;
+		// TypeScript:
+		//eulers = (eulers === undefined) ? new pc.Vec3() : eulers;
 
 		var qx = this.x;
 		var qy = this.y;
 		var qz = this.z;
 		var qw = this.w;
 
-		var a2 = 2 * (qw * qy - qx * qz);
+		var a2: f32 = 2.0 * (qw * qy - qx * qz);
 		if (a2 <= -0.99999) {
-			x = 2 * Math.atan2(qx, qw);
-			y = -Math.PI / 2;
+			x = 2 * Mathf.atan2(qx, qw);
+			y = -Mathf.PI / 2;
 			z = 0;
 		} else if (a2 >= 0.99999) {
-			x = 2 * Math.atan2(qx, qw);
-			y = Math.PI / 2;
+			x = 2 * Mathf.atan2(qx, qw);
+			y = Mathf.PI / 2;
 			z = 0;
 		} else {
-			x = Math.atan2(2 * (qw * qx + qy * qz), 1 - 2 * (qx * qx + qy * qy));
-			y = Math.asin(a2);
-			z = Math.atan2(2 * (qw * qz + qx * qy), 1 - 2 * (qy * qy + qz * qz));
+			x = Mathf.atan2(2 * (qw * qx + qy * qz), 1 - 2 * (qx * qx + qy * qy));
+			y = Mathf.asin(a2);
+			z = Mathf.atan2(2 * (qw * qz + qx * qy), 1 - 2 * (qy * qy + qz * qz));
 		}
 
-		return eulers.set(x, y, z).scale(pc.math.RAD_TO_DEG);
+		return eulers.set(x, y, z).scale(pc_math.RAD_TO_DEG);
 	}
 
 	/**
@@ -412,10 +415,10 @@ export class Quat {
 	 * q.setFromAxisAngle(pc.Vec3.UP, 90);
 	 */
 	setFromAxisAngle(axis: Vec3, angle: f32): Quat {
-		angle *= 0.5 * pc.math.DEG_TO_RAD;
+		angle *= 0.5 * pc_math.DEG_TO_RAD;
 
-		var sa = Math.sin(angle);
-		var ca = Math.cos(angle);
+		var sa = Mathf.sin(angle);
+		var ca = Mathf.cos(angle);
 
 		this.x = sa * axis.x;
 		this.y = sa * axis.y;
@@ -438,7 +441,7 @@ export class Quat {
 	 * q.setFromEulerAngles(45, 90, 180);
 	 */
 	setFromEulerAngles(ex: f32, ey: f32, ez: f32): Quat {
-		var halfToRad = 0.5 * pc.math.DEG_TO_RAD;
+		var halfToRad: f32 = 0.5 * pc_math.DEG_TO_RAD;
 		ex *= halfToRad;
 		ey *= halfToRad;
 		ez *= halfToRad;
@@ -491,9 +494,9 @@ export class Quat {
 		var m22 = m[10];
 
 		// Remove the scale from the matrix
-		var lx = 1.0 / Mathf.sqrt(m00 * m00 + m01 * m01 + m02 * m02);
-		var ly = 1.0 / Mathf.sqrt(m10 * m10 + m11 * m11 + m12 * m12);
-		var lz = 1.0 / Mathf.sqrt(m20 * m20 + m21 * m21 + m22 * m22);
+		var lx: f32 = 1.0 / Mathf.sqrt(m00 * m00 + m01 * m01 + m02 * m02);
+		var ly: f32 = 1.0 / Mathf.sqrt(m10 * m10 + m11 * m11 + m12 * m12);
+		var lz: f32 = 1.0 / Mathf.sqrt(m20 * m20 + m21 * m21 + m22 * m22);
 
 		m00 *= lx;
 		m01 *= lx;
@@ -508,8 +511,8 @@ export class Quat {
 		// http://www.cs.ucr.edu/~vbz/resources/quatut.pdf
 
 		var tr = m00 + m11 + m22;
-		if (tr >= 0) {
-			s = Math.sqrt(tr + 1);
+		if (tr >= 0.0) {
+			s = Mathf.sqrt(tr + 1.0);
 			this.w = s * 0.5;
 			s = 0.5 / s;
 			this.x = (m12 - m21) * s;
@@ -519,8 +522,8 @@ export class Quat {
 			if (m00 > m11) {
 				if (m00 > m22) {
 					// XDiagDomMatrix
-					rs = (m00 - (m11 + m22)) + 1;
-					rs = Math.sqrt(rs);
+					rs = (m00 - (m11 + m22)) + 1.0;
+					rs = Mathf.sqrt(rs);
 
 					this.x = rs * 0.5;
 					rs = 0.5 / rs;
@@ -529,8 +532,8 @@ export class Quat {
 					this.z = (m02 + m20) * rs;
 				} else {
 					// ZDiagDomMatrix
-					rs = (m22 - (m00 + m11)) + 1;
-					rs = Math.sqrt(rs);
+					rs = (m22 - (m00 + m11)) + 1.0;
+					rs = Mathf.sqrt(rs);
 
 					this.z = rs * 0.5;
 					rs = 0.5 / rs;
@@ -540,8 +543,8 @@ export class Quat {
 				}
 			} else if (m11 > m22) {
 				// YDiagDomMatrix
-				rs = (m11 - (m22 + m00)) + 1;
-				rs = Math.sqrt(rs);
+				rs = (m11 - (m22 + m00)) + 1.0;
+				rs = Mathf.sqrt(rs);
 
 				this.y = rs * 0.5;
 				rs = 0.5 / rs;
@@ -550,8 +553,8 @@ export class Quat {
 				this.x = (m10 + m01) * rs;
 			} else {
 				// ZDiagDomMatrix
-				rs = (m22 - (m00 + m11)) + 1;
-				rs = Math.sqrt(rs);
+				rs = (m22 - (m00 + m11)) + 1.0;
+				rs = Mathf.sqrt(rs);
 
 				this.z = rs * 0.5;
 				rs = 0.5 / rs;
@@ -600,7 +603,7 @@ export class Quat {
 		// Calculate angle between them.
 		var cosHalfTheta = lw * rw + lx * rx + ly * ry + lz * rz;
 
-		if (cosHalfTheta < 0) {
+		if (cosHalfTheta < 0.0) {
 			rw = -rw;
 			rx = -rx;
 			ry = -ry;
@@ -609,7 +612,7 @@ export class Quat {
 		}
 
 		// If lhs == rhs or lhs == -rhs then theta == 0 and we can return lhs
-		if (Math.abs(cosHalfTheta) >= 1) {
+		if (Mathf.abs(cosHalfTheta) >= 1.0) {
 			this.w = lw;
 			this.x = lx;
 			this.y = ly;
@@ -618,12 +621,12 @@ export class Quat {
 		}
 
 		// Calculate temporary values.
-		var halfTheta = Math.acos(cosHalfTheta);
-		var sinHalfTheta = Math.sqrt(1 - cosHalfTheta * cosHalfTheta);
+		var halfTheta = Mathf.acos(cosHalfTheta);
+		var sinHalfTheta = Mathf.sqrt(1.0 - cosHalfTheta * cosHalfTheta);
 
 		// If theta = 180 degrees then result is not fully defined
 		// we could rotate around any axis normal to qa or qb
-		if (Math.abs(sinHalfTheta) < 0.001) {
+		if (Mathf.abs(sinHalfTheta) < 0.001) {
 			this.w = (lw * 0.5 + rw * 0.5);
 			this.x = (lx * 0.5 + rx * 0.5);
 			this.y = (ly * 0.5 + ry * 0.5);
@@ -631,8 +634,8 @@ export class Quat {
 			return this;
 		}
 
-		var ratioA = Math.sin((1 - alpha) * halfTheta) / sinHalfTheta;
-		var ratioB = Math.sin(alpha * halfTheta) / sinHalfTheta;
+		var ratioA = Mathf.sin((1.0 - alpha) * halfTheta) / sinHalfTheta;
+		var ratioB = Mathf.sin(alpha * halfTheta) / sinHalfTheta;
 
 		// Calculate Quaternion.
 		this.w = (lw * ratioA + rw * ratioB);
@@ -658,10 +661,12 @@ export class Quat {
 	 *
 	 * var tv = q.transformVector(v);
 	 */
-	transformVector(vec: Vec3, res?: Vec3): Vec3 {
-		if (res === undefined) {
-			res = new pc.Vec3();
-		}
+	//transformVector(vec: Vec3, res?: Vec3): Vec3 { // TypeScript
+	transformVector(vec: Vec3, res: Vec3): Vec3 {
+		// TypeScript
+		//if (res === undefined) {
+		//	res = new pc.Vec3();
+		//}
 
 		var x = vec.x, y = vec.y, z = vec.z;
 		var qx = this.x, qy = this.y, qz = this.z, qw = this.w;
