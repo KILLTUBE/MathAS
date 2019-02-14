@@ -116,42 +116,74 @@
 				<tr>
 					<th colspan=2>Vec2 stuff
 				<tr>
-					<td>vec2_a.toString()
-					<td>[1, 2]
+					<td>
+						vec2_a.toString()
+					<td>
+						"[1, 2]"
 				<tr>
-					<td>vec2_b.toString()
-					<td>[11, 22]
+					<td>
+						vec2_b.toString()
+					<td>
+						"[11, 22]"
 				<tr>
-					<td>vec2_c.toString()
-					<td>[111, 222]
+					<td>
+						vec2_c.toString()
+					<td>
+						"[111, 222]"
 				<tr>
 					<th colspan=2>Vec3 stuff
 				<tr>
-					<td>vec3_a.toString()
-					<td>[1, 2, 3]
+					<td>
+						vec3_a.toString()
+					<td>
+						"[1, 2, 3]"
 				<tr>
-					<td>vec3_b.toString()
-					<td>[11, 22, 33]
+					<td>
+						vec3_b.toString()
+					<td>
+						"[11, 22, 33]"
 				<tr>
-					<td>vec3_c.toString()
-					<td>[111, 222, 333]
+					<td>
+						vec3_c.toString()
+					<td>
+						"[111, 222, 333]"
 				<tr>
 					<th colspan=2>Vec4 stuff
 				<tr>
-					<td>vec4_a.toString()
-					<td>[1, 2, 3, 4]
+					<td>
+						vec4_a.toString()
+					<td>
+						"[1, 2, 3, 4]"
 				<tr>
-					<td>vec4_b.toString()
-					<td>[11, 22, 33, 44]
+					<td>
+						vec4_b.toString()
+					<td>
+						"[11, 22, 33, 44]"
 				<tr>
-					<td>vec4_c.toString()
-					<td>[111, 222, 333, 4444]
+					<td>
+						vec4_c.toString()
+					<td>
+						"[111, 222, 333, 4444]"
 				<tr>
 					<th colspan=2>Quat stuff
 				<tr>
-					<td>new pc.Quat(1,2,3,4).toString()
-					<td>[1, 2, 3, 4]
-				</tr>
+					<td>
+						new pc.Quat(1,2,3,4).toString()
+					<td>
+						"[1, 2, 3, 4]"
+				<tr>
+					<td>
+						var a = new pc.Quat(1,2,3,4);
+						var b = new pc.Quat(1,2,3,4);
+						a.equals(b);
+					<td>
+						true
+				<tr>
+					<td>
+						var a = new pc.Quat(1,2,3,4);
+						a.conjugate().toString();
+					<td>
+						"[-1, -2, -3, 4]"
 			</table>
 		</div>
 	</body>

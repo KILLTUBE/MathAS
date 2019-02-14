@@ -36,7 +36,24 @@ pc.Quat.wrap = function(ptr) {
 	return tmp;
 }
 
+pc.Quat.prototype.clone = function() {
+	var tmp = quat_clone(this.ptr);
+	return pc.Quat.wrap(tmp);
+}
 
+pc.Quat.prototype.conjugate = function() {
+	quat_conjugate(this.ptr);
+	return this;
+}
+
+pc.Quat.prototype.copy = function(rhs) {
+	quat_copy(this.ptr, rhs.ptr);
+	return this;
+}
+
+pc.Quat.prototype.equals = function(rhs) {
+	return !!quat_equals(this.ptr, rhs.ptr);
+}
 
 pc.Quat.prototype.toString = function() {
 	return '[' + this.x + ', ' + this.y + ', ' + this.z + ', ' + this.w + ']';
