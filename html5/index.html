@@ -6,6 +6,20 @@
 				border-bottom: 1px solid black;
 				display: block;
 			}
+			
+			.tests table {
+				width: 100%;
+				padding-left: 50px;
+				padding-right: 50px;
+			}
+			
+			.tests td {
+				border-bottom: 1px solid black;
+			}
+			
+			.tests th {
+				background-color: aliceblue;
+			}
 		</style>
 	
 		<script src="Loader.js"></script>
@@ -86,17 +100,6 @@
 				vec4_b = new pc.Vec4(11, 22, 33, 44);
 				vec4_c = new pc.Vec4(111, 222, 333, 444);
 				
-				console.log("vec2_a", vec2_a.toString());
-				console.log("vec2_b", vec2_b.toString());
-				console.log("vec2_c", vec2_c.toString());
-				
-				console.log("vec3_a", vec3_a.toString());
-				console.log("vec3_b", vec3_b.toString());
-				console.log("vec3_c", vec3_c.toString());
-				
-				console.log("vec4_a", vec4_a.toString());
-				console.log("vec4_b", vec4_b.toString());
-				console.log("vec4_c", vec4_c.toString());
 				
 			}
 
@@ -108,59 +111,48 @@
 	</head>
 	<body>
 	
-		<tests>
-
-			<!-- Vec2 stuff -->
-
-			<test>
-				<test-code>vec2_a.toString()
-				<test-expect>[1, 2]
-			</test>
-			
-			<test>
-				<test-code>vec2_b.toString()
-				<test-expect>[11, 22]
-			</test>
-			
-			<test>
-				<test-code>vec2_c.toString()
-				<test-expect>[111, 222]
-			</test>
-			
-			<!-- Vec3 stuff -->
-			
-			<test>
-				<test-code>vec3_a.toString()
-				<test-expect>[1, 2, 3]
-			</test>
-			
-			<test>
-				<test-code>vec3_b.toString()
-				<test-expect>[11, 22, 33]
-			</test>
-			
-			<test>
-				<test-code>vec3_c.toString()
-				<test-expect>[111, 222, 333]
-			</test>
-			
-			<!-- Vec4 stuff -->
-			
-			<test>
-				<test-code>vec4_a.toString()
-				<test-expect>[1, 2, 3, 4]
-			</test>
-			
-			<test>
-				<test-code>vec4_b.toString()
-				<test-expect>[11, 22, 33, 44]
-			</test>
-			
-			<test>
-				<test-code>vec4_c.toString()
-				<test-expect>[111, 222, 333, 4444]
-			</test>
-		</tests>
-
+		<div class="tests">
+			<table>
+				<tr>
+					<th colspan=2>Vec2 stuff
+				<tr>
+					<td>vec2_a.toString()
+					<td>[1, 2]
+				<tr>
+					<td>vec2_b.toString()
+					<td>[11, 22]
+				<tr>
+					<td>vec2_c.toString()
+					<td>[111, 222]
+				<tr>
+					<th colspan=2>Vec3 stuff
+				<tr>
+					<td>vec3_a.toString()
+					<td>[1, 2, 3]
+				<tr>
+					<td>vec3_b.toString()
+					<td>[11, 22, 33]
+				<tr>
+					<td>vec3_c.toString()
+					<td>[111, 222, 333]
+				<tr>
+					<th colspan=2>Vec4 stuff
+				<tr>
+					<td>vec4_a.toString()
+					<td>[1, 2, 3, 4]
+				<tr>
+					<td>vec4_b.toString()
+					<td>[11, 22, 33, 44]
+				<tr>
+					<td>vec4_c.toString()
+					<td>[111, 222, 333, 4444]
+				<tr>
+					<th colspan=2>Quat stuff
+				<tr>
+					<td>new pc.Quat(1,2,3,4).toString()
+					<td>[1, 2, 3, 4]
+				</tr>
+			</table>
+		</div>
 	</body>
 </html>

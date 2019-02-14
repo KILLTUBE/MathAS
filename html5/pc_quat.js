@@ -36,7 +36,44 @@ pc.Quat.wrap = function(ptr) {
 	return tmp;
 }
 
-pc.Quat.prototype.add = function(rhs) {
-	vec3_add(this.ptr, rhs.ptr);
-	return this;
+
+
+pc.Quat.prototype.toString = function() {
+	return '[' + this.x + ', ' + this.y + ', ' + this.z + ', ' + this.w + ']';
 }
+
+Object.defineProperty(pc.Quat.prototype, 'x', {
+	get: function() {
+		return module.F32[this.ptr >> 2]; // the shifting is same as dividing by 4, used to quickly lookup the value in module.F32
+	},
+	set: function(newValue) {
+		module.F32[this.ptr >> 2] = newValue;
+	}
+});
+
+Object.defineProperty(pc.Quat.prototype, 'y', {
+	get: function() {
+		return module.F32[(this.ptr >> 2) + 1];
+	},
+	set: function(newValue) {
+		module.F32[(this.ptr >> 2) + 1] = newValue;
+	}
+});
+
+Object.defineProperty(pc.Quat.prototype, 'z', {
+	get: function() {
+		return module.F32[(this.ptr >> 2) + 2];
+	},
+	set: function(newValue) {
+		module.F32[(this.ptr >> 2) + 2] = newValue;
+	}
+});
+
+Object.defineProperty(pc.Quat.prototype, 'w', {
+	get: function() {
+		return module.F32[(this.ptr >> 2) + 3];
+	},
+	set: function(newValue) {
+		module.F32[(this.ptr >> 2) + 3] = newValue;
+	}
+});

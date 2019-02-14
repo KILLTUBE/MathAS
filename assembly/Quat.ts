@@ -30,6 +30,10 @@ export class Quat {
 		//	this.z = (z === undefined) ? 0 : z;
 		//	this.w = (w === undefined) ? 1 : w;
 		//}
+		this.x = x;
+		this.y = y;
+		this.z = z;
+		this.w = w;
 	}
 	
     /**
