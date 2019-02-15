@@ -31,6 +31,7 @@
 		</style>
 	
 		<script src="utils.js"></script>
+		<script src="Tests.js"></script>
 		<script src="Loader.js"></script>
 
 		<script>
@@ -84,32 +85,7 @@
 				await fetch_script("pc_vec3.js");
 				await fetch_script("pc_vec4.js");
 				
-				
-				mat3_a = new pc.Mat3();
-				mat3_b = new pc.Mat3();
-				mat3_c = new pc.Mat3();
-				
-				mat4_a = new pc.Mat4();
-				mat4_b = new pc.Mat4();
-				mat4_c = new pc.Mat4();
-				
-				quat_a = new pc.Quat();
-				quat_b = new pc.Quat();
-				quat_c = new pc.Quat();
-				
-				vec2_a = new pc.Vec2(1, 2);
-				vec2_b = new pc.Vec2(11, 22);
-				vec2_c = new pc.Vec2(111, 222);
-				
-				vec3_a = new pc.Vec3(1, 2, 3);
-				vec3_b = new pc.Vec3(11, 22, 33);
-				vec3_c = new pc.Vec3(111, 222, 333);
-				
-				vec4_a = new pc.Vec4(1, 2, 3, 4);
-				vec4_b = new pc.Vec4(11, 22, 33, 44);
-				vec4_c = new pc.Vec4(111, 222, 333, 444);
-				
-				
+				tests_init();
 			}
 
 			main().then(function() {
@@ -120,119 +96,64 @@
 	</head>
 	<body>
 	
+		<p>Vec2 stuff</p>
+		
 		<div class="tests">
 			<table>
 				<tr>
-					<td>Code
-					<td>Expect
-					<td>Actual
-					<td>Run
-				<tr>
-					<th colspan=4>Vec2 stuff
-				<tr>
 					<td>
 						var v = new pc.Vec2(1, 2);
-						v.toString();
-					<td>
-						"[1, 2]"
-				<tr>
-					<th colspan=4>Vec3 stuff
+						v.toString() == "[1, 2]";
+			</table>
+		</div>
+		
+		<p>Vec3 stuff</p>
+		
+		<div class="tests">
+			<table>
 				<tr>
 					<td>
 						var v = new pc.Vec3(1, 2, 3);
-						v.toString();
-					<td>
-						"[1, 2, 3]"
-				<tr>
-					<th colspan=4>Vec4 stuff
+						v.toString() == "[1, 2, 3]";
+			</table>
+		</div>
+		
+		<p>Vec4 stuff</p>
+		
+		<div class="tests">
+			<table>
 				<tr>
 					<td>
 						var v = new pc.Vec4(1, 2, 3, 4);
-						v.toString();
-					<td>
-						"[1, 2, 3, 4]"
-				<tr>
-					<th colspan=4>Quat stuff
+						v.toString() == "[1, 2, 3, 4]";
+			</table>
+		</div>
+		
+		<p>Quat stuff</p>
+		
+		<div class="tests">
+			<table>
 				<tr>
 					<td>
 						var q = new pc.Quat(1,2,3,4);
-						q.toString();
-					<td>
-						"[1, 2, 3, 4]"
+						q.toString() == "[1, 2, 3, 4]";
 				<tr>
 					<td>
 						var a = new pc.Quat(1,2,3,4);
 						var b = new pc.Quat(1,2,3,4);
 						a.equals(b);
-					<td>
-						true
-				<tr>
-					<td>
-						var q = new pc.Quat(1,2,3,4);
-						q.conjugate()
-						q.toString();
-					<td>
-						"[-1, -2, -3, 4]"
 				<tr>
 					<td>
 						var q = new pc.Quat(1, 2, 3, 4);
+						q.conjugate();
+						q.toString() == "[-1, -2, -3, 4]";
+				<tr>
+					<td>
+						var q = new pc.Quat(0.1, 0.2, 0.3, 0.4);
 						var v = new pc.Vec3();
 						var angle = q.getAxisAngle(v);
-					<td>
-						
+						angle == 132.84364304359633;
 			</table>
 		</div>
-		<script>
-			textarea_eval = function(textarea) {
-				try {
-					var ret = eval(textarea.value);
-					return ret;
-				} catch (exception) {
-					return exception;
-				}
-			}
-		
-			tests = document.getElementsByClassName("tests");
-			for (var test of tests) {
-				test_table = test.children[0];
-				test_tbody = test_table.children[0];
-				for (var test_tr of test_tbody.children) {
-					if (test_tr.children.length != 2) {
-						continue;
-					}
-					var td_code = test_tr.children[0];
-					var td_expect = test_tr.children[1];
-					var code = td_code.innerHTML;
-					td_code.innerHTML = "";
-					code = code.replace(/\r\n/g, '\n');
-					code = code.replace(/^\t+/mg, ''); // remove all tabs from line beginnings (todo: keep intendation)
-					code = code.replace(/^\n/mg, ''); // remove empty lines
-					var textarea = document.createElement("textarea");
-					textarea.value = code;
-					textarea_fit_text(textarea);
-					textarea_editorize(textarea);
-					td_code.appendChild(textarea);
-					
-					var evaled_td = document.createElement("td");
-					test_tr.appendChild(evaled_td);
-					
-					
-					var eval_td = document.createElement("td");
-					var eval_button = document.createElement("button");
-					eval_td.appendChild(eval_button);
-					test_tr.appendChild(eval_td);
-					eval_button.innerText = ">";
-					eval_button.onclick = function(e) {
-						var textarea = this.textarea;
-						var evaled_td = this.evaled_td;
-						console.log(this);
-						evaled_td.innerHTML = textarea_eval(textarea);
-					}.bind({textarea, evaled_td});
-					
-					
-				}
-			
-			}
-		</script>
 	</body>
 </html>
