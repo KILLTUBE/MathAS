@@ -145,46 +145,74 @@
 	</head>
 	<body>
 		<h1>Legend</h1>
-		
 		<h2>CTRL + Arrow Up: Focus previous textarea</h2>
 		<h2>CTRL + Arrow Down: Focus next textarea</h2>
-		<h2>CTRL + Enter: Revaluate the test code</h2>
+		<h2>CTRL + Enter: Re<i>e</i>valuate the test code</h2>
 		
-	
-		<h1>Vec2 stuff</h1>
-		
+		<h1>Vec2 stuff</h1>		
 		<as-test>
 			var v = new pc.Vec2(1, 2);
 			v.toString() == "[1, 2]";
 		</as-test>
+		<as-test>
+			var a = new pc.Vec2(1, 2);
+			var b = new pc.Vec2(11, 22);
+			a.add(b);
+			a.toString() == "[12, 24]";
+		</as-test>
+		<as-test>
+			var a = new pc.Vec2(1, 2);
+			var b = new pc.Vec2(11, 22);
+			var c = (new pc.Vec2()).add2(a, b);
+			c.toString() == "[12, 24]";
+		</as-test>
 		
 		<h1>Vec3 stuff</h1>
-		
 		<as-test>
 			var v = new pc.Vec3(1, 2, 3);
 			v.toString() == "[1, 2, 3]";
 		</as-test>
+		<as-test>
+			var a = new pc.Vec3(1, 2, 3);
+			var b = new pc.Vec3(11, 22, 33);
+			a.add(b);
+			a.toString() == "[12, 24, 36]";
+		</as-test>
+		<as-test>
+			var a = new pc.Vec3(1, 2, 3);
+			var b = new pc.Vec3(11, 22, 33);
+			var c = (new pc.Vec3()).add2(a, b);
+			c.toString() == "[12, 24, 36]";
+		</as-test>
 		
 		<h1>Vec4 stuff</h1>
-		
 		<as-test>
 			var v = new pc.Vec4(1, 2, 3, 4);
 			v.toString() == "[1, 2, 3, 4]";
 		</as-test>
+		<as-test>
+			var a = new pc.Vec4(1, 2, 3, 4);
+			var b = new pc.Vec4(11, 22, 33, 44);
+			a.add(b);
+			a.toString() == "[12, 24, 36, 48]";
+		</as-test>
+		<as-test>
+			var a = new pc.Vec4(1, 2, 3, 4);
+			var b = new pc.Vec4(11, 22, 33, 44);
+			var c = (new pc.Vec4()).add2(a, b);
+			c.toString() == "[12, 24, 36, 48]";
+		</as-test>
 		
 		<h1>Quat stuff</h1>
-		
 		<as-test>
 			var q = new pc.Quat(1,2,3,4);
 			q.toString() == "[1, 2, 3, 4]";
 		</as-test>
-		
 		<as-test>
 			var a = new pc.Quat(1,2,3,4);
 			var b = new pc.Quat(1,2,3,4);
 			a.equals(b);
 		</as-test>
-		
 		<as-test>
 			var q = new pc.Quat(1, 2, 3, 4);
 			q.conjugate();
