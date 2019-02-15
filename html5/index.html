@@ -1,32 +1,70 @@
 <html>
 	<head>
 	
+	<script>
+		class AsTest extends HTMLElement {
+			constructor() {
+				super();
+				console.log("Construct AsTest");
+			}
+		}
+		window.customElements.define("as-test", AsTest);
+	</script>
 		<style>
-			body {
-				/*
+			* {
+				margin: 0;
+				padding: 0;
+			}
+		
+			html {
 				background-color: #1e1e1e;
-				color: #a086f0;
+			}
+		
+			body {
+				background-color: #333;
+				color: white;
+				/*
+				
+				
 				*/
+				width: 980px;
+				margin: auto;
+				padding: 10px;
+				border-left: 2px solid black;
+				border-right: 2px solid black;
 			}
 		
 			textarea {
 				width: 100%;
 			}
-			
-			.tests table {
+
+			as-test table {
 				width: 100%;
-				padding-left: 50px;
-				padding-right: 50px;
-				border-collapse: collapse;
+				margin-bottom: 5px;
+				border-left: 2px solid lime;
+				border-right: 2px solid lime;
 			}
 			
-			.tests td {
-				border: 1px solid blue;
-				
+			as-test td {
 			}
 			
-			.tests th {
+			as-test th {
 				background-color: aliceblue;
+			}
+			
+			.testcode {
+			}
+			
+			.testresult {
+				width: 100px;
+			}
+			
+			.testbutton {
+				width: 60px;
+			}
+			
+			.testbutton button {
+				width: 50px;
 			}
 		</style>
 	
@@ -96,64 +134,52 @@
 	</head>
 	<body>
 	
+	
 		<p>Vec2 stuff</p>
 		
-		<div class="tests">
-			<table>
-				<tr>
-					<td>
-						var v = new pc.Vec2(1, 2);
-						v.toString() == "[1, 2]";
-			</table>
-		</div>
+		<as-test>
+			var v = new pc.Vec2(1, 2);
+			v.toString() == "[1, 2]";
+		</as-test>
 		
 		<p>Vec3 stuff</p>
 		
-		<div class="tests">
-			<table>
-				<tr>
-					<td>
-						var v = new pc.Vec3(1, 2, 3);
-						v.toString() == "[1, 2, 3]";
-			</table>
-		</div>
+		<as-test>
+			var v = new pc.Vec3(1, 2, 3);
+			v.toString() == "[1, 2, 3]";
+		</as-test>
 		
 		<p>Vec4 stuff</p>
 		
-		<div class="tests">
-			<table>
-				<tr>
-					<td>
-						var v = new pc.Vec4(1, 2, 3, 4);
-						v.toString() == "[1, 2, 3, 4]";
-			</table>
-		</div>
+		<as-test>
+			var v = new pc.Vec4(1, 2, 3, 4);
+			v.toString() == "[1, 2, 3, 4]";
+		</as-test>
 		
 		<p>Quat stuff</p>
 		
-		<div class="tests">
-			<table>
-				<tr>
-					<td>
-						var q = new pc.Quat(1,2,3,4);
-						q.toString() == "[1, 2, 3, 4]";
-				<tr>
-					<td>
-						var a = new pc.Quat(1,2,3,4);
-						var b = new pc.Quat(1,2,3,4);
-						a.equals(b);
-				<tr>
-					<td>
-						var q = new pc.Quat(1, 2, 3, 4);
-						q.conjugate();
-						q.toString() == "[-1, -2, -3, 4]";
-				<tr>
-					<td>
-						var q = new pc.Quat(0.1, 0.2, 0.3, 0.4);
-						var v = new pc.Vec3();
-						var angle = q.getAxisAngle(v);
-						angle == 132.84364304359633;
-			</table>
-		</div>
+		<as-test>
+			var q = new pc.Quat(1,2,3,4);
+			q.toString() == "[1, 2, 3, 4]";
+		</as-test>
+		
+		<as-test>
+			var a = new pc.Quat(1,2,3,4);
+			var b = new pc.Quat(1,2,3,4);
+			a.equals(b);
+		</as-test>
+		
+		<as-test>
+			var q = new pc.Quat(1, 2, 3, 4);
+			q.conjugate();
+			q.toString() == "[-1, -2, -3, 4]";
+		</as-test>
+		
+		<as-test>
+			var q = new pc.Quat(0.1, 0.2, 0.3, 0.4);
+			var v = new pc.Vec3();
+			var angle = q.getAxisAngle(v);
+			angle == 132.84364304359633;
+		</as-test>
 	</body>
 </html>
