@@ -55,6 +55,14 @@ pc.Quat.prototype.equals = function(rhs) {
 	return !!quat_equals(this.ptr, rhs.ptr);
 }
 
+/**
+ * @param {pc.Vec3} axis output vector
+ */
+
+pc.Quat.prototype.getAxisAngle = function(axis) {
+	return quat_getAxisAngle(this.ptr, axis.ptr);
+}
+
 pc.Quat.prototype.toString = function() {
 	return '[' + this.x + ', ' + this.y + ', ' + this.z + ', ' + this.w + ']';
 }
