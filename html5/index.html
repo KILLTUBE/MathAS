@@ -17,12 +17,13 @@
 			}
 		
 			html {
-				background-color: #1e1e1e;
+				/*background-color: #1e1e1e;*/
+				/*background-color: skyblue;*/
 			}
 		
 			body {
-				background-color: #333;
-				color: white;
+				/*background-color: DodgerBlue;*/
+				/*color: white;*/
 				/*
 				
 				
@@ -30,19 +31,29 @@
 				width: 980px;
 				margin: auto;
 				padding: 10px;
-				border-left: 2px solid black;
-				border-right: 2px solid black;
+				border-left:  4px solid aliceblue;
+				border-right: 4px solid aliceblue;
 			}
 		
 			textarea {
 				width: 100%;
+				background: transparent;
+				border: 0px solid black;
+				border: 0px solid black;
+				border: 0px solid black;
 			}
 
 			as-test table {
 				width: 100%;
 				margin-bottom: 5px;
-				border-left: 2px solid lime;
-				border-right: 2px solid lime;
+				padding: 5px;
+				/*
+				border-left:  2px solid green;
+				border-right: 2px solid green;
+				*/
+				border-radius: 10px;
+				border: 2px solid lime;
+				background-color: #e1e1e8;
 			}
 			
 			as-test td {
@@ -133,30 +144,35 @@
 		</script>
 	</head>
 	<body>
+		<h1>Legend</h1>
+		
+		<h2>CTRL + Arrow Up: Focus previous textarea</h2>
+		<h2>CTRL + Arrow Down: Focus next textarea</h2>
+		<h2>CTRL + Enter: Revaluate the test code</h2>
+		
 	
-	
-		<p>Vec2 stuff</p>
+		<h1>Vec2 stuff</h1>
 		
 		<as-test>
 			var v = new pc.Vec2(1, 2);
 			v.toString() == "[1, 2]";
 		</as-test>
 		
-		<p>Vec3 stuff</p>
+		<h1>Vec3 stuff</h1>
 		
 		<as-test>
 			var v = new pc.Vec3(1, 2, 3);
 			v.toString() == "[1, 2, 3]";
 		</as-test>
 		
-		<p>Vec4 stuff</p>
+		<h1>Vec4 stuff</h1>
 		
 		<as-test>
 			var v = new pc.Vec4(1, 2, 3, 4);
 			v.toString() == "[1, 2, 3, 4]";
 		</as-test>
 		
-		<p>Quat stuff</p>
+		<h1>Quat stuff</h1>
 		
 		<as-test>
 			var q = new pc.Quat(1,2,3,4);
