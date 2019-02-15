@@ -8,7 +8,9 @@ textarea_fit_text = function (textarea) {
     textarea.style.height = (numNewlines * 16) + "px";
 }
 
-textarea_enable_tab_indent = function (textarea) {    
+
+
+textarea_editorize = function (textarea) {    
     textarea.onkeydown = function(e) {
         if (e.keyCode == 9 || e.which == 9){
             e.preventDefault();
@@ -19,5 +21,11 @@ textarea_enable_tab_indent = function (textarea) {
             this.value = before + "    " + selected + after;
             this.selectionEnd = oldStart + 4;
         }
+		
+		if (e.ctrlKey && e.key == "Enter") {
+			textarea_eval(textarea);
+		}
+		
+		//console.log(e)
     }
 }

@@ -2,6 +2,13 @@
 	<head>
 	
 		<style>
+			body {
+				/*
+				background-color: #1e1e1e;
+				color: #a086f0;
+				*/
+			}
+		
 			textarea {
 				width: 100%;
 			}
@@ -10,10 +17,12 @@
 				width: 100%;
 				padding-left: 50px;
 				padding-right: 50px;
+				border-collapse: collapse;
 			}
 			
 			.tests td {
-				border-bottom: 1px solid black;
+				border: 1px solid blue;
+				
 			}
 			
 			.tests th {
@@ -114,58 +123,36 @@
 		<div class="tests">
 			<table>
 				<tr>
-					<th colspan=2>Vec2 stuff
+					<td>Code
+					<td>Expect
+					<td>Actual
+					<td>Run
+				<tr>
+					<th colspan=4>Vec2 stuff
 				<tr>
 					<td>
-						vec2_a.toString()
+						var v = new pc.Vec2(1, 2);
+						v.toString();
 					<td>
 						"[1, 2]"
 				<tr>
-					<td>
-						vec2_b.toString()
-					<td>
-						"[11, 22]"
+					<th colspan=4>Vec3 stuff
 				<tr>
 					<td>
-						vec2_c.toString()
-					<td>
-						"[111, 222]"
-				<tr>
-					<th colspan=2>Vec3 stuff
-				<tr>
-					<td>
-						vec3_a.toString()
+						var v = new pc.Vec3(1, 2, 3);
+						v.toString();
 					<td>
 						"[1, 2, 3]"
 				<tr>
-					<td>
-						vec3_b.toString()
-					<td>
-						"[11, 22, 33]"
+					<th colspan=4>Vec4 stuff
 				<tr>
 					<td>
-						vec3_c.toString()
-					<td>
-						"[111, 222, 333]"
-				<tr>
-					<th colspan=2>Vec4 stuff
-				<tr>
-					<td>
-						vec4_a.toString()
+						var v = new pc.Vec4(1, 2, 3, 4);
+						v.toString();
 					<td>
 						"[1, 2, 3, 4]"
 				<tr>
-					<td>
-						vec4_b.toString()
-					<td>
-						"[11, 22, 33, 44]"
-				<tr>
-					<td>
-						vec4_c.toString()
-					<td>
-						"[111, 222, 333, 4444]"
-				<tr>
-					<th colspan=2>Quat stuff
+					<th colspan=4>Quat stuff
 				<tr>
 					<td>
 						var q = new pc.Quat(1,2,3,4);
@@ -196,6 +183,15 @@
 			</table>
 		</div>
 		<script>
+			textarea_eval = function(textarea) {
+				try {
+					var ret = eval(textarea.value);
+					return ret;
+				} catch (exception) {
+					return exception;
+				}
+			}
+		
 			tests = document.getElementsByClassName("tests");
 			for (var test of tests) {
 				test_table = test.children[0];
@@ -207,16 +203,33 @@
 					var td_code = test_tr.children[0];
 					var td_expect = test_tr.children[1];
 					var code = td_code.innerHTML;
-					ori = code;
 					td_code.innerHTML = "";
 					code = code.replace(/\r\n/g, '\n');
 					code = code.replace(/^\t+/mg, ''); // remove all tabs from line beginnings (todo: keep intendation)
 					code = code.replace(/^\n/mg, ''); // remove empty lines
-					textarea = document.createElement("textarea");
+					var textarea = document.createElement("textarea");
 					textarea.value = code;
 					textarea_fit_text(textarea);
-					textarea_enable_tab_indent(textarea);
+					textarea_editorize(textarea);
 					td_code.appendChild(textarea);
+					
+					var evaled_td = document.createElement("td");
+					test_tr.appendChild(evaled_td);
+					
+					
+					var eval_td = document.createElement("td");
+					var eval_button = document.createElement("button");
+					eval_td.appendChild(eval_button);
+					test_tr.appendChild(eval_td);
+					eval_button.innerText = ">";
+					eval_button.onclick = function(e) {
+						var textarea = this.textarea;
+						var evaled_td = this.evaled_td;
+						console.log(this);
+						evaled_td.innerHTML = textarea_eval(textarea);
+					}.bind({textarea, evaled_td});
+					
+					
 				}
 			
 			}
