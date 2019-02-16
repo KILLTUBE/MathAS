@@ -1,3 +1,14 @@
+/*
+	// this isn't really useful for anything yet
+	class TestJS extends HTMLElement {
+		constructor() {
+			super();
+			console.log("Construct TestJS");
+		}
+	}
+	window.customElements.define("test-js", AsTest);
+*/
+
 function textarea_eval(textarea) {
 	try {
 		var ret = eval(textarea.value);
@@ -13,7 +24,7 @@ function textarea_eval(textarea) {
 }
 
 function tests_init() {
-	var tests = document.getElementsByTagName("as-test");
+	var tests = document.getElementsByTagName("test-js");
 	for (var test of tests) {
 	
 	

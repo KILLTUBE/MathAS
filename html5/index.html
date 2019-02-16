@@ -1,15 +1,5 @@
 <html>
 	<head>
-	
-	<script>
-		class AsTest extends HTMLElement {
-			constructor() {
-				super();
-				console.log("Construct AsTest");
-			}
-		}
-		window.customElements.define("as-test", AsTest);
-	</script>
 		<style>
 			* {
 				margin: 0;
@@ -43,7 +33,7 @@
 				border: 0px solid black;
 			}
 
-			as-test table {
+			test-js table {
 				width: 100%;
 				margin-bottom: 5px;
 				padding: 5px;
@@ -56,10 +46,10 @@
 				background-color: #e1e1e8;
 			}
 			
-			as-test td {
+			test-js td {
 			}
 			
-			as-test th {
+			test-js th {
 				background-color: aliceblue;
 			}
 			
@@ -150,80 +140,404 @@
 		<h2>CTRL + Enter: Re<i>e</i>valuate the test code</h2>
 		
 		<h1>Vec2 stuff</h1>		
-		<as-test>
+		
+		<test-js>
 			var v = new pc.Vec2(1, 2);
 			v.toString() == "[1, 2]";
-		</as-test>
-		<as-test>
+		</test-js>
+		<test-js>
 			var a = new pc.Vec2(1, 2);
 			var b = new pc.Vec2(11, 22);
 			a.add(b);
 			a.toString() == "[12, 24]";
-		</as-test>
-		<as-test>
+		</test-js>
+		<test-js>
 			var a = new pc.Vec2(1, 2);
 			var b = new pc.Vec2(11, 22);
 			var c = (new pc.Vec2()).add2(a, b);
 			c.toString() == "[12, 24]";
-		</as-test>
+		</test-js>
+		<test-js>
+			var a = new pc.Vec2(1, 2);
+			var b = a.clone();
+			a.toString() == b.toString();
+		</test-js>
+		<test-js>
+			var a = new pc.Vec2(1, 2);
+			var b = new pc.Vec2();
+			b.copy(a);
+			a.toString() == b.toString();
+		</test-js>
+		<test-js>
+			a = new pc.Vec2(1, 2);
+			b = new pc.Vec2(11, 22);
+			a.dot(b) == 55;
+		</test-js>
+		<test-js>
+			var a = new pc.Vec2(1, 1);
+			var b = new pc.Vec2(1, 2);
+			var c = new pc.Vec2(2, 1);
+			var d = new pc.Vec2(2, 2);
+			var all = [a, b, c, d];
+			var tests = "";
+			for (var i of all) {
+			  for (var j of all) {
+				if (i.equals(j))
+				  tests += "1";
+				else
+				  tests += "0";
+			  }
+			}
+			tests == "1000010000100001";
+		</test-js>
+		
+		<test-js>
+			var a = new pc.Vec2(1, 2)
+			a.length().toFixed(4) == "2.2361";
+		</test-js>
+		
+		<test-js>
+			var a = new pc.Vec2(1, 2)
+			a.lengthSq() == 5
+		</test-js>
+		
+		<test-js>
+			var a = new pc.Vec2(1, 2);
+			var b = new pc.Vec2(11, 22);
+			var c = new pc.Vec2();
+			c.lerp(a, b, 0.9);
+			c.toString() == "[10, 20]";
+		</test-js>
+		
+
+		<test-js>
+			var a = new pc.Vec2(1, 2);
+			var b = new pc.Vec2(11, 22);
+			a.mul(b);
+			a.toString() == "[11, 44]";
+		</test-js>
+		
+		<test-js>
+			var a = new pc.Vec2(1, 2);
+			var b = new pc.Vec2(11, 22);
+			var c = (new pc.Vec2()).mul2(a, b);
+			c.toString() == "[11, 44]";
+		</test-js>		
+		
+		<test-js>
+			var a = new pc.Vec2(1,2);
+			var b = new pc.Vec2(2,1);
+			a.normalize();
+			b.normalize();
+			b.length() == b.length();
+		</test-js>
+		
+		<test-js>
+			var a = new pc.Vec2(1,2);
+			a.scale(2).toString() == "[2, 4]";
+		</test-js>
+		
+		<test-js>
+			var a = new pc.Vec2();
+			a.set(1, 2);
+			a.toString() == "[1, 2]";
+		</test-js>
+		
+		<test-js>
+			var a = new pc.Vec2(1, 2);
+			var b = new pc.Vec2(11, 22);
+			a.sub(b);
+			a.toString() == "[-10, -20]";
+		</test-js>
+		
+		<test-js>
+			var a = new pc.Vec2(1, 2);
+			var b = new pc.Vec2(11, 22);
+			var c = (new pc.Vec2()).sub2(a, b);
+			c.toString() == "[-10, -20]";
+		</test-js>
+		
+		<test-js></test-js>
 		
 		<h1>Vec3 stuff</h1>
-		<as-test>
+		
+		<test-js>
 			var v = new pc.Vec3(1, 2, 3);
 			v.toString() == "[1, 2, 3]";
-		</as-test>
-		<as-test>
+		</test-js>
+		
+		<test-js>
 			var a = new pc.Vec3(1, 2, 3);
 			var b = new pc.Vec3(11, 22, 33);
 			a.add(b);
 			a.toString() == "[12, 24, 36]";
-		</as-test>
-		<as-test>
+		</test-js>
+		
+		<test-js>
 			var a = new pc.Vec3(1, 2, 3);
 			var b = new pc.Vec3(11, 22, 33);
 			var c = (new pc.Vec3()).add2(a, b);
 			c.toString() == "[12, 24, 36]";
-		</as-test>
+		</test-js>
+
+		<test-js>
+			var a = new pc.Vec3(1, 2, 3);
+			var b = a.clone();
+			a.toString() == b.toString();
+		</test-js>
+
+		<test-js>
+			var a = new pc.Vec3(1, 2, 3);
+			var b = new pc.Vec3();
+			b.copy(a);
+			a.toString() == b.toString();
+		</test-js>
+
+		<test-js>
+			a = new pc.Vec3(1, 2, 2);
+			b = new pc.Vec3(11, 22, 33);
+			a.dot(b) == 121;
+		</test-js>
+
+		<test-js>
+			// copied from pc.Vec2, not testing last argument via permutation
+			var a = new pc.Vec3(1, 1, 0);
+			var b = new pc.Vec3(1, 2, 0);
+			var c = new pc.Vec3(2, 1, 0);
+			var d = new pc.Vec3(2, 2, 0);
+			var all = [a, b, c, d];
+			var tests = "";
+			for (var i of all) {
+			  for (var j of all) {
+				if (i.equals(j))
+				  tests += "1";
+				else
+				  tests += "0";
+			  }
+			}
+			tests == "1000010000100001";
+		</test-js>
 		
+		<test-js>
+			var a = new pc.Vec3(1, 2, 3)
+			// fails: a.length().toFixed(4) == "3.7416";
+			a.length().toFixed(3) == "3.742";
+		</test-js>
+		
+		<test-js>
+			var a = new pc.Vec3(1, 2, 3)
+			a.lengthSq() == 14;
+		</test-js>
+		
+		<test-js>
+			var a = new pc.Vec3(1, 2, 3);
+			var b = new pc.Vec3(11, 22, 33);
+			var c = new pc.Vec3();
+			c.lerp(a, b, 0.9);
+			c.toString() == "[10, 20, 30]";
+		</test-js>
+		
+
+		<test-js>
+			var a = new pc.Vec3(1, 2, 3);
+			var b = new pc.Vec3(11, 22, 33);
+			a.mul(b);
+			a.toString() == "[11, 44, 99]";
+		</test-js>
+		
+		<test-js>
+			var a = new pc.Vec3(1, 2, 3);
+			var b = new pc.Vec3(11, 22, 33);
+			var c = (new pc.Vec3()).mul2(a, b);
+			c.toString() == "[11, 44, 99]";
+		</test-js>		
+		
+		<test-js>
+			var a = new pc.Vec3(1, 2, 3);
+			var b = new pc.Vec3(3, 2, 1);
+			a.normalize();
+			b.normalize();
+			b.length() == b.length();
+		</test-js>
+
+		<test-js>
+			var a = new pc.Vec3(1, 2, 3);
+			a.scale(2).toString() == "[2, 4, 6]";
+		</test-js>
+		
+		<test-js>
+			var a = new pc.Vec3();
+			a.set(1, 2, 3);
+			a.toString() == "[1, 2, 3]";
+		</test-js>
+
+		<test-js>
+			var a = new pc.Vec3(1, 2, 3);
+			var b = new pc.Vec3(11, 22, 33);
+			a.sub(b);
+			a.toString() == "[-10, -20, -30]";
+		</test-js>
+
+		<test-js>
+			var a = new pc.Vec3(1, 2, 3);
+			var b = new pc.Vec3(11, 22, 33);
+			var c = (new pc.Vec3()).sub2(a, b);
+			c.toString() == "[-10, -20, -30]";
+		</test-js>
+
+		<test-js></test-js>
+
 		<h1>Vec4 stuff</h1>
-		<as-test>
+
+		<test-js>
 			var v = new pc.Vec4(1, 2, 3, 4);
 			v.toString() == "[1, 2, 3, 4]";
-		</as-test>
-		<as-test>
+		</test-js>
+
+		<test-js>
 			var a = new pc.Vec4(1, 2, 3, 4);
 			var b = new pc.Vec4(11, 22, 33, 44);
 			a.add(b);
 			a.toString() == "[12, 24, 36, 48]";
-		</as-test>
-		<as-test>
+		</test-js>
+
+		<test-js>
 			var a = new pc.Vec4(1, 2, 3, 4);
 			var b = new pc.Vec4(11, 22, 33, 44);
 			var c = (new pc.Vec4()).add2(a, b);
 			c.toString() == "[12, 24, 36, 48]";
-		</as-test>
+		</test-js>
+
+		<test-js>
+			var a = new pc.Vec4(1, 2, 3, 4);
+			var b = a.clone();
+			a.toString() == b.toString();
+		</test-js>
+
+		<test-js>
+			var a = new pc.Vec4(1, 2, 3, 4);
+			var b = new pc.Vec4();
+			b.copy(a);
+			a.toString() == b.toString();
+		</test-js>
+
+		<test-js>
+			var a = new pc.Vec4(1, 2, 3, 4);
+			var b = new pc.Vec4(11, 22, 33, 44);
+			a.dot(b) == 330;
+		</test-js>
+
+		<test-js>
+			var a = new pc.Vec4(1, 1, 0, 0);
+			var b = new pc.Vec4(1, 2, 0, 0);
+			var c = new pc.Vec4(2, 1, 0, 0);
+			var d = new pc.Vec4(2, 2, 0, 0);
+			var all = [a, b, c, d];
+			var tests = "";
+			for (var i of all) {
+			  for (var j of all) {
+				if (i.equals(j))
+				  tests += "1";
+				else
+				  tests += "0";
+			  }
+			}
+			tests == "1000010000100001";
+		</test-js>
+
+		<test-js>
+			var a = new pc.Vec4(1, 2, 3, 4)
+			a.length().toFixed(4) == "5.4772";
+		</test-js>
+
+		<test-js>
+			var a = new pc.Vec4(1, 2, 3, 4)
+			a.lengthSq() == 30;
+		</test-js>
+
+		<test-js>
+			var a = new pc.Vec4(1, 2, 3, 4);
+			var b = new pc.Vec4(11, 22, 33, 44);
+			var c = new pc.Vec4();
+			c.lerp(a, b, 0.9);
+			c.toString() == "[10, 20, 30, 40]";
+		</test-js>
+
+		<test-js>
+			var a = new pc.Vec4(1, 2, 3, 4);
+			var b = new pc.Vec4(11, 22, 33, 44);
+			a.mul(b);
+			a.toString() == "[11, 44, 99, 176]";
+		</test-js>
+
+		<test-js>
+			var a = new pc.Vec4(1, 2, 3, 4);
+			var b = new pc.Vec4(11, 22, 33, 44);
+			var c = (new pc.Vec4()).mul2(a, b);
+			c.toString() == "[11, 44, 99, 176]";
+		</test-js>		
+		
+		<test-js>
+			var a = new pc.Vec4(1, 2, 3, 4);
+			var b = new pc.Vec4(4, 3, 2, 1);
+			a.normalize();
+			b.normalize();
+			b.length() == b.length();
+		</test-js>
+		
+		<test-js>
+			var a = new pc.Vec4(1, 2, 3, 4);
+			a.scale(2).toString() == "[2, 4, 6, 8]";
+		</test-js>
+		
+		<test-js>
+			var a = new pc.Vec4();
+			a.set(1, 2, 3, 4);
+			a.toString() == "[1, 2, 3, 4]";
+		</test-js>
+		
+		<test-js>
+			var a = new pc.Vec4(1, 2, 3, 4);
+			var b = new pc.Vec4(11, 22, 33, 44);
+			a.sub(b);
+			a.toString() == "[-10, -20, -30, -40]";
+		</test-js>
+		
+		<test-js>
+			var a = new pc.Vec4(1, 2, 3, 4);
+			var b = new pc.Vec4(11, 22, 33, 44);
+			var c = (new pc.Vec4()).sub2(a, b);
+			c.toString() == "[-10, -20, -30, -40]";
+		</test-js>
+		
+		<test-js></test-js>
 		
 		<h1>Quat stuff</h1>
-		<as-test>
-			var q = new pc.Quat(1,2,3,4);
-			q.toString() == "[1, 2, 3, 4]";
-		</as-test>
-		<as-test>
-			var a = new pc.Quat(1,2,3,4);
-			var b = new pc.Quat(1,2,3,4);
-			a.equals(b);
-		</as-test>
-		<as-test>
-			var q = new pc.Quat(1, 2, 3, 4);
-			q.conjugate();
-			q.toString() == "[-1, -2, -3, 4]";
-		</as-test>
 		
-		<as-test>
+		<test-js>
+			var q = new pc.Quat(0.1, 0.2, 0.3, 0.4);
+			q.toString() == "[0.1, 0.2, 0.3, 0.4]";
+		</test-js>
+		
+		<test-js>
+			var a = new pc.Quat(0.1, 0.2, 0.3, 0.4);
+			var b = new pc.Quat(0.1, 0.2, 0.3, 0.4);
+			a.equals(b);
+		</test-js>
+		
+		<test-js>
+			var q = new pc.Quat(0.1, 0.2, 0.3, 0.4);
+			q.conjugate();
+			q.toString() == "[-0.1, -0.2, -0.3, 0.4]";
+		</test-js>
+		
+		<test-js>
 			var q = new pc.Quat(0.1, 0.2, 0.3, 0.4);
 			var v = new pc.Vec3();
 			var angle = q.getAxisAngle(v);
 			angle.toFixed(4) == "132.8436";
-		</as-test>
+		</test-js>
+		
+		<test-js></test-js>
 	</body>
 </html>
