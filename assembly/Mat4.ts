@@ -1,5 +1,8 @@
 import {Vec3, PreallocatedVec3} from "./Vec3";
 import {Vec4} from "./Vec4";
+import {Mat3} from "./Mat3";
+import {Quat} from "./Quat";
+import {pc_math} from "./Math"
 
 export class Mat4 {
 	data: Float32Array;
@@ -300,13 +303,11 @@ export class Mat4 {
 	 * var tv = m.transformPoint(v);
 	 */
 	transformPoint(vec: Vec3, res: Vec3): Vec3 {
-		var x, y, z, m;
+		var m = this.data;
 
-		m = this.data;
-
-		x = vec.x;
-		y = vec.y;
-		z = vec.z;
+		var x = vec.x;
+		var y = vec.y;
+		var z = vec.z;
 
 		//res = (res === undefined) ? new pc.Vec3() : res;
 
@@ -334,13 +335,11 @@ export class Mat4 {
 	 * var tv = m.transformVector(v);
 	 */
 	transformVector(vec: Vec3, res: Vec3): Vec3 {
-		var x, y, z, m;
+		var m = this.data;
 
-		m = this.data;
-
-		x = vec.x;
-		y = vec.y;
-		z = vec.z;
+		var x = vec.x;
+		var y = vec.y;
+		var z = vec.z;
 
 		//res = (res === undefined) ? new pc.Vec3() : res;
 
@@ -371,14 +370,12 @@ export class Mat4 {
 	 * m.transformVec4(v, result);
 	 */
 	transformVec4(vec: Vec4, res: Vec4): Vec4 {
-		var x, y, z, w, m;
+		var m = this.data;
 
-		m = this.data;
-
-		x = vec.x;
-		y = vec.y;
-		z = vec.z;
-		w = vec.w;
+		var x = vec.x;
+		var y = vec.y;
+		var z = vec.z;
+		var w = vec.w;
 
 		//res = (res === undefined) ? new pc.Vec4() : res;
 
@@ -459,10 +456,10 @@ export class Mat4 {
 	 * var f = pc.Mat4().setFrustum(-2, 2, -1, 1, 1, 1000);
 	 */
 	setFrustum(left: f32, right: f32, bottom: f32, top: f32, znear: f32, zfar: f32): Mat4 {
-		var temp1 = 2 * znear;
-		var temp2 = right - left;
-		var temp3 = top - bottom;
-		var temp4 = zfar - znear;
+		var temp1: f32 = 2 * znear;
+		var temp2: f32 = right - left;
+		var temp3: f32 = top - bottom;
+		var temp4: f32 = zfar - znear;
 
 		var r = this.data;
 		r[0] = temp1 / temp2;
@@ -504,13 +501,14 @@ export class Mat4 {
 	 * var persp = pc.Mat4().setPerspective(45, 16 / 9, 1, 1000);
 	 */
 	setPerspective(fov: f32, aspect: f32, znear: f32, zfar: f32, fovIsHorizontal: boolean): Mat4 {
-		var xmax, ymax;
+		var xmax: f32;
+		var ymax: f32;
 
 		if (!fovIsHorizontal) {
-			ymax = znear * Math.tan(fov * Math.PI / 360);
+			ymax = znear * Mathf.tan(fov * Mathf.PI / 360);
 			xmax = ymax * aspect;
 		} else {
-			xmax = znear * Math.tan(fov * Math.PI / 360);
+			xmax = znear * Mathf.tan(fov * Mathf.PI / 360);
 			ymax = xmax / aspect;
 		}
 
@@ -522,18 +520,18 @@ export class Mat4 {
 	 * @name pc.Mat4#setOrtho
 	 * @description Sets the specified matrix to an orthographic projection matrix. The function's parameters
 	 * define the shape of a cuboid-shaped frustum.
-	 * @param {Number} left The x-coordinate for the left edge of the camera's projection plane in eye space.
-	 * @param {Number} right The x-coordinate for the right edge of the camera's projection plane in eye space.
-	 * @param {Number} bottom The y-coordinate for the bottom edge of the camera's projection plane in eye space.
-	 * @param {Number} top The y-coordinate for the top edge of the camera's projection plane in eye space.
-	 * @param {Number} near The near clip plane in eye coordinates.
-	 * @param {Number} far The far clip plane in eye coordinates.
+	 * @param {f32} left The x-coordinate for the left edge of the camera's projection plane in eye space.
+	 * @param {f32} right The x-coordinate for the right edge of the camera's projection plane in eye space.
+	 * @param {f32} bottom The y-coordinate for the bottom edge of the camera's projection plane in eye space.
+	 * @param {f32} top The y-coordinate for the top edge of the camera's projection plane in eye space.
+	 * @param {f32} near The near clip plane in eye coordinates.
+	 * @param {f32} far The far clip plane in eye coordinates.
 	 * @returns {pc.Mat4} Self for chaining.
 	 * @example
 	 * // Create a 4x4 orthographic projection matrix
 	 * var ortho = pc.Mat4().ortho(-2, 2, -2, 2, 1, 1000);
 	 */
-	setOrtho(left: number, right: number, bottom: number, top: number, near: number, far: number): Mat4 {
+	setOrtho(left: f32, right: f32, bottom: f32, top: f32, near: f32, far: f32): Mat4 {
 		var r = this.data;
 
 		r[0] = 2 / (right - left);
@@ -562,26 +560,24 @@ export class Mat4 {
 	 * @description Sets the specified matrix to a rotation matrix equivalent to a rotation around
 	 * an axis. The axis must be normalized (unit length) and the angle must be specified in degrees.
 	 * @param {pc.Vec3} axis The normalized axis vector around which to rotate.
-	 * @param {Number} angle The angle of rotation in degrees.
+	 * @param {f32} angle The angle of rotation in degrees.
 	 * @returns {pc.Mat4} Self for chaining.
 	 * @example
 	 * // Create a 4x4 rotation matrix
 	 * var rm = new pc.Mat4().setFromAxisAngle(pc.Vec3.UP, 90);
 	 */
-	setFromAxisAngle(axis: Vec3, angle: number): Mat4 {
-		var x, y, z, c, s, t, tx, ty, m;
+	setFromAxisAngle(axis: Vec3, angle: f32): Mat4 {
+		angle *= pc_math.DEG_TO_RAD;
 
-		angle *= pc.math.DEG_TO_RAD;
-
-		x = axis.x;
-		y = axis.y;
-		z = axis.z;
-		c = Math.cos(angle);
-		s = Math.sin(angle);
-		t = 1 - c;
-		tx = t * x;
-		ty = t * y;
-		m = this.data;
+		var x: f32 = axis.x;
+		var y: f32 = axis.y;
+		var z: f32 = axis.z;
+		var c: f32 = Mathf.cos(angle);
+		var s: f32 = Mathf.sin(angle);
+		var t: f32 = 1.0 - c;
+		var tx: f32 = t * x;
+		var ty: f32 = t * y;
+		var m = this.data;
 
 		m[0] = tx * x + c;
 		m[1] = tx * y + s * z;
@@ -608,15 +604,15 @@ export class Mat4 {
 	 * @function
 	 * @name pc.Mat4#setTranslate
 	 * @description Sets the specified matrix to a translation matrix.
-	 * @param {Number} x The x-component of the translation.
-	 * @param {Number} y The y-component of the translation.
-	 * @param {Number} z The z-component of the translation.
+	 * @param {f32} x The x-component of the translation.
+	 * @param {f32} y The y-component of the translation.
+	 * @param {f32} z The z-component of the translation.
 	 * @returns {pc.Mat4} Self for chaining.
 	 * @example
 	 * // Create a 4x4 translation matrix
 	 * var tm = new pc.Mat4().setTranslate(10, 10, 10);
 	 */
-	setTranslate(x: number, y: number, z: number): Mat4 {
+	setTranslate(x: f32, y: f32, z: f32): Mat4 {
 		var m = this.data;
 
 		m[0] = 1;
@@ -644,15 +640,15 @@ export class Mat4 {
 	 * @function
 	 * @name pc.Mat4#setScale
 	 * @description Sets the specified matrix to a scale matrix.
-	 * @param {Number} x The x-component of the scale.
-	 * @param {Number} y The y-component of the scale.
-	 * @param {Number} z The z-component of the scale.
+	 * @param {f32} x The x-component of the scale.
+	 * @param {f32} y The y-component of the scale.
+	 * @param {f32} z The z-component of the scale.
 	 * @returns {pc.Mat4} Self for chaining.
 	 * @example
 	 * // Create a 4x4 scale matrix
 	 * var sm = new pc.Mat4().setScale(10, 10, 10);
 	 */
-	setScale(x: number, y: number, z: number): Mat4 {
+	setScale(x: f32, y: f32, z: f32): Mat4 {
 		var m = this.data;
 
 		m[0] = x;
@@ -706,24 +702,24 @@ export class Mat4 {
 		var a32 = m[14];
 		var a33 = m[15];
 
-		var b00 = a00 * a11 - a01 * a10;
-		var b01 = a00 * a12 - a02 * a10;
-		var b02 = a00 * a13 - a03 * a10;
-		var b03 = a01 * a12 - a02 * a11;
-		var b04 = a01 * a13 - a03 * a11;
-		var b05 = a02 * a13 - a03 * a12;
-		var b06 = a20 * a31 - a21 * a30;
-		var b07 = a20 * a32 - a22 * a30;
-		var b08 = a20 * a33 - a23 * a30;
-		var b09 = a21 * a32 - a22 * a31;
-		var b10 = a21 * a33 - a23 * a31;
-		var b11 = a22 * a33 - a23 * a32;
+		var b00: f32 = a00 * a11 - a01 * a10;
+		var b01: f32 = a00 * a12 - a02 * a10;
+		var b02: f32 = a00 * a13 - a03 * a10;
+		var b03: f32 = a01 * a12 - a02 * a11;
+		var b04: f32 = a01 * a13 - a03 * a11;
+		var b05: f32 = a02 * a13 - a03 * a12;
+		var b06: f32 = a20 * a31 - a21 * a30;
+		var b07: f32 = a20 * a32 - a22 * a30;
+		var b08: f32 = a20 * a33 - a23 * a30;
+		var b09: f32 = a21 * a32 - a22 * a31;
+		var b10: f32 = a21 * a33 - a23 * a31;
+		var b11: f32 = a22 * a33 - a23 * a32;
 
-		var det = (b00 * b11 - b01 * b10 + b02 * b09 + b03 * b08 - b04 * b07 + b05 * b06);
+		var det: f32 = (b00 * b11 - b01 * b10 + b02 * b09 + b03 * b08 - b04 * b07 + b05 * b06);
 		if (det === 0) {
 			this.setIdentity();
 		} else {
-			var invDet = 1 / det;
+			var invDet: f32 = 1.0 / det;
 
 			m[0] = (a11 * b11 - a12 * b10 + a13 * b09) * invDet;
 			m[1] = (-a01 * b11 + a02 * b10 - a03 * b09) * invDet;
@@ -754,27 +750,27 @@ export class Mat4 {
 	 * @param {Array} src Source array. Must have 16 values.
 	 * @returns {pc.Mat4} Self for chaining.
 	 */
-	set(src: any): Mat4 {
-		var dst = this.data;
-		dst[0] = src[0];
-		dst[1] = src[1];
-		dst[2] = src[2];
-		dst[3] = src[3];
-		dst[4] = src[4];
-		dst[5] = src[5];
-		dst[6] = src[6];
-		dst[7] = src[7];
-		dst[8] = src[8];
-		dst[9] = src[9];
-		dst[10] = src[10];
-		dst[11] = src[11];
-		dst[12] = src[12];
-		dst[13] = src[13];
-		dst[14] = src[14];
-		dst[15] = src[15];
-
-		return this;
-	}
+	//set(src: any): Mat4 {
+	//	var dst = this.data;
+	//	dst[0] = src[0];
+	//	dst[1] = src[1];
+	//	dst[2] = src[2];
+	//	dst[3] = src[3];
+	//	dst[4] = src[4];
+	//	dst[5] = src[5];
+	//	dst[6] = src[6];
+	//	dst[7] = src[7];
+	//	dst[8] = src[8];
+	//	dst[9] = src[9];
+	//	dst[10] = src[10];
+	//	dst[11] = src[11];
+	//	dst[12] = src[12];
+	//	dst[13] = src[13];
+	//	dst[14] = src[14];
+	//	dst[15] = src[15];
+    //
+	//	return this;
+	//}
 
 	/**
 	 * @function
@@ -825,36 +821,33 @@ export class Mat4 {
 	 * m.setTRS(t, r, s);
 	 */
 	setTRS(t: Vec3, r: Quat, s: Vec3): Mat4 {
-		var tx, ty, tz, qx, qy, qz, qw, sx, sy, sz,
-			x2, y2, z2, xx, xy, xz, yy, yz, zz, wx, wy, wz, m;
+		var tx = t.x;
+		var ty = t.y;
+		var tz = t.z;
 
-		tx = t.x;
-		ty = t.y;
-		tz = t.z;
+		var qx = r.x;
+		var qy = r.y;
+		var qz = r.z;
+		var qw = r.w;
 
-		qx = r.x;
-		qy = r.y;
-		qz = r.z;
-		qw = r.w;
+		var sx = s.x;
+		var sy = s.y;
+		var sz = s.z;
 
-		sx = s.x;
-		sy = s.y;
-		sz = s.z;
+		var x2 = qx + qx;
+		var y2 = qy + qy;
+		var z2 = qz + qz;
+		var xx = qx * x2;
+		var xy = qx * y2;
+		var xz = qx * z2;
+		var yy = qy * y2;
+		var yz = qy * z2;
+		var zz = qz * z2;
+		var wx = qw * x2;
+		var wy = qw * y2;
+		var wz = qw * z2;
 
-		x2 = qx + qx;
-		y2 = qy + qy;
-		z2 = qz + qz;
-		xx = qx * x2;
-		xy = qx * y2;
-		xz = qx * z2;
-		yy = qy * y2;
-		yz = qy * z2;
-		zz = qz * z2;
-		wx = qw * x2;
-		wy = qw * y2;
-		wz = qw * z2;
-
-		m = this.data;
+		var m = this.data;
 
 		m[0] = (1 - (yy + zz)) * sx;
 		m[1] = (xy + wz) * sx;
@@ -891,9 +884,9 @@ export class Mat4 {
 	 * m.transpose();
 	 */
 	transpose(): Mat4 {
-		var tmp, m = this.data;
+		var m = this.data;
 
-		tmp = m[1];
+		var tmp = m[1];
 		m[1] = m[4];
 		m[4] = tmp;
 
@@ -921,11 +914,8 @@ export class Mat4 {
 	}
 
 	invertTo3x3(res: Mat3): Mat4 {
-		var a11, a21, a31, a12, a22, a32, a13, a23, a33,
-			m, r, det, idet;
-
-		m = this.data;
-		r = res.data;
+		var m = this.data;
+		var r = res.data;
 
 		var m0 = m[0];
 		var m1 = m[1];
@@ -939,22 +929,22 @@ export class Mat4 {
 		var m9 = m[9];
 		var m10 = m[10];
 
-		a11 =  m10 * m5 - m6 * m9;
-		a21 = -m10 * m1 + m2 * m9;
-		a31 =  m6  * m1 - m2 * m5;
-		a12 = -m10 * m4 + m6 * m8;
-		a22 =  m10 * m0 - m2 * m8;
-		a32 = -m6  * m0 + m2 * m4;
-		a13 =  m9  * m4 - m5 * m8;
-		a23 = -m9  * m0 + m1 * m8;
-		a33 =  m5  * m0 - m1 * m4;
+		var a11 =  m10 * m5 - m6 * m9;
+		var a21 = -m10 * m1 + m2 * m9;
+		var a31 =  m6  * m1 - m2 * m5;
+		var a12 = -m10 * m4 + m6 * m8;
+		var a22 =  m10 * m0 - m2 * m8;
+		var a32 = -m6  * m0 + m2 * m4;
+		var a13 =  m9  * m4 - m5 * m8;
+		var a23 = -m9  * m0 + m1 * m8;
+		var a33 =  m5  * m0 - m1 * m4;
 
-		det =  m0 * a11 + m1 * a12 + m2 * a13;
+		var det: f32 = m0 * a11 + m1 * a12 + m2 * a13;
 		if (det === 0) { // no inverse
 			return this;
 		}
 
-		idet = 1 / det;
+		var idet: f32 = 1 / det;
 
 		r[0] = idet * a11;
 		r[1] = idet * a21;
@@ -983,8 +973,8 @@ export class Mat4 {
 	 * var t = new pc.Vec3();
 	 * m.getTranslation(t);
 	 */
-	getTranslation(t?: Vec3): Vec3 {
-		t = (t === undefined) ? new pc.Vec3() : t;
+	getTranslation(t: Vec3): Vec3 {
+		//t = (t === undefined) ? new pc.Vec3() : t;
 
 		return t.set(this.data[12], this.data[13], this.data[14]);
 	}
@@ -1003,8 +993,8 @@ export class Mat4 {
 	 * var x = new pc.Vec3();
 	 * m.getX(x);
 	 */
-	getX(x?: Vec3): Vec3 {
-		x = (x === undefined) ? new pc.Vec3() : x;
+	getX(x: Vec3): Vec3 {
+		//x = (x === undefined) ? new pc.Vec3() : x;
 
 		return x.set(this.data[0], this.data[1], this.data[2]);
 	}
@@ -1023,8 +1013,8 @@ export class Mat4 {
 	 * var y = new pc.Vec3();
 	 * m.getY(y);
 	 */
-	getY(y?: Vec3): Vec3 {
-		y = (y === undefined) ? new pc.Vec3() : y;
+	getY(y: Vec3): Vec3 {
+		//y = (y === undefined) ? new pc.Vec3() : y;
 
 		return y.set(this.data[4], this.data[5], this.data[6]);
 	}
@@ -1043,8 +1033,8 @@ export class Mat4 {
 	 * var z = new pc.Vec3();
 	 * m.getZ(z);
 	 */
-	getZ(z?: Vec3): Vec3 {
-		z = (z === undefined) ? new pc.Vec3() : z;
+	getZ(z: Vec3): Vec3 {
+		//z = (z === undefined) ? new pc.Vec3() : z;
 
 		return z.set(this.data[8], this.data[9], this.data[10]);
 	}
@@ -1062,12 +1052,12 @@ export class Mat4 {
 	 * // Query the scale component
 	 * var scale = m.getScale();
 	 */
-	getScale(scale?: Vec3): Vec3 {
+	getScale(scale: Vec3): Vec3 {
 		var x = PreallocatedVec3.getScale_x;
 		var y = PreallocatedVec3.getScale_y;
 		var z = PreallocatedVec3.getScale_z;
 
-		scale = (scale === undefined) ? new pc.Vec3() : scale;
+		//scale = (scale === undefined) ? new pc.Vec3() : scale;
 
 		this.getX(x);
 		this.getY(y);
@@ -1082,9 +1072,9 @@ export class Mat4 {
 	 * @name pc.Mat4#setFromEulerAngles
 	 * @description Sets the specified matrix to a rotation matrix defined by
 	 * Euler angles. The Euler angles are specified in XYZ order and in degrees.
-	 * @param {Number} ex Angle to rotate around X axis in degrees.
-	 * @param {Number} ey Angle to rotate around Y axis in degrees.
-	 * @param {Number} ez Angle to rotate around Z axis in degrees.
+	 * @param {f32} ex Angle to rotate around X axis in degrees.
+	 * @param {f32} ey Angle to rotate around Y axis in degrees.
+	 * @param {f32} ez Angle to rotate around Z axis in degrees.
 	 * @returns {pc.Mat4} Self for chaining.
 	 * @example
 	 * var m = new pc.Mat4();
@@ -1093,22 +1083,20 @@ export class Mat4 {
 	// http://en.wikipedia.org/wiki/Rotation_matrix#Conversion_from_and_to_axis-angle
 	// The 3D space is right-handed, so the rotation around each axis will be counterclockwise
 	// for an observer placed so that the axis goes in his or her direction (Right-hand rule).
-	setFromEulerAngles(ex: number, ey: number, ez: number): Mat4 {
-		var s1, c1, s2, c2, s3, c3, m;
-
-		ex *= pc.math.DEG_TO_RAD;
-		ey *= pc.math.DEG_TO_RAD;
-		ez *= pc.math.DEG_TO_RAD;
+	setFromEulerAngles(ex: f32, ey: f32, ez: f32): Mat4 {
+		ex *= pc_math.DEG_TO_RAD;
+		ey *= pc_math.DEG_TO_RAD;
+		ez *= pc_math.DEG_TO_RAD;
 
 		// Solution taken from http://en.wikipedia.org/wiki/Euler_angles#Matrix_orientation
-		s1 = Math.sin(-ex);
-		c1 = Math.cos(-ex);
-		s2 = Math.sin(-ey);
-		c2 = Math.cos(-ey);
-		s3 = Math.sin(-ez);
-		c3 = Math.cos(-ez);
+		var s1 = Mathf.sin(-ex);
+		var c1 = Mathf.cos(-ex);
+		var s2 = Mathf.sin(-ey);
+		var c2 = Mathf.cos(-ey);
+		var s3 = Mathf.sin(-ez);
+		var c3 = Mathf.cos(-ez);
 
-		m = this.data;
+		var m = this.data;
 
 		// Set rotation elements
 		m[0] = c2 * c3;
@@ -1147,39 +1135,42 @@ export class Mat4 {
 	 *
 	 * var eulers = m.getEulerAngles();
 	 */
-	getEulerAngles(eulers?: Vec3): Vec3 {
-		var x, y, z, sx, sy, sz, m, halfPi, scale;
+	/*
+	getEulerAngles(eulers: Vec3): Vec3 {
+		var x: f32;
+		var z: f32;
 
-		scale = PreallocatedVec3.getEulerAngles_scale;
-		eulers = (eulers === undefined) ? new pc.Vec3() : eulers;
+		var scale = PreallocatedVec3.getEulerAngles_scale;
+		//eulers = (eulers === undefined) ? new pc.Vec3() : eulers;
 
 		this.getScale(scale);
-		sx = scale.x;
-		sy = scale.y;
-		sz = scale.z;
+		var sx = scale.x;
+		var sy = scale.y;
+		var sz = scale.z;
 
-		m = this.data;
+		var m = this.data;
 
-		y = Math.asin(-m[2] / sx);
-		halfPi = Math.PI * 0.5;
+		var y = Mathf.asin(-m[2] / sx);
+		var halfPi = Mathf.PI * 0.5;
 
 		if (y < halfPi) {
 			if (y > -halfPi) {
-				x = Math.atan2(m[6] / sy, m[10] / sz);
-				z = Math.atan2(m[1] / sx, m[0] / sx);
+				x = Mathf.atan2(m[6] / sy, m[10] / sz);
+				z = Mathf.atan2(m[1] / sx, m[0] / sx);
 			} else {
 				// Not a unique solution
 				z = 0;
-				x = -Math.atan2(m[4] / sy, m[5] / sy);
+				x = -Mathf.atan2(m[4] / sy, m[5] / sy);
 			}
 		} else {
 			// Not a unique solution
 			z = 0;
-			x = Math.atan2(m[4] / sy, m[5] / sy);
+			x = Mathf.atan2(m[4] / sy, m[5] / sy);
 		}
 
-		return eulers.set(x, y, z).scale(pc.math.RAD_TO_DEG);
+		return eulers.set(x, y, z).scale(pc_math.RAD_TO_DEG);
 	}
+	*/
 
 	/**
 	 * @function
@@ -1191,15 +1182,15 @@ export class Mat4 {
 	 * // Should output '[1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1]'
 	 * console.log(m.toString());
 	 */
-	toString(): string {
-		var i, t;
-
-		t = '[';
-		for (i = 0; i < 16; i += 1) {
-			t += this.data[i];
-			t += (i !== 15) ? ', ' : '';
-		}
-		t += ']';
-		return t;
-	}
+	//toString(): string {
+	//	var i, t;
+    //
+	//	t = '[';
+	//	for (i = 0; i < 16; i += 1) {
+	//		t += this.data[i];
+	//		t += (i !== 15) ? ', ' : '';
+	//	}
+	//	t += ']';
+	//	return t;
+	//}
 }
