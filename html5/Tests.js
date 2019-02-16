@@ -53,9 +53,39 @@ function tests_init() {
 		code = code.replace(new RegExp("&lt;"   , "g"), '<');
 		code = code.replace(new RegExp("&gt;"   , "g"), '>');
 		code = code.replace(new RegExp("&quot;" , "g"), '"');
-		code = code.replace(/\r\n/g, '\n');
-		code = code.replace(/^\t+/mg, ''); // remove all tabs from line beginnings (todo: keep intendation)
-		code = code.replace(/^\n/mg, ''); // remove empty lines
+		code = code.replace(/\r\n/g, "\n"); // just to be sure
+		code = code.replace(/^\t+$/mg, ""); // remove lines which only contain tabs
+		code = code.replace(/^\n/mg, ""); // remove empty lines
+		
+		// figure out same amount of tabs for each line start
+		var lines = code.split("\n");
+		var tabmax = 0;
+		for (var line of lines) {
+			var tabcount = 0;
+			for (var i=0; i<line.length; i++) {
+				if (line[i] != "\t")
+					break;
+				tabcount++;
+			}
+			if (tabmax == 0) {
+				tabmax = tabcount;
+				continue;
+			}
+			if (tabcount > tabmax) {
+				// if we counted more tabs than before we reached the max tab amount for every line
+				break;
+			}
+			if (tabcount < tabmax) {
+				// we probably hit the last line, do not update tabmax when its lower
+				continue;
+			}
+		}
+		console.log(tabmax);
+		if (tabmax) {
+			// if we have any amount of counted tabs, remove them:
+			var tabrepeat = "\t".repeat(tabmax);
+			code = code.replace(new RegExp("^" + tabrepeat, "mg"), ""); // only removes from beginning of line
+		}
 		
 		var table    = document.createElement("table");
 		var tr       = document.createElement("tr");

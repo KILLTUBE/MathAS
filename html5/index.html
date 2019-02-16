@@ -177,12 +177,12 @@
 			var all = [a, b, c, d];
 			var tests = "";
 			for (var i of all) {
-			  for (var j of all) {
-				if (i.equals(j))
-				  tests += "1";
-				else
-				  tests += "0";
-			  }
+				for (var j of all) {
+					if (i.equals(j))
+						tests += "1";
+					else
+						tests += "0";
+				}
 			}
 			tests == "1000010000100001";
 		</test-js>
@@ -225,7 +225,7 @@
 			var b = new pc.Vec2(2,1);
 			a.normalize();
 			b.normalize();
-			b.length() == b.length();
+			a.length() == b.length();
 		</test-js>
 		
 		<test-js>
@@ -312,12 +312,12 @@
 			var all = [a, b, c, d];
 			var tests = "";
 			for (var i of all) {
-			  for (var j of all) {
-				if (i.equals(j))
-				  tests += "1";
-				else
-				  tests += "0";
-			  }
+				for (var j of all) {
+					if (i.equals(j))
+						tests += "1";
+					else
+						tests += "0";
+				}
 			}
 			tests == "1000010000100001";
 		</test-js>
@@ -361,7 +361,7 @@
 			var b = new pc.Vec3(3, 2, 1);
 			a.normalize();
 			b.normalize();
-			b.length() == b.length();
+			a.length() == b.length();
 		</test-js>
 
 		<test-js>
@@ -447,12 +447,12 @@
 			var all = [a, b, c, d];
 			var tests = "";
 			for (var i of all) {
-			  for (var j of all) {
-				if (i.equals(j))
-				  tests += "1";
-				else
-				  tests += "0";
-			  }
+				for (var j of all) {
+					if (i.equals(j))
+						tests += "1";
+					else
+						tests += "0";
+				}
 			}
 			tests == "1000010000100001";
 		</test-js>
@@ -494,7 +494,7 @@
 			var b = new pc.Vec4(4, 3, 2, 1);
 			a.normalize();
 			b.normalize();
-			b.length() == b.length();
+			a.length() == b.length();
 		</test-js>
 		
 		<test-js>
