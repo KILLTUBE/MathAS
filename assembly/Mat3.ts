@@ -1,9 +1,3 @@
-/**
- * @constructor
- * @name pc.Mat3
- * @classdesc A 3x3 matrix.
- * @description Creates a new identity Mat3 object.
- */
 export class Mat3 {
 	data: Float32Array;
 
@@ -14,35 +8,13 @@ export class Mat3 {
 		data[0] = data[4] = data[8] = 1;
 		this.data = data;
 	}
-	
-	/**
-	 * @function
-	 * @name pc.Mat3#clone
-	 * @description Creates a duplicate of the specified matrix.
-	 * @returns {pc.Mat3} A duplicate matrix.
-	 * @example
-	 * var src = new pc.Mat3().translate(10, 20, 30);
-	 * var dst = src.clone();
-	 * console.log("The two matrices are " + (src.equals(dst) ? "equal" : "different"));
-	 */
+
 	clone(): Mat3 {
 		var tmp = new Mat3();
 		tmp.copy(this);
 		return tmp;
 	}
 
-	/**
-	 * @function
-	 * @name pc.Mat3#copy
-	 * @description Copies the contents of a source 3x3 matrix to a destination 3x3 matrix.
-	 * @param {pc.Mat3} rhs A 3x3 matrix to be copied.
-	 * @returns {pc.Mat3} Self for chaining
-	 * @example
-	 * var src = new pc.Mat3().translate(10, 20, 30);
-	 * var dst = new pc.Mat3();
-	 * dst.copy(src);
-	 * console.log("The two matrices are " + (src.equals(dst) ? "equal" : "different"));
-	 */
 	copy(rhs: Mat3): Mat3 {
 		var src = rhs.data;
 		var dst = this.data;

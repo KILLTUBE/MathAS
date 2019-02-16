@@ -66,3 +66,13 @@ pc.Mat4.prototype.mul = function(rhs) {
 	return this;
 }
 
+pc.Mat4.prototype.toString = function() {
+	var i, t;
+	t = '[';
+	for (i = 0; i < 16; i += 1) {
+		t += this.data[i];
+		t += (i !== 15) ? ', ' : '';
+	}
+	t += ']';
+	return t;
+}
