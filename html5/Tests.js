@@ -27,12 +27,22 @@ function Test() {
 	
 }
 
+Test.prototype.run = function() {
+	var ret = textarea_eval(this.textarea);
+	this.td_b.innerHTML = ret;
+	if (typeof ret == "boolean" && ret == true) {
+		this.table.style.borderColor = "lime";
+	} else {
+		this.table.style.borderColor = "red";
+	}
+}
+
 function tests_init() {
-	var tests = document.getElementsByTagName("test-js");
+	var tags_test = document.getElementsByTagName("test-js");
 	
 	window.tests = [];
 	
-	for (var test of tests) {
+	for (var test of tags_test) {
 	
 	
 		var code = test.innerHTML;
@@ -69,11 +79,13 @@ function tests_init() {
 		td_c.classList.add("testbutton");
 	
 		var test_ = new Test();
-		test_.textarea = textarea;
-		test_.button = button;
-		test_.td_a = td_a;
-		test_.td_b = td_b;
-		test_.td_c = td_c;
+		test_.table     = table;
+		test_.tr        = tr;
+		test_.td_a      = td_a;
+		test_.td_b      = td_b;
+		test_.td_c      = td_c;
+		test_.textarea  = textarea;
+		test_.button    = button;
 		window.tests.push(test_);
 		
 		textarea.value = code;
@@ -81,34 +93,27 @@ function tests_init() {
 		
 		button.innerText = ">";
 		button.onclick = function(e) {
-			var textarea = this.textarea;
-			var td_b = this.td_b;
-			td_b.innerHTML = textarea_eval(textarea);
-		}.bind({textarea, td_b});
-		
-		// same as in onclick, todo: refactor into nice class
-		td_b.innerHTML = textarea_eval(textarea);
-		
-		
+			this.run();
+		}.bind(test_);
+
 		textarea.onkeydown = function(e) {
-			var textarea = this.textarea;
-			var td_b = this.td_b;
-			
-			if (e.keyCode == 9 || e.which == 9){
+			var textarea = e.target;
+			if (e.keyCode == 9 || e.which == 9) {
 				e.preventDefault();
-				var oldStart = this.selectionStart;
-				var before   = this.value.substring(0, this.selectionStart);
-				var selected = this.value.substring(this.selectionStart, this.selectionEnd);
-				var after    = this.value.substring(this.selectionEnd);
-				this.value = before + "    " + selected + after;
-				this.selectionEnd = oldStart + 4;
+				var oldStart = textarea.selectionStart;
+				var before   = textarea.value.substring(0, textarea.selectionStart);
+				var selected = textarea.value.substring(textarea.selectionStart, textarea.selectionEnd);
+				var after    = textarea.value.substring(textarea.selectionEnd);
+				textarea.value = before + "\t" + selected + after;
+				textarea.selectionEnd = oldStart + 1;
 			}
 			
 			if (e.ctrlKey && e.key == "Enter") {
-				td_b.innerHTML = textarea_eval(textarea);
+				this.run();
 			}
-			
-			//console.log(e)
-		}.bind({textarea, td_b});	
+		}.bind(test_);	
 	}
+	
+	for (var test of tests)
+		test.run()
 }

@@ -37,12 +37,8 @@
 				width: 100%;
 				margin-bottom: 5px;
 				padding: 5px;
-				/*
-				border-left:  2px solid green;
-				border-right: 2px solid green;
-				*/
 				border-radius: 10px;
-				border: 2px solid lime;
+				border: 2px solid black;
 				background-color: #e1e1e8;
 			}
 			
@@ -169,8 +165,8 @@
 			a.toString() == b.toString();
 		</test-js>
 		<test-js>
-			a = new pc.Vec2(1, 2);
-			b = new pc.Vec2(11, 22);
+			var a = new pc.Vec2(1, 2);
+			var b = new pc.Vec2(11, 22);
 			a.dot(b) == 55;
 		</test-js>
 		<test-js>
@@ -302,8 +298,8 @@
 		</test-js>
 
 		<test-js>
-			a = new pc.Vec3(1, 2, 2);
-			b = new pc.Vec3(11, 22, 33);
+			var a = new pc.Vec3(1, 2, 2);
+			var b = new pc.Vec3(11, 22, 33);
 			a.dot(b) == 121;
 		</test-js>
 
