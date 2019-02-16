@@ -47,16 +47,37 @@ function tests_init() {
 		
 		textarea.value = code;
 		textarea_fit_text(textarea);
-		textarea_editorize(textarea);		
 		
 		button.innerText = ">";
 		button.onclick = function(e) {
 			var textarea = this.textarea;
-			var evaled_td = this.evaled_td;
-			evaled_td.innerHTML = textarea_eval(textarea);
+			var td_b = this.td_b;
+			td_b.innerHTML = textarea_eval(textarea);
 		}.bind({textarea, td_b});
 		
 		// same as in onclick, todo: refactor into nice class
 		td_b.innerHTML = textarea_eval(textarea);
+		
+		
+		textarea.onkeydown = function(e) {
+			var textarea = this.textarea;
+			var td_b = this.td_b;
+			
+			if (e.keyCode == 9 || e.which == 9){
+				e.preventDefault();
+				var oldStart = this.selectionStart;
+				var before   = this.value.substring(0, this.selectionStart);
+				var selected = this.value.substring(this.selectionStart, this.selectionEnd);
+				var after    = this.value.substring(this.selectionEnd);
+				this.value = before + "    " + selected + after;
+				this.selectionEnd = oldStart + 4;
+			}
+			
+			if (e.ctrlKey && e.key == "Enter") {
+				td_b.innerHTML = textarea_eval(textarea);
+			}
+			
+			//console.log(e)
+		}.bind({textarea, td_b});	
 	}
 }
