@@ -23,14 +23,26 @@ function textarea_eval(textarea) {
 	}
 }
 
+function Test() {
+	
+}
+
 function tests_init() {
 	var tests = document.getElementsByTagName("test-js");
+	
+	window.tests = [];
+	
 	for (var test of tests) {
 	
 	
 		var code = test.innerHTML;
+		
 		test.innerHTML = "";
 		
+		code = code.replace(new RegExp("&amp;"  , "g"), '&');
+		code = code.replace(new RegExp("&lt;"   , "g"), '<');
+		code = code.replace(new RegExp("&gt;"   , "g"), '>');
+		code = code.replace(new RegExp("&quot;" , "g"), '"');
 		code = code.replace(/\r\n/g, '\n');
 		code = code.replace(/^\t+/mg, ''); // remove all tabs from line beginnings (todo: keep intendation)
 		code = code.replace(/^\n/mg, ''); // remove empty lines
@@ -55,6 +67,14 @@ function tests_init() {
 		td_a.classList.add("testcode");
 		td_b.classList.add("testresult");
 		td_c.classList.add("testbutton");
+	
+		var test_ = new Test();
+		test_.textarea = textarea;
+		test_.button = button;
+		test_.td_a = td_a;
+		test_.td_b = td_b;
+		test_.td_c = td_c;
+		window.tests.push(test_);
 		
 		textarea.value = code;
 		textarea_fit_text(textarea);

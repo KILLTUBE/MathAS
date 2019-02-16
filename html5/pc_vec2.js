@@ -97,11 +97,6 @@ pc.Vec2.prototype.normalize = function() {
 	return this;
 }
 
-//pc.Vec2.prototype.project = function(rhs) {
-//	vec2_project(this.ptr, rhs.ptr);
-//	return this;
-//}
-
 pc.Vec2.prototype.scale = function(scalar) {
 	vec2_scale(this.ptr, scalar);
 	return this;
@@ -124,6 +119,10 @@ pc.Vec2.prototype.sub2 = function(lhs, rhs) {
 
 pc.Vec2.prototype.toString = function() {
 	return '[' + this.x + ', ' + this.y + ']';
+}
+
+pc.Vec2.prototype.toStringFixed = function(n) {
+	return '[' + this.x.toFixed(n) + ', ' + this.y.toFixed(n) + ']';
 }
 
 Object.defineProperty(pc.Vec2.prototype, 'x', {

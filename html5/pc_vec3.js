@@ -126,6 +126,10 @@ pc.Vec3.prototype.toString = function() {
 	return '[' + this.x + ', ' + this.y + ', ' + this.z + ']';
 }
 
+pc.Vec3.prototype.toStringFixed = function(n) {
+	return '[' + this.x.toFixed(n) + ', ' + this.y.toFixed(n) + ', ' + this.z.toFixed(n) + ']';
+}
+
 Object.defineProperty(pc.Vec3.prototype, 'x', {
 	get: function() {
 		return module.F32[this.ptr >> 2]; // the shifting is same as dividing by 4, used to quickly lookup the value in module.F32

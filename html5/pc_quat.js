@@ -67,6 +67,10 @@ pc.Quat.prototype.toString = function() {
 	return '[' + this.x + ', ' + this.y + ', ' + this.z + ', ' + this.w + ']';
 }
 
+pc.Quat.prototype.toStringFixed = function(n) {
+	return '[' + this.x.toFixed(n) + ', ' + this.y.toFixed(n) + ', ' + this.z.toFixed(n) + ', ' + this.w.toFixed(n) + ']';
+}
+
 Object.defineProperty(pc.Quat.prototype, 'x', {
 	get: function() {
 		return module.F32[this.ptr >> 2]; // the shifting is same as dividing by 4, used to quickly lookup the value in module.F32

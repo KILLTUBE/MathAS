@@ -56,11 +56,6 @@ pc.Vec4.prototype.copy = function(rhs) {
 	return this;
 }
 
-//pc.Vec4.prototype.cross = function(lhs, rhs) {
-//	vec4_cross(this.ptr, lhs.ptr, rhs.ptr);
-//	return this;
-//}
-
 pc.Vec4.prototype.dot = function(rhs) {
 	return vec4_dot(this.ptr, rhs.ptr);
 }
@@ -97,11 +92,6 @@ pc.Vec4.prototype.normalize = function() {
 	return this;
 }
 
-//pc.Vec4.prototype.project = function(rhs) {
-//	vec4_project(this.ptr, rhs.ptr);
-//	return this;
-//}
-
 pc.Vec4.prototype.scale = function(scalar) {
 	vec4_scale(this.ptr, scalar);
 	return this;
@@ -124,6 +114,10 @@ pc.Vec4.prototype.sub2 = function(lhs, rhs) {
 
 pc.Vec4.prototype.toString = function() {
 	return '[' + this.x + ', ' + this.y + ', ' + this.z + ', ' + this.w + ']';
+}
+
+pc.Vec3.prototype.toStringFixed = function(n) {
+	return '[' + this.x.toFixed(n) + ', ' + this.y.toFixed(n) + ', ' + this.z.toFixed(n) + ', ' + this.w.toFixed(n) + ']';
 }
 
 Object.defineProperty(pc.Vec4.prototype, 'x', {
