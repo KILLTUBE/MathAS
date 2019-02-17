@@ -5,6 +5,8 @@ mat3_clone        = instance.exports["Mat3#clone"];
 mat3_copy         = instance.exports["Mat3#copy"];
 mat3_equals       = instance.exports["Mat3#equals"];
 mat3_isIdentity   = instance.exports["Mat3#isIdentity"];
+mat3_setIdentity   = instance.exports["Mat3#setIdentity"];
+mat3_transpose   = instance.exports["Mat3#transpose"];
 mat3_mul2         = instance.exports["Mat3#mul2"];
 mat3_mul          = instance.exports["Mat3#mul"];
 
@@ -62,6 +64,24 @@ pc.Mat3.prototype.set = function(src) {
 	dst[7] = src[7];
 	dst[8] = src[8];
 
+	return this;
+}
+
+pc.Mat3.prototype.equals = function(rhs) {
+	return !!mat3_equals(this.ptr, rhs.ptr);
+}
+
+pc.Mat3.prototype.isIdentity = function() {
+	return !!mat3_isIdentity(this.ptr);
+}
+
+pc.Mat3.prototype.setIdentity = function() {
+	mat3_setIdentity(this.ptr);
+	return this;
+}
+
+pc.Mat3.prototype.transpose = function() {
+	mat3_transpose(this.ptr);
 	return this;
 }
 

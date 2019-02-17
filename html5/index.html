@@ -163,6 +163,38 @@
 		</test-js>
 		
 		<test-js>
+			var a = new pc.Mat3();
+			a.data[0] = 1;
+			a.data[1] = 2;
+			a.data[2] = 3;
+			var b = new pc.Mat3();
+			var c = new pc.Mat3();
+			!a.equals(b) && b.equals(c);
+		</test-js>
+		
+		<test-js>
+			var a = new pc.Mat3();
+			a.data[0] = 1;
+			a.data[1] = 2;
+			a.data[2] = 3;
+			var b = new pc.Mat3();
+			!a.isIdentity() && b.isIdentity();
+		</test-js>
+		
+		<test-js>
+			var a = new pc.Mat3();
+			a.data[0] = 1;
+			a.data[1] = 2;
+			a.data[2] = 3;
+			a.setIdentity();
+			a.toString() == "[1, 0, 0, 0, 1, 0, 0, 0, 1]";
+		</test-js>
+		
+		<test-js>
+			var a = new pc.Mat3();
+			a.set([0, 1, 2, 3, 4, 5, 6, 7, 8]);
+			a.transpose();
+			a.toString() == "[0, 3, 6, 1, 4, 7, 2, 5, 8]";
 		</test-js>
 		
 		<test-js>
