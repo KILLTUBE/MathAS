@@ -249,8 +249,66 @@
 			</test-js>
 			
 			<test-js>
+				// Create a 4x4 scale matrix
+				var m = new pc.Mat4().scale(2, 3, 4);
+				// Query the scale component
+				var scale = m.getScale();
+			</test-js>
+			
+			<test-js>
+				// Create a 4x4 matrix
+				var m = new pc.Mat4();
+				// Query the z-axis component
+				var t = new pc.Vec3();
+				m.getTranslation(t);
+			</test-js>
+			
+			<test-js>
+				// Create a 4x4 matrix
+				var m = new pc.Mat4();
+				// Query the z-axis component
+				var x = new pc.Vec3();
+				m.getX(x);
+			</test-js>
+			
+			<test-js>
+				// Create a 4x4 matrix
+				var m = new pc.Mat4();
+				// Query the z-axis component
+				var y = new pc.Vec3();
+				m.getY(y);
+			</test-js>
+			
+			<test-js>
+				// Create a 4x4 matrix
+				var m = new pc.Mat4();
+				// Query the z-axis component
+				var z = new pc.Vec3();
+				m.getZ(z);
+			</test-js>
+			
+			<test-js>
+				// Create a 4x4 rotation matrix of 180 degrees around the y-axis
+				var rot = new pc.Mat4().setFromAxisAngle(pc.Vec3.UP, 180);
+				// Invert in place
+				rot.invert();
+			</test-js>
+			
+			<test-js>
+				var rot = new pc.Mat4().setFromAxisAngle(pc.Vec3.UP, 180);
+				rot.invertTo3x3
+			</test-js>
+			
+			<test-js>
 				var m = new pc.Mat4();
 				console.log("The matrix is " + (m.isIdentity() ? "identity" : "not identity"));
+			</test-js>
+			
+			<test-js>
+				var a = new pc.Mat4().setFromEulerAngles(10, 20, 30);
+				var b = new pc.Mat4().setFromAxisAngle(pc.Vec3.UP, 180);
+				a.mul(b); // a = a * b
+				console.log("The result of the multiplication is: " a.toString());
 			</test-js>
 			
 			<test-js>
@@ -260,13 +318,6 @@
 				// r = a * b
 				r.mul2(a, b);
 				console.log("The result of the multiplication is: " r.toString());
-			</test-js>
-			
-			<test-js>
-				var a = new pc.Mat4().setFromEulerAngles(10, 20, 30);
-				var b = new pc.Mat4().setFromAxisAngle(pc.Vec3.UP, 180);
-				a.mul(b); // a = a * b
-				console.log("The result of the multiplication is: " a.toString());
 			</test-js>
 			
 			<test-js>

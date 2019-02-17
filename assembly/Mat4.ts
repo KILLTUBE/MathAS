@@ -15,6 +15,10 @@ export class Mat4 {
 		this.data = tmp;
 	}
 	
+	add(rhs: Mat4): Mat4 {
+		return this.add2(this, rhs);
+	}
+	
 	add2(lhs: Mat4, rhs: Mat4): Mat4 {
 		var a = lhs.data,
 			b = rhs.data,
@@ -39,11 +43,6 @@ export class Mat4 {
 
 		return this;
 	}
-
-	add(rhs: Mat4): Mat4 {
-		return this.add2(this, rhs);
-	}
-
 
 	clone(): Mat4 {
 		// AS doesn't support this yet: return new pc.Mat4().copy(this);
@@ -96,6 +95,143 @@ export class Mat4 {
 				(l[13] === r[13]) &&
 				(l[14] === r[14]) &&
 				(l[15] === r[15]));
+	}
+
+	getScale(scale: Vec3): Vec3 {
+		var x = PreallocatedVec3.getScale_x;
+		var y = PreallocatedVec3.getScale_y;
+		var z = PreallocatedVec3.getScale_z;
+
+		this.getX(x);
+		this.getY(y);
+		this.getZ(z);
+		scale.set(x.length(), y.length(), z.length());
+
+		return scale;
+	}
+	
+	getTranslation(t: Vec3): Vec3 {
+		return t.set(this.data[12], this.data[13], this.data[14]);
+	}
+
+	getX(x: Vec3): Vec3 {
+		return x.set(this.data[0], this.data[1], this.data[2]);
+	}
+
+	getY(y: Vec3): Vec3 {
+		return y.set(this.data[4], this.data[5], this.data[6]);
+	}
+
+	getZ(z: Vec3): Vec3 {
+		return z.set(this.data[8], this.data[9], this.data[10]);
+	}
+
+	invert(): Mat4 {
+		var m = this.data;
+		var a00 = m[0];
+		var a01 = m[1];
+		var a02 = m[2];
+		var a03 = m[3];
+		var a10 = m[4];
+		var a11 = m[5];
+		var a12 = m[6];
+		var a13 = m[7];
+		var a20 = m[8];
+		var a21 = m[9];
+		var a22 = m[10];
+		var a23 = m[11];
+		var a30 = m[12];
+		var a31 = m[13];
+		var a32 = m[14];
+		var a33 = m[15];
+
+		var b00: f32 = a00 * a11 - a01 * a10;
+		var b01: f32 = a00 * a12 - a02 * a10;
+		var b02: f32 = a00 * a13 - a03 * a10;
+		var b03: f32 = a01 * a12 - a02 * a11;
+		var b04: f32 = a01 * a13 - a03 * a11;
+		var b05: f32 = a02 * a13 - a03 * a12;
+		var b06: f32 = a20 * a31 - a21 * a30;
+		var b07: f32 = a20 * a32 - a22 * a30;
+		var b08: f32 = a20 * a33 - a23 * a30;
+		var b09: f32 = a21 * a32 - a22 * a31;
+		var b10: f32 = a21 * a33 - a23 * a31;
+		var b11: f32 = a22 * a33 - a23 * a32;
+
+		var det: f32 = (b00 * b11 - b01 * b10 + b02 * b09 + b03 * b08 - b04 * b07 + b05 * b06);
+		if (det === 0) {
+			this.setIdentity();
+		} else {
+			var invDet: f32 = 1.0 / det;
+
+			m[0] = (a11 * b11 - a12 * b10 + a13 * b09) * invDet;
+			m[1] = (-a01 * b11 + a02 * b10 - a03 * b09) * invDet;
+			m[2] = (a31 * b05 - a32 * b04 + a33 * b03) * invDet;
+			m[3] = (-a21 * b05 + a22 * b04 - a23 * b03) * invDet;
+			m[4] = (-a10 * b11 + a12 * b08 - a13 * b07) * invDet;
+			m[5] = (a00 * b11 - a02 * b08 + a03 * b07) * invDet;
+			m[6] = (-a30 * b05 + a32 * b02 - a33 * b01) * invDet;
+			m[7] = (a20 * b05 - a22 * b02 + a23 * b01) * invDet;
+			m[8] = (a10 * b10 - a11 * b08 + a13 * b06) * invDet;
+			m[9] = (-a00 * b10 + a01 * b08 - a03 * b06) * invDet;
+			m[10] = (a30 * b04 - a31 * b02 + a33 * b00) * invDet;
+			m[11] = (-a20 * b04 + a21 * b02 - a23 * b00) * invDet;
+			m[12] = (-a10 * b09 + a11 * b07 - a12 * b06) * invDet;
+			m[13] = (a00 * b09 - a01 * b07 + a02 * b06) * invDet;
+			m[14] = (-a30 * b03 + a31 * b01 - a32 * b00) * invDet;
+			m[15] = (a20 * b03 - a21 * b01 + a22 * b00) * invDet;
+		}
+
+
+		return this;
+	}
+
+
+
+	invertTo3x3(res: Mat3): Mat4 {
+		var m = this.data;
+		var r = res.data;
+
+		var m0 = m[0];
+		var m1 = m[1];
+		var m2 = m[2];
+
+		var m4 = m[4];
+		var m5 = m[5];
+		var m6 = m[6];
+
+		var m8 = m[8];
+		var m9 = m[9];
+		var m10 = m[10];
+
+		var a11 =  m10 * m5 - m6 * m9;
+		var a21 = -m10 * m1 + m2 * m9;
+		var a31 =  m6  * m1 - m2 * m5;
+		var a12 = -m10 * m4 + m6 * m8;
+		var a22 =  m10 * m0 - m2 * m8;
+		var a32 = -m6  * m0 + m2 * m4;
+		var a13 =  m9  * m4 - m5 * m8;
+		var a23 = -m9  * m0 + m1 * m8;
+		var a33 =  m5  * m0 - m1 * m4;
+
+		var det: f32 = m0 * a11 + m1 * a12 + m2 * a13;
+		if (det === 0) { // no inverse
+			return this;
+		}
+
+		var idet: f32 = 1 / det;
+
+		r[0] = idet * a11;
+		r[1] = idet * a21;
+		r[2] = idet * a31;
+		r[3] = idet * a12;
+		r[4] = idet * a22;
+		r[5] = idet * a32;
+		r[6] = idet * a13;
+		r[7] = idet * a23;
+		r[8] = idet * a33;
+
+		return this;
 	}
 
 	isIdentity(): boolean {
@@ -569,77 +705,7 @@ export class Mat4 {
 		return this;
 	}
 
-	/**
-	 * @function
-	 * @name pc.Mat4#invert
-	 * @description Sets the specified matrix to its inverse.
-	 * @returns {pc.Mat4} Self for chaining.
-	 * @example
-	 * // Create a 4x4 rotation matrix of 180 degrees around the y-axis
-	 * var rot = new pc.Mat4().setFromAxisAngle(pc.Vec3.UP, 180);
-	 *
-	 * // Invert in place
-	 * rot.invert();
-	 */
-	invert(): Mat4 {
-		var m = this.data;
-		var a00 = m[0];
-		var a01 = m[1];
-		var a02 = m[2];
-		var a03 = m[3];
-		var a10 = m[4];
-		var a11 = m[5];
-		var a12 = m[6];
-		var a13 = m[7];
-		var a20 = m[8];
-		var a21 = m[9];
-		var a22 = m[10];
-		var a23 = m[11];
-		var a30 = m[12];
-		var a31 = m[13];
-		var a32 = m[14];
-		var a33 = m[15];
 
-		var b00: f32 = a00 * a11 - a01 * a10;
-		var b01: f32 = a00 * a12 - a02 * a10;
-		var b02: f32 = a00 * a13 - a03 * a10;
-		var b03: f32 = a01 * a12 - a02 * a11;
-		var b04: f32 = a01 * a13 - a03 * a11;
-		var b05: f32 = a02 * a13 - a03 * a12;
-		var b06: f32 = a20 * a31 - a21 * a30;
-		var b07: f32 = a20 * a32 - a22 * a30;
-		var b08: f32 = a20 * a33 - a23 * a30;
-		var b09: f32 = a21 * a32 - a22 * a31;
-		var b10: f32 = a21 * a33 - a23 * a31;
-		var b11: f32 = a22 * a33 - a23 * a32;
-
-		var det: f32 = (b00 * b11 - b01 * b10 + b02 * b09 + b03 * b08 - b04 * b07 + b05 * b06);
-		if (det === 0) {
-			this.setIdentity();
-		} else {
-			var invDet: f32 = 1.0 / det;
-
-			m[0] = (a11 * b11 - a12 * b10 + a13 * b09) * invDet;
-			m[1] = (-a01 * b11 + a02 * b10 - a03 * b09) * invDet;
-			m[2] = (a31 * b05 - a32 * b04 + a33 * b03) * invDet;
-			m[3] = (-a21 * b05 + a22 * b04 - a23 * b03) * invDet;
-			m[4] = (-a10 * b11 + a12 * b08 - a13 * b07) * invDet;
-			m[5] = (a00 * b11 - a02 * b08 + a03 * b07) * invDet;
-			m[6] = (-a30 * b05 + a32 * b02 - a33 * b01) * invDet;
-			m[7] = (a20 * b05 - a22 * b02 + a23 * b01) * invDet;
-			m[8] = (a10 * b10 - a11 * b08 + a13 * b06) * invDet;
-			m[9] = (-a00 * b10 + a01 * b08 - a03 * b06) * invDet;
-			m[10] = (a30 * b04 - a31 * b02 + a33 * b00) * invDet;
-			m[11] = (-a20 * b04 + a21 * b02 - a23 * b00) * invDet;
-			m[12] = (-a10 * b09 + a11 * b07 - a12 * b06) * invDet;
-			m[13] = (a00 * b09 - a01 * b07 + a02 * b06) * invDet;
-			m[14] = (-a30 * b03 + a31 * b01 - a32 * b00) * invDet;
-			m[15] = (a20 * b03 - a21 * b01 + a22 * b00) * invDet;
-		}
-
-
-		return this;
-	}
 
 	/**
 	 * @function
@@ -811,159 +877,8 @@ export class Mat4 {
 		return this;
 	}
 
-	invertTo3x3(res: Mat3): Mat4 {
-		var m = this.data;
-		var r = res.data;
 
-		var m0 = m[0];
-		var m1 = m[1];
-		var m2 = m[2];
 
-		var m4 = m[4];
-		var m5 = m[5];
-		var m6 = m[6];
-
-		var m8 = m[8];
-		var m9 = m[9];
-		var m10 = m[10];
-
-		var a11 =  m10 * m5 - m6 * m9;
-		var a21 = -m10 * m1 + m2 * m9;
-		var a31 =  m6  * m1 - m2 * m5;
-		var a12 = -m10 * m4 + m6 * m8;
-		var a22 =  m10 * m0 - m2 * m8;
-		var a32 = -m6  * m0 + m2 * m4;
-		var a13 =  m9  * m4 - m5 * m8;
-		var a23 = -m9  * m0 + m1 * m8;
-		var a33 =  m5  * m0 - m1 * m4;
-
-		var det: f32 = m0 * a11 + m1 * a12 + m2 * a13;
-		if (det === 0) { // no inverse
-			return this;
-		}
-
-		var idet: f32 = 1 / det;
-
-		r[0] = idet * a11;
-		r[1] = idet * a21;
-		r[2] = idet * a31;
-		r[3] = idet * a12;
-		r[4] = idet * a22;
-		r[5] = idet * a32;
-		r[6] = idet * a13;
-		r[7] = idet * a23;
-		r[8] = idet * a33;
-
-		return this;
-	}
-
-	/**
-	 * @function
-	 * @name pc.Mat4#getTranslation
-	 * @description Extracts the translational component from the specified 4x4 matrix.
-	 * @param {pc.Vec3} [t] The vector to receive the translation of the matrix.
-	 * @returns {pc.Vec3} The translation of the specified 4x4 matrix.
-	 * @example
-	 * // Create a 4x4 matrix
-	 * var m = new pc.Mat4();
-	 *
-	 * // Query the z-axis component
-	 * var t = new pc.Vec3();
-	 * m.getTranslation(t);
-	 */
-	getTranslation(t: Vec3): Vec3 {
-		//t = (t === undefined) ? new pc.Vec3() : t;
-
-		return t.set(this.data[12], this.data[13], this.data[14]);
-	}
-
-	/**
-	 * @function
-	 * @name pc.Mat4#getX
-	 * @description Extracts the x-axis from the specified 4x4 matrix.
-	 * @param {pc.Vec3} [x] The vector to receive the x axis of the matrix.
-	 * @returns {pc.Vec3} The x-axis of the specified 4x4 matrix.
-	 * @example
-	 * // Create a 4x4 matrix
-	 * var m = new pc.Mat4();
-	 *
-	 * // Query the z-axis component
-	 * var x = new pc.Vec3();
-	 * m.getX(x);
-	 */
-	getX(x: Vec3): Vec3 {
-		//x = (x === undefined) ? new pc.Vec3() : x;
-
-		return x.set(this.data[0], this.data[1], this.data[2]);
-	}
-
-	/**
-	 * @function
-	 * @name pc.Mat4#getY
-	 * @description Extracts the y-axis from the specified 4x4 matrix.
-	 * @param {pc.Vec3} [y] The vector to receive the y axis of the matrix.
-	 * @returns {pc.Vec3} The y-axis of the specified 4x4 matrix.
-	 * @example
-	 * // Create a 4x4 matrix
-	 * var m = new pc.Mat4();
-	 *
-	 * // Query the z-axis component
-	 * var y = new pc.Vec3();
-	 * m.getY(y);
-	 */
-	getY(y: Vec3): Vec3 {
-		//y = (y === undefined) ? new pc.Vec3() : y;
-
-		return y.set(this.data[4], this.data[5], this.data[6]);
-	}
-
-	/**
-	 * @function
-	 * @name pc.Mat4#getZ
-	 * @description Extracts the z-axis from the specified 4x4 matrix.
-	 * @param {pc.Vec3} [z] The vector to receive the z axis of the matrix.
-	 * @returns {pc.Vec3} The z-axis of the specified 4x4 matrix.
-	 * @example
-	 * // Create a 4x4 matrix
-	 * var m = new pc.Mat4();
-	 *
-	 * // Query the z-axis component
-	 * var z = new pc.Vec3();
-	 * m.getZ(z);
-	 */
-	getZ(z: Vec3): Vec3 {
-		//z = (z === undefined) ? new pc.Vec3() : z;
-
-		return z.set(this.data[8], this.data[9], this.data[10]);
-	}
-
-	/**
-	 * @function
-	 * @name pc.Mat4#getScale
-	 * @description Extracts the scale component from the specified 4x4 matrix.
-	 * @param {pc.Vec3} [scale] Vector to receive the scale.
-	 * @returns {pc.Vec3} The scale in X, Y and Z of the specified 4x4 matrix.
-	 * @example
-	 * // Create a 4x4 scale matrix
-	 * var m = new pc.Mat4().scale(2, 3, 4);
-	 *
-	 * // Query the scale component
-	 * var scale = m.getScale();
-	 */
-	getScale(scale: Vec3): Vec3 {
-		var x = PreallocatedVec3.getScale_x;
-		var y = PreallocatedVec3.getScale_y;
-		var z = PreallocatedVec3.getScale_z;
-
-		//scale = (scale === undefined) ? new pc.Vec3() : scale;
-
-		this.getX(x);
-		this.getY(y);
-		this.getZ(z);
-		scale.set(x.length(), y.length(), z.length());
-
-		return scale;
-	}
 
 	/**
 	 * @function
