@@ -218,6 +218,72 @@
 				var a = new pc.Mat4();
 				a.toString() == "[1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1]";
 			</test-js>
+			
+			<test-js>
+				var m = new pc.Mat4();
+				m.add2(pc.Mat4.IDENTITY, pc.Mat4.ONE);
+			</test-js>
+			
+			<test-js>
+				var m = new pc.Mat4();
+				m.add(pc.Mat4.ONE);
+			</test-js>
+			
+			<test-js>
+				var src = new pc.Mat4().setFromEulerAngles(10, 20, 30);
+				var dst = src.clone();
+				console.log("The two matrices are " + (src.equals(dst) ? "equal" : "different"));
+			</test-js>
+			
+			<test-js>
+				var src = new pc.Mat4().setFromEulerAngles(10, 20, 30);
+				var dst = new pc.Mat4();
+				dst.copy(src);
+				console.log("The two matrices are " + (src.equals(dst) ? "equal" : "different"));
+			</test-js>
+			
+			<test-js>
+				var a = new pc.Mat4().setFromEulerAngles(10, 20, 30);
+				var b = new pc.Mat4();
+				console.log("The two matrices are " + (a.equals(b) ? "equal" : "different"));
+			</test-js>
+			
+			<test-js>
+				var m = new pc.Mat4();
+				console.log("The matrix is " + (m.isIdentity() ? "identity" : "not identity"));
+			</test-js>
+			
+			<test-js>
+				var a = new pc.Mat4().setFromEulerAngles(10, 20, 30);
+				var b = new pc.Mat4().setFromAxisAngle(pc.Vec3.UP, 180);
+				var r = new pc.Mat4();
+				// r = a * b
+				r.mul2(a, b);
+				console.log("The result of the multiplication is: " r.toString());
+			</test-js>
+			
+			<test-js>
+				var a = new pc.Mat4().setFromEulerAngles(10, 20, 30);
+				var b = new pc.Mat4().setFromAxisAngle(pc.Vec3.UP, 180);
+				a.mul(b); // a = a * b
+				console.log("The result of the multiplication is: " a.toString());
+			</test-js>
+			
+			<test-js>
+			
+			</test-js>
+			
+			<test-js>
+			
+			</test-js>
+			
+			<test-js>
+			
+			</test-js>
+			
+			<test-js>
+			
+			</test-js>
 		</tests-js>
 
 

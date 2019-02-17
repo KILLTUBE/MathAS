@@ -15,21 +15,6 @@ export class Mat4 {
 		this.data = tmp;
 	}
 	
-	/**
-	 * @function
-	 * @name pc.Mat4#add2
-	 * @description Adds the specified 4x4 matrices together and stores the result in
-	 * the current instance.
-	 * @param {pc.Mat4} lhs The 4x4 matrix used as the first operand of the addition.
-	 * @param {pc.Mat4} rhs The 4x4 matrix used as the second operand of the addition.
-	 * @returns {pc.Mat4} Self for chaining.
-	 * @example
-	 * var m = new pc.Mat4();
-	 *
-	 * m.add2(pc.Mat4.IDENTITY, pc.Mat4.ONE);
-	 *
-	 * console.log("The result of the addition is: " a.toString());
-	 */
 	add2(lhs: Mat4, rhs: Mat4): Mat4 {
 		var a = lhs.data,
 			b = rhs.data,
@@ -55,33 +40,11 @@ export class Mat4 {
 		return this;
 	}
 
-	/**
-	 * @function
-	 * @name pc.Mat4#add
-	 * @description Adds the specified 4x4 matrix to the current instance.
-	 * @param {pc.Mat4} rhs The 4x4 matrix used as the second operand of the addition.
-	 * @returns {pc.Mat4} Self for chaining.
-	 * @example
-	 * var m = new pc.Mat4();
-	 *
-	 * m.add(pc.Mat4.ONE);
-	 *
-	 * console.log("The result of the addition is: " a.toString());
-	 */
 	add(rhs: Mat4): Mat4 {
 		return this.add2(this, rhs);
 	}
 
-	/**
-	 * @function
-	 * @name pc.Mat4#clone
-	 * @description Creates a duplicate of the specified matrix.
-	 * @returns {pc.Mat4} A duplicate matrix.
-	 * @example
-	 * var src = new pc.Mat4().setFromEulerAngles(10, 20, 30);
-	 * var dst = src.clone();
-	 * console.log("The two matrices are " + (src.equals(dst) ? "equal" : "different"));
-	 */
+
 	clone(): Mat4 {
 		// AS doesn't support this yet: return new pc.Mat4().copy(this);
 		var tmp = new Mat4();
@@ -89,18 +52,6 @@ export class Mat4 {
 		return tmp;
 	}
 
-	/**
-	 * @function
-	 * @name pc.Mat4#copy
-	 * @description Copies the contents of a source 4x4 matrix to a destination 4x4 matrix.
-	 * @param {pc.Mat4} rhs A 4x4 matrix to be copied.
-	 * @returns {pc.Mat4} Self for chaining.
-	 * @example
-	 * var src = new pc.Mat4().setFromEulerAngles(10, 20, 30);
-	 * var dst = new pc.Mat4();
-	 * dst.copy(src);
-	 * console.log("The two matrices are " + (src.equals(dst) ? "equal" : "different"));
-	 */
 	copy(rhs: Mat4): Mat4 {
 		var src = rhs.data,
 			dst = this.data;
@@ -125,17 +76,6 @@ export class Mat4 {
 		return this;
 	}
 
-	/**
-	 * @function
-	 * @name pc.Mat4#equals
-	 * @description Reports whether two matrices are equal.
-	 * @param {pc.Mat4} rhs The other matrix.
-	 * @returns {Boolean} true if the matrices are equal and false otherwise.
-	 * @example
-	 * var a = new pc.Mat4().setFromEulerAngles(10, 20, 30);
-	 * var b = new pc.Mat4();
-	 * console.log("The two matrices are " + (a.equals(b) ? "equal" : "different"));
-	 */
 	equals(rhs: Mat4): boolean {
 		var l = this.data,
 			r = rhs.data;
@@ -158,15 +98,6 @@ export class Mat4 {
 				(l[15] === r[15]));
 	}
 
-	/**
-	 * @function
-	 * @name pc.Mat4#isIdentity
-	 * @description Reports whether the specified matrix is the identity matrix.
-	 * @returns {Boolean} true if the matrix is identity and false otherwise.
-	 * @example
-	 * var m = new pc.Mat4();
-	 * console.log("The matrix is " + (m.isIdentity() ? "identity" : "not identity"));
-	 */
 	isIdentity(): boolean {
 		var m = this.data;
 
@@ -188,24 +119,6 @@ export class Mat4 {
 				(m[15] === 1));
 	}
 
-	/**
-	 * @function
-	 * @name pc.Mat4#mul2
-	 * @description Multiplies the specified 4x4 matrices together and stores the result in
-	 * the current instance.
-	 * @param {pc.Mat4} lhs The 4x4 matrix used as the first multiplicand of the operation.
-	 * @param {pc.Mat4} rhs The 4x4 matrix used as the second multiplicand of the operation.
-	 * @returns {pc.Mat4} Self for chaining.
-	 * @example
-	 * var a = new pc.Mat4().setFromEulerAngles(10, 20, 30);
-	 * var b = new pc.Mat4().setFromAxisAngle(pc.Vec3.UP, 180);
-	 * var r = new pc.Mat4();
-	 *
-	 * // r = a * b
-	 * r.mul2(a, b);
-	 *
-	 * console.log("The result of the multiplication is: " r.toString());
-	 */
 	mul2(lhs: Mat4, rhs: Mat4): Mat4 {
 		var a = lhs.data;
 		var b = rhs.data;
@@ -267,21 +180,6 @@ export class Mat4 {
 		return this;
 	}
 
-	/**
-	 * @function
-	 * @name pc.Mat4#mul
-	 * @description Multiplies the current instance by the specified 4x4 matrix.
-	 * @param {pc.Mat4} rhs The 4x4 matrix used as the second multiplicand of the operation.
-	 * @returns {pc.Mat4} Self for chaining.
-	 * @example
-	 * var a = new pc.Mat4().setFromEulerAngles(10, 20, 30);
-	 * var b = new pc.Mat4().setFromAxisAngle(pc.Vec3.UP, 180);
-	 *
-	 * // a = a * b
-	 * a.mul(b);
-	 *
-	 * console.log("The result of the multiplication is: " a.toString());
-	 */
 	mul(rhs: Mat4): Mat4 {
 		return this.mul2(this, rhs);
 	}
@@ -1172,25 +1070,5 @@ export class Mat4 {
 	}
 	*/
 
-	/**
-	 * @function
-	 * @name pc.Mat4#toString
-	 * @description Converts the specified matrix to string form.
-	 * @returns {String} The matrix in string form.
-	 * @example
-	 * var m = new pc.Mat4();
-	 * // Should output '[1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1]'
-	 * console.log(m.toString());
-	 */
-	//toString(): string {
-	//	var i, t;
-    //
-	//	t = '[';
-	//	for (i = 0; i < 16; i += 1) {
-	//		t += this.data[i];
-	//		t += (i !== 15) ? ', ' : '';
-	//	}
-	//	t += ']';
-	//	return t;
-	//}
+
 }
