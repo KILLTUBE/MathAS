@@ -255,6 +255,10 @@ export class Mat4 {
 				(m[15] === 1));
 	}
 
+	mul(rhs: Mat4): Mat4 {
+		return this.mul2(this, rhs);
+	}
+	
 	mul2(lhs: Mat4, rhs: Mat4): Mat4 {
 		var a = lhs.data;
 		var b = rhs.data;
@@ -316,290 +320,6 @@ export class Mat4 {
 		return this;
 	}
 
-	mul(rhs: Mat4): Mat4 {
-		return this.mul2(this, rhs);
-	}
-	
-	/**
-	 * @function
-	 * @name pc.Mat4#transformPoint
-	 * @description Transforms a 3-dimensional point by a 4x4 matrix.
-	 * @param {pc.Vec3} vec The 3-dimensional point to be transformed.
-	 * @param {pc.Vec3} [res] An optional 3-dimensional point to receive the result of the transformation.
-	 * @returns {pc.Vec3} The input point v transformed by the current instance.
-	 * @example
-	 * // Create a 3-dimensional point
-	 * var v = new pc.Vec3(1, 2, 3);
-	 *
-	 * // Create a 4x4 rotation matrix
-	 * var m = new pc.Mat4().setFromEulerAngles(10, 20, 30);
-	 *
-	 * var tv = m.transformPoint(v);
-	 */
-	transformPoint(vec: Vec3, res: Vec3): Vec3 {
-		var m = this.data;
-
-		var x = vec.x;
-		var y = vec.y;
-		var z = vec.z;
-
-		//res = (res === undefined) ? new pc.Vec3() : res;
-
-		res.x = x * m[0] + y * m[4] + z * m[8] + m[12];
-		res.y = x * m[1] + y * m[5] + z * m[9] + m[13];
-		res.z = x * m[2] + y * m[6] + z * m[10] + m[14];
-
-		return res;
-	}
-
-	/**
-	 * @function
-	 * @name pc.Mat4#transformVector
-	 * @description Transforms a 3-dimensional vector by a 4x4 matrix.
-	 * @param {pc.Vec3} vec The 3-dimensional vector to be transformed.
-	 * @param {pc.Vec3} [res] An optional 3-dimensional vector to receive the result of the transformation.
-	 * @returns {pc.Vec3} The input vector v transformed by the current instance.
-	 * @example
-	 * // Create a 3-dimensional vector
-	 * var v = new pc.Vec3(1, 2, 3);
-	 *
-	 * // Create a 4x4 rotation matrix
-	 * var m = new pc.Mat4().setFromEulerAngles(10, 20, 30);
-	 *
-	 * var tv = m.transformVector(v);
-	 */
-	transformVector(vec: Vec3, res: Vec3): Vec3 {
-		var m = this.data;
-
-		var x = vec.x;
-		var y = vec.y;
-		var z = vec.z;
-
-		//res = (res === undefined) ? new pc.Vec3() : res;
-
-		res.x = x * m[0] + y * m[4] + z * m[8];
-		res.y = x * m[1] + y * m[5] + z * m[9];
-		res.z = x * m[2] + y * m[6] + z * m[10];
-
-		return res;
-	}
-
-	/**
-	 * @function
-	 * @name pc.Mat4#transformVec4
-	 * @description Transforms a 4-dimensional vector by a 4x4 matrix.
-	 * @param {pc.Vec4} vec The 4-dimensional vector to be transformed.
-	 * @param {pc.Vec4} [res] An optional 4-dimensional vector to receive the result of the transformation.
-	 * @returns {pc.Vec4} The input vector v transformed by the current instance.
-	 * @example
-	 * // Create an input 4-dimensional vector
-	 * var v = new pc.Vec4(1, 2, 3, 4);
-	 *
-	 * // Create an output 4-dimensional vector
-	 * var result = new pc.Vec4();
-	 *
-	 * // Create a 4x4 rotation matrix
-	 * var m = new pc.Mat4().setFromEulerAngles(10, 20, 30);
-	 *
-	 * m.transformVec4(v, result);
-	 */
-	transformVec4(vec: Vec4, res: Vec4): Vec4 {
-		var m = this.data;
-
-		var x = vec.x;
-		var y = vec.y;
-		var z = vec.z;
-		var w = vec.w;
-
-		//res = (res === undefined) ? new pc.Vec4() : res;
-
-		res.x = x * m[0] + y * m[4] + z * m[8] + w * m[12];
-		res.y = x * m[1] + y * m[5] + z * m[9] + w * m[13];
-		res.z = x * m[2] + y * m[6] + z * m[10] + w * m[14];
-		res.w = x * m[3] + y * m[7] + z * m[11] + w * m[15];
-
-		return res;
-	}
-
-	/**
-	 * @function
-	 * @name pc.Mat4#setLookAt
-	 * @description Sets the specified matrix to a viewing matrix derived from an eye point, a target point
-	 * and an up vector. The matrix maps the target point to the negative z-axis and the eye point to the
-	 * origin, so that when you use a typical projection matrix, the center of the scene maps to the center
-	 * of the viewport. Similarly, the direction described by the up vector projected onto the viewing plane
-	 * is mapped to the positive y-axis so that it points upward in the viewport. The up vector must not be
-	 * parallel to the line of sight from the eye to the reference point.
-	 * @param {pc.Vec3} position 3-d vector holding view position.
-	 * @param {pc.Vec3} target 3-d vector holding reference point.
-	 * @param {pc.Vec3} up 3-d vector holding the up direction.
-	 * @returns {pc.Mat4} Self for chaining.
-	 * @example
-	 * var position = new pc.Vec3(10, 10, 10);
-	 * var target = new pc.Vec3(0, 0, 0);
-	 * var up = new pc.Vec3(0, 1, 0);
-	 * var m = new pc.Mat4().setLookAt(position, target, up);
-	 */
-	setLookAt(position: Vec3, target: Vec3, up: Vec3): Mat4 {
-		var x = PreallocatedVec3.setLookAt_x;
-		var y = PreallocatedVec3.setLookAt_y;
-		var z = PreallocatedVec3.setLookAt_z;
-
-		z.sub2(position, target).normalize();
-		y.copy(up).normalize();
-		x.cross(y, z).normalize();
-		y.cross(z, x);
-
-		var r = this.data;
-
-		r[0]  = x.x;
-		r[1]  = x.y;
-		r[2]  = x.z;
-		r[3]  = 0;
-		r[4]  = y.x;
-		r[5]  = y.y;
-		r[6]  = y.z;
-		r[7]  = 0;
-		r[8]  = z.x;
-		r[9]  = z.y;
-		r[10] = z.z;
-		r[11] = 0;
-		r[12] = position.x;
-		r[13] = position.y;
-		r[14] = position.z;
-		r[15] = 1;
-
-		return this;
-	}
-
-	/**
-	 * @private
-	 * @function
-	 * @name pc.Mat4#setFrustum
-	 * @description Sets the specified matrix to a perspective projection matrix. The function's parameters define
-	 * the shape of a frustum.
-	 * @param {f32} left The x-coordinate for the left edge of the camera's projection plane in eye space.
-	 * @param {f32} right The x-coordinate for the right edge of the camera's projection plane in eye space.
-	 * @param {f32} bottom The y-coordinate for the bottom edge of the camera's projection plane in eye space.
-	 * @param {f32} top The y-coordinate for the top edge of the camera's projection plane in eye space.
-	 * @param {f32} znear The near clip plane in eye coordinates.
-	 * @param {f32} zfar The far clip plane in eye coordinates.
-	 * @returns {pc.Mat4} Self for chaining.
-	 * @example
-	 * // Create a 4x4 perspective projection matrix
-	 * var f = pc.Mat4().setFrustum(-2, 2, -1, 1, 1, 1000);
-	 */
-	setFrustum(left: f32, right: f32, bottom: f32, top: f32, znear: f32, zfar: f32): Mat4 {
-		var temp1: f32 = 2 * znear;
-		var temp2: f32 = right - left;
-		var temp3: f32 = top - bottom;
-		var temp4: f32 = zfar - znear;
-
-		var r = this.data;
-		r[0] = temp1 / temp2;
-		r[1] = 0;
-		r[2] = 0;
-		r[3] = 0;
-		r[4] = 0;
-		r[5] = temp1 / temp3;
-		r[6] = 0;
-		r[7] = 0;
-		r[8] = (right + left) / temp2;
-		r[9] = (top + bottom) / temp3;
-		r[10] = (-zfar - znear) / temp4;
-		r[11] = -1;
-		r[12] = 0;
-		r[13] = 0;
-		r[14] = (-temp1 * zfar) / temp4;
-		r[15] = 0;
-
-		return this;
-	}
-
-	/**
-	 * @function
-	 * @name pc.Mat4#setPerspective
-	 * @description Sets the specified matrix to a perspective projection matrix. The function's
-	 * parameters define the shape of a frustum.
-	 * @param {f32} fov The frustum's field of view in degrees. The fovIsHorizontal parameter
-	 * controls whether this is a vertical or horizontal field of view. By default, it's a vertical
-	 * field of view.
-	 * @param {f32} aspect The aspect ratio of the frustum's projection plane (width / height).
-	 * @param {f32} znear The near clip plane in eye coordinates.
-	 * @param {f32} zfar The far clip plane in eye coordinates.
-	 * @param {Boolean} [fovIsHorizontal=false] Set to true to treat the fov as horizontal (x-axis)
-	 * and false for vertical (y-axis). Defaults to false.
-	 * @returns {pc.Mat4} Self for chaining.
-	 * @example
-	 * // Create a 4x4 perspective projection matrix
-	 * var persp = pc.Mat4().setPerspective(45, 16 / 9, 1, 1000);
-	 */
-	setPerspective(fov: f32, aspect: f32, znear: f32, zfar: f32, fovIsHorizontal: boolean): Mat4 {
-		var xmax: f32;
-		var ymax: f32;
-
-		if (!fovIsHorizontal) {
-			ymax = znear * Mathf.tan(fov * Mathf.PI / 360);
-			xmax = ymax * aspect;
-		} else {
-			xmax = znear * Mathf.tan(fov * Mathf.PI / 360);
-			ymax = xmax / aspect;
-		}
-
-		return this.setFrustum(-xmax, xmax, -ymax, ymax, znear, zfar);
-	}
-
-	/**
-	 * @function
-	 * @name pc.Mat4#setOrtho
-	 * @description Sets the specified matrix to an orthographic projection matrix. The function's parameters
-	 * define the shape of a cuboid-shaped frustum.
-	 * @param {f32} left The x-coordinate for the left edge of the camera's projection plane in eye space.
-	 * @param {f32} right The x-coordinate for the right edge of the camera's projection plane in eye space.
-	 * @param {f32} bottom The y-coordinate for the bottom edge of the camera's projection plane in eye space.
-	 * @param {f32} top The y-coordinate for the top edge of the camera's projection plane in eye space.
-	 * @param {f32} near The near clip plane in eye coordinates.
-	 * @param {f32} far The far clip plane in eye coordinates.
-	 * @returns {pc.Mat4} Self for chaining.
-	 * @example
-	 * // Create a 4x4 orthographic projection matrix
-	 * var ortho = pc.Mat4().ortho(-2, 2, -2, 2, 1, 1000);
-	 */
-	setOrtho(left: f32, right: f32, bottom: f32, top: f32, near: f32, far: f32): Mat4 {
-		var r = this.data;
-
-		r[0] = 2 / (right - left);
-		r[1] = 0;
-		r[2] = 0;
-		r[3] = 0;
-		r[4] = 0;
-		r[5] = 2 / (top - bottom);
-		r[6] = 0;
-		r[7] = 0;
-		r[8] = 0;
-		r[9] = 0;
-		r[10] = -2 / (far - near);
-		r[11] = 0;
-		r[12] = -(right + left) / (right - left);
-		r[13] = -(top + bottom) / (top - bottom);
-		r[14] = -(far + near) / (far - near);
-		r[15] = 1;
-
-		return this;
-	}
-
-	/**
-	 * @function
-	 * @name pc.Mat4#setFromAxisAngle
-	 * @description Sets the specified matrix to a rotation matrix equivalent to a rotation around
-	 * an axis. The axis must be normalized (unit length) and the angle must be specified in degrees.
-	 * @param {pc.Vec3} axis The normalized axis vector around which to rotate.
-	 * @param {f32} angle The angle of rotation in degrees.
-	 * @returns {pc.Mat4} Self for chaining.
-	 * @example
-	 * // Create a 4x4 rotation matrix
-	 * var rm = new pc.Mat4().setFromAxisAngle(pc.Vec3.UP, 90);
-	 */
 	setFromAxisAngle(axis: Vec3, angle: f32): Mat4 {
 		angle *= pc_math.DEG_TO_RAD;
 
@@ -632,6 +352,171 @@ export class Mat4 {
 
 		return this;
 	}
+
+
+	// http://en.wikipedia.org/wiki/Rotation_matrix#Conversion_from_and_to_axis-angle
+	// The 3D space is right-handed, so the rotation around each axis will be counterclockwise
+	// for an observer placed so that the axis goes in his or her direction (Right-hand rule).
+	setFromEulerAngles(ex: f32, ey: f32, ez: f32): Mat4 {
+		ex *= pc_math.DEG_TO_RAD;
+		ey *= pc_math.DEG_TO_RAD;
+		ez *= pc_math.DEG_TO_RAD;
+
+		// Solution taken from http://en.wikipedia.org/wiki/Euler_angles#Matrix_orientation
+		var s1 = Mathf.sin(-ex);
+		var c1 = Mathf.cos(-ex);
+		var s2 = Mathf.sin(-ey);
+		var c2 = Mathf.cos(-ey);
+		var s3 = Mathf.sin(-ez);
+		var c3 = Mathf.cos(-ez);
+
+		var m = this.data;
+
+		// Set rotation elements
+		m[0] = c2 * c3;
+		m[1] = -c2 * s3;
+		m[2] = s2;
+		m[3] = 0;
+
+		m[4] = c1 * s3 + c3 * s1 * s2;
+		m[5] = c1 * c3 - s1 * s2 * s3;
+		m[6] = -c2 * s1;
+		m[7] = 0;
+
+		m[8] = s1 * s3 - c1 * c3 * s2;
+		m[9] = c3 * s1 + c1 * s2 * s3;
+		m[10] = c1 * c2;
+		m[11] = 0;
+
+		m[12] = 0;
+		m[13] = 0;
+		m[14] = 0;
+		m[15] = 1;
+
+		return this;
+	}
+
+	setFrustum(left: f32, right: f32, bottom: f32, top: f32, znear: f32, zfar: f32): Mat4 {
+		var temp1: f32 = 2 * znear;
+		var temp2: f32 = right - left;
+		var temp3: f32 = top - bottom;
+		var temp4: f32 = zfar - znear;
+
+		var r = this.data;
+		r[0] = temp1 / temp2;
+		r[1] = 0;
+		r[2] = 0;
+		r[3] = 0;
+		r[4] = 0;
+		r[5] = temp1 / temp3;
+		r[6] = 0;
+		r[7] = 0;
+		r[8] = (right + left) / temp2;
+		r[9] = (top + bottom) / temp3;
+		r[10] = (-zfar - znear) / temp4;
+		r[11] = -1;
+		r[12] = 0;
+		r[13] = 0;
+		r[14] = (-temp1 * zfar) / temp4;
+		r[15] = 0;
+
+		return this;
+	}
+
+	setIdentity(): Mat4 {
+		var m = this.data;
+		m[0] = 1;
+		m[1] = 0;
+		m[2] = 0;
+		m[3] = 0;
+		m[4] = 0;
+		m[5] = 1;
+		m[6] = 0;
+		m[7] = 0;
+		m[8] = 0;
+		m[9] = 0;
+		m[10] = 1;
+		m[11] = 0;
+		m[12] = 0;
+		m[13] = 0;
+		m[14] = 0;
+		m[15] = 1;
+
+		return this;
+	}
+
+	setLookAt(position: Vec3, target: Vec3, up: Vec3): Mat4 {
+		var x = PreallocatedVec3.setLookAt_x;
+		var y = PreallocatedVec3.setLookAt_y;
+		var z = PreallocatedVec3.setLookAt_z;
+
+		z.sub2(position, target).normalize();
+		y.copy(up).normalize();
+		x.cross(y, z).normalize();
+		y.cross(z, x);
+
+		var r = this.data;
+
+		r[0]  = x.x;
+		r[1]  = x.y;
+		r[2]  = x.z;
+		r[3]  = 0;
+		r[4]  = y.x;
+		r[5]  = y.y;
+		r[6]  = y.z;
+		r[7]  = 0;
+		r[8]  = z.x;
+		r[9]  = z.y;
+		r[10] = z.z;
+		r[11] = 0;
+		r[12] = position.x;
+		r[13] = position.y;
+		r[14] = position.z;
+		r[15] = 1;
+
+		return this;
+	}
+
+	setOrtho(left: f32, right: f32, bottom: f32, top: f32, near: f32, far: f32): Mat4 {
+		var r = this.data;
+
+		r[0] = 2 / (right - left);
+		r[1] = 0;
+		r[2] = 0;
+		r[3] = 0;
+		r[4] = 0;
+		r[5] = 2 / (top - bottom);
+		r[6] = 0;
+		r[7] = 0;
+		r[8] = 0;
+		r[9] = 0;
+		r[10] = -2 / (far - near);
+		r[11] = 0;
+		r[12] = -(right + left) / (right - left);
+		r[13] = -(top + bottom) / (top - bottom);
+		r[14] = -(far + near) / (far - near);
+		r[15] = 1;
+
+		return this;
+	}
+
+	setPerspective(fov: f32, aspect: f32, znear: f32, zfar: f32, fovIsHorizontal: boolean): Mat4 {
+		var xmax: f32;
+		var ymax: f32;
+
+		if (!fovIsHorizontal) {
+			ymax = znear * Mathf.tan(fov * Mathf.PI / 360);
+			xmax = ymax * aspect;
+		} else {
+			xmax = znear * Mathf.tan(fov * Mathf.PI / 360);
+			ymax = xmax / aspect;
+		}
+
+		return this.setFrustum(-xmax, xmax, -ymax, ymax, znear, zfar);
+	}
+
+
+
 
 	/**
 	 * @private
@@ -736,36 +621,6 @@ export class Mat4 {
 	//	return this;
 	//}
 
-	/**
-	 * @function
-	 * @name pc.Mat4#setIdentity
-	 * @description Sets the specified matrix to the identity matrix.
-	 * @returns {pc.Mat4} Self for chaining.
-	 * @example
-	 * m.setIdentity();
-	 * console.log("The matrix is " + (m.isIdentity() ? "identity" : "not identity"));
-	 */
-	setIdentity(): Mat4 {
-		var m = this.data;
-		m[0] = 1;
-		m[1] = 0;
-		m[2] = 0;
-		m[3] = 0;
-		m[4] = 0;
-		m[5] = 1;
-		m[6] = 0;
-		m[7] = 0;
-		m[8] = 0;
-		m[9] = 0;
-		m[10] = 1;
-		m[11] = 0;
-		m[12] = 0;
-		m[13] = 0;
-		m[14] = 0;
-		m[15] = 1;
-
-		return this;
-	}
 
 	/**
 	 * @function
@@ -836,6 +691,108 @@ export class Mat4 {
 		return this;
 	}
 
+	
+	/**
+	 * @function
+	 * @name pc.Mat4#transformPoint
+	 * @description Transforms a 3-dimensional point by a 4x4 matrix.
+	 * @param {pc.Vec3} vec The 3-dimensional point to be transformed.
+	 * @param {pc.Vec3} [res] An optional 3-dimensional point to receive the result of the transformation.
+	 * @returns {pc.Vec3} The input point v transformed by the current instance.
+	 * @example
+	 * // Create a 3-dimensional point
+	 * var v = new pc.Vec3(1, 2, 3);
+	 *
+	 * // Create a 4x4 rotation matrix
+	 * var m = new pc.Mat4().setFromEulerAngles(10, 20, 30);
+	 *
+	 * var tv = m.transformPoint(v);
+	 */
+	transformPoint(vec: Vec3, res: Vec3): Vec3 {
+		var m = this.data;
+
+		var x = vec.x;
+		var y = vec.y;
+		var z = vec.z;
+
+		//res = (res === undefined) ? new pc.Vec3() : res;
+
+		res.x = x * m[0] + y * m[4] + z * m[8] + m[12];
+		res.y = x * m[1] + y * m[5] + z * m[9] + m[13];
+		res.z = x * m[2] + y * m[6] + z * m[10] + m[14];
+
+		return res;
+	}
+
+	/**
+	 * @function
+	 * @name pc.Mat4#transformVector
+	 * @description Transforms a 3-dimensional vector by a 4x4 matrix.
+	 * @param {pc.Vec3} vec The 3-dimensional vector to be transformed.
+	 * @param {pc.Vec3} [res] An optional 3-dimensional vector to receive the result of the transformation.
+	 * @returns {pc.Vec3} The input vector v transformed by the current instance.
+	 * @example
+	 * // Create a 3-dimensional vector
+	 * var v = new pc.Vec3(1, 2, 3);
+	 *
+	 * // Create a 4x4 rotation matrix
+	 * var m = new pc.Mat4().setFromEulerAngles(10, 20, 30);
+	 *
+	 * var tv = m.transformVector(v);
+	 */
+	transformVector(vec: Vec3, res: Vec3): Vec3 {
+		var m = this.data;
+
+		var x = vec.x;
+		var y = vec.y;
+		var z = vec.z;
+
+		//res = (res === undefined) ? new pc.Vec3() : res;
+
+		res.x = x * m[0] + y * m[4] + z * m[8];
+		res.y = x * m[1] + y * m[5] + z * m[9];
+		res.z = x * m[2] + y * m[6] + z * m[10];
+
+		return res;
+	}
+
+	/**
+	 * @function
+	 * @name pc.Mat4#transformVec4
+	 * @description Transforms a 4-dimensional vector by a 4x4 matrix.
+	 * @param {pc.Vec4} vec The 4-dimensional vector to be transformed.
+	 * @param {pc.Vec4} [res] An optional 4-dimensional vector to receive the result of the transformation.
+	 * @returns {pc.Vec4} The input vector v transformed by the current instance.
+	 * @example
+	 * // Create an input 4-dimensional vector
+	 * var v = new pc.Vec4(1, 2, 3, 4);
+	 *
+	 * // Create an output 4-dimensional vector
+	 * var result = new pc.Vec4();
+	 *
+	 * // Create a 4x4 rotation matrix
+	 * var m = new pc.Mat4().setFromEulerAngles(10, 20, 30);
+	 *
+	 * m.transformVec4(v, result);
+	 */
+	transformVec4(vec: Vec4, res: Vec4): Vec4 {
+		var m = this.data;
+
+		var x = vec.x;
+		var y = vec.y;
+		var z = vec.z;
+		var w = vec.w;
+
+		//res = (res === undefined) ? new pc.Vec4() : res;
+
+		res.x = x * m[0] + y * m[4] + z * m[8] + w * m[12];
+		res.y = x * m[1] + y * m[5] + z * m[9] + w * m[13];
+		res.z = x * m[2] + y * m[6] + z * m[10] + w * m[14];
+		res.w = x * m[3] + y * m[7] + z * m[11] + w * m[15];
+
+		return res;
+	}
+
 	/**
 	 * @function
 	 * @name pc.Mat4#transpose
@@ -878,62 +835,6 @@ export class Mat4 {
 	}
 
 
-
-
-	/**
-	 * @function
-	 * @name pc.Mat4#setFromEulerAngles
-	 * @description Sets the specified matrix to a rotation matrix defined by
-	 * Euler angles. The Euler angles are specified in XYZ order and in degrees.
-	 * @param {f32} ex Angle to rotate around X axis in degrees.
-	 * @param {f32} ey Angle to rotate around Y axis in degrees.
-	 * @param {f32} ez Angle to rotate around Z axis in degrees.
-	 * @returns {pc.Mat4} Self for chaining.
-	 * @example
-	 * var m = new pc.Mat4();
-	 * m.setFromEulerAngles(45, 90, 180);
-	 */
-	// http://en.wikipedia.org/wiki/Rotation_matrix#Conversion_from_and_to_axis-angle
-	// The 3D space is right-handed, so the rotation around each axis will be counterclockwise
-	// for an observer placed so that the axis goes in his or her direction (Right-hand rule).
-	setFromEulerAngles(ex: f32, ey: f32, ez: f32): Mat4 {
-		ex *= pc_math.DEG_TO_RAD;
-		ey *= pc_math.DEG_TO_RAD;
-		ez *= pc_math.DEG_TO_RAD;
-
-		// Solution taken from http://en.wikipedia.org/wiki/Euler_angles#Matrix_orientation
-		var s1 = Mathf.sin(-ex);
-		var c1 = Mathf.cos(-ex);
-		var s2 = Mathf.sin(-ey);
-		var c2 = Mathf.cos(-ey);
-		var s3 = Mathf.sin(-ez);
-		var c3 = Mathf.cos(-ez);
-
-		var m = this.data;
-
-		// Set rotation elements
-		m[0] = c2 * c3;
-		m[1] = -c2 * s3;
-		m[2] = s2;
-		m[3] = 0;
-
-		m[4] = c1 * s3 + c3 * s1 * s2;
-		m[5] = c1 * c3 - s1 * s2 * s3;
-		m[6] = -c2 * s1;
-		m[7] = 0;
-
-		m[8] = s1 * s3 - c1 * c3 * s2;
-		m[9] = c3 * s1 + c1 * s2 * s3;
-		m[10] = c1 * c2;
-		m[11] = 0;
-
-		m[12] = 0;
-		m[13] = 0;
-		m[14] = 0;
-		m[15] = 1;
-
-		return this;
-	}
 
 	/**
 	 * @function

@@ -321,6 +321,110 @@
 			</test-js>
 			
 			<test-js>
+				// setFromAxisAngle
+				
+				// @description Sets the specified matrix to a rotation matrix equivalent to a rotation around
+				// an axis. The axis must be normalized (unit length) and the angle must be specified in degrees.
+				// @param {pc.Vec3} axis The normalized axis vector around which to rotate.
+				// @param {f32} angle The angle of rotation in degrees.
+				// @returns {pc.Mat4} Self for chaining.
+				// @example
+				// // Create a 4x4 rotation matrix
+				// var rm = new pc.Mat4().setFromAxisAngle(pc.Vec3.UP, 90);
+			</test-js>
+			
+			<test-js>
+				// @name pc.Mat4#setFromEulerAngles
+				// @description Sets the specified matrix to a rotation matrix defined by
+				// Euler angles. The Euler angles are specified in XYZ order and in degrees.
+				// @param {f32} ex Angle to rotate around X axis in degrees.
+				// @param {f32} ey Angle to rotate around Y axis in degrees.
+				// @param {f32} ez Angle to rotate around Z axis in degrees.
+				// @returns {pc.Mat4} Self for chaining.
+				// @example
+				// var m = new pc.Mat4();
+				// m.setFromEulerAngles(45, 90, 180);
+			</test-js>
+			
+			<test-js>
+				// @name pc.Mat4#setFrustum
+				// @description Sets the specified matrix to a perspective projection matrix. The function's parameters define
+				// the shape of a frustum.
+				// @param {f32} left The x-coordinate for the left edge of the camera's projection plane in eye space.
+				// @param {f32} right The x-coordinate for the right edge of the camera's projection plane in eye space.
+				// @param {f32} bottom The y-coordinate for the bottom edge of the camera's projection plane in eye space.
+				// @param {f32} top The y-coordinate for the top edge of the camera's projection plane in eye space.
+				// @param {f32} znear The near clip plane in eye coordinates.
+				// @param {f32} zfar The far clip plane in eye coordinates.
+				// @returns {pc.Mat4} Self for chaining.
+				// @example
+				// // Create a 4x4 perspective projection matrix
+				// var f = pc.Mat4().setFrustum(-2, 2, -1, 1, 1, 1000);
+			</test-js>
+			
+			<test-js>
+				// @name pc.Mat4#setIdentity
+				// @description Sets the specified matrix to the identity matrix.
+				// @returns {pc.Mat4} Self for chaining.
+				// @example
+				// m.setIdentity();
+				// console.log("The matrix is " + (m.isIdentity() ? "identity" : "not identity"));
+			</test-js>
+			
+			<test-js>
+				// @name pc.Mat4#setLookAt
+				// @description Sets the specified matrix to a viewing matrix derived from an eye point, a target point
+				// and an up vector. The matrix maps the target point to the negative z-axis and the eye point to the
+				// origin, so that when you use a typical projection matrix, the center of the scene maps to the center
+				// of the viewport. Similarly, the direction described by the up vector projected onto the viewing plane
+				// is mapped to the positive y-axis so that it points upward in the viewport. The up vector must not be
+				// parallel to the line of sight from the eye to the reference point.
+				// @param {pc.Vec3} position 3-d vector holding view position.
+				// @param {pc.Vec3} target 3-d vector holding reference point.
+				// @param {pc.Vec3} up 3-d vector holding the up direction.
+				// @returns {pc.Mat4} Self for chaining.
+				// @example
+				// var position = new pc.Vec3(10, 10, 10);
+				// var target = new pc.Vec3(0, 0, 0);
+				// var up = new pc.Vec3(0, 1, 0);
+				// var m = new pc.Mat4().setLookAt(position, target, up);
+			</test-js>
+			
+			<test-js>
+				// @name pc.Mat4#setOrtho
+				// @description Sets the specified matrix to an orthographic projection matrix. The function's parameters
+				// define the shape of a cuboid-shaped frustum.
+				// @param {f32} left The x-coordinate for the left edge of the camera's projection plane in eye space.
+				// @param {f32} right The x-coordinate for the right edge of the camera's projection plane in eye space.
+				// @param {f32} bottom The y-coordinate for the bottom edge of the camera's projection plane in eye space.
+				// @param {f32} top The y-coordinate for the top edge of the camera's projection plane in eye space.
+				// @param {f32} near The near clip plane in eye coordinates.
+				// @param {f32} far The far clip plane in eye coordinates.
+				// @returns {pc.Mat4} Self for chaining.
+				// @example
+				// // Create a 4x4 orthographic projection matrix
+				// var ortho = pc.Mat4().ortho(-2, 2, -2, 2, 1, 1000);
+			</test-js>
+			
+			<test-js>
+				// pc.Mat4#setPerspective
+				// @description Sets the specified matrix to a perspective projection matrix. The function's
+				// parameters define the shape of a frustum.
+				// @param {f32} fov The frustum's field of view in degrees. The fovIsHorizontal parameter
+				// controls whether this is a vertical or horizontal field of view. By default, it's a vertical
+				// field of view.
+				// @param {f32} aspect The aspect ratio of the frustum's projection plane (width / height).
+				// @param {f32} znear The near clip plane in eye coordinates.
+				// @param {f32} zfar The far clip plane in eye coordinates.
+				// @param {Boolean} [fovIsHorizontal=false] Set to true to treat the fov as horizontal (x-axis)
+				// and false for vertical (y-axis). Defaults to false.
+				// @returns {pc.Mat4} Self for chaining.
+				// @example
+				// // Create a 4x4 perspective projection matrix
+				// var persp = pc.Mat4().setPerspective(45, 16 / 9, 1, 1000);
+			</test-js>
+			
+			<test-js>
 			
 			</test-js>
 			

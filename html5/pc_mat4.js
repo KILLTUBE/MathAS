@@ -15,20 +15,20 @@ mat4_invertTo3x3        = instance.exports["Mat4#invertTo3x3"];
 mat4_isIdentity         = instance.exports["Mat4#isIdentity"];
 mat4_mul                = instance.exports["Mat4#mul"];
 mat4_mul2               = instance.exports["Mat4#mul2"];
-mat4_setFromAxisAngle   = instance.exports["Mat4#"];
-mat4_setFromEulerAngles = instance.exports["Mat4#"];
-mat4_setFrustum         = instance.exports["Mat4#"];
-mat4_setIdentity        = instance.exports["Mat4#"];
-mat4_setLookAt          = instance.exports["Mat4#"];
-mat4_setOrtho           = instance.exports["Mat4#"];
-mat4_setPerspective     = instance.exports["Mat4#"];
-mat4_setScale           = instance.exports["Mat4#"];
-mat4_setTRS             = instance.exports["Mat4#"];
-mat4_setTranslate       = instance.exports["Mat4#"];
-mat4_transformPoint     = instance.exports["Mat4#"];
-mat4_transformVec4      = instance.exports["Mat4#"];
-mat4_transformVector    = instance.exports["Mat4#"];
-mat4_transpose          = instance.exports["Mat4#"];
+mat4_setFromAxisAngle   = instance.exports["Mat4#setFromAxisAngle"];
+mat4_setFromEulerAngles = instance.exports["Mat4#setFromEulerAngles"];
+mat4_setFrustum         = instance.exports["Mat4#setFrustum"];
+mat4_setIdentity        = instance.exports["Mat4#setIdentity"];
+mat4_setLookAt          = instance.exports["Mat4#setLookAt"];
+mat4_setOrtho           = instance.exports["Mat4#setOrtho"];
+mat4_setPerspective     = instance.exports["Mat4#setPerspective"];
+mat4_setScale           = instance.exports["Mat4#setScale"];
+mat4_setTRS             = instance.exports["Mat4#setTRS"];
+mat4_setTranslate       = instance.exports["Mat4#setTranslate"];
+mat4_transformPoint     = instance.exports["Mat4#transformPoint"];
+mat4_transformVec4      = instance.exports["Mat4#transformVec4"];
+mat4_transformVector    = instance.exports["Mat4#transformVector"];
+mat4_transpose          = instance.exports["Mat4#transpose"];
 
 pc.Mat4 = function() {
 	this.ptr = mat4_constructor(0);
@@ -138,7 +138,69 @@ pc.Mat4.prototype.mul2 = function(lhs, rhs) {
 	return this;
 }
 
+pc.Mat4.prototype.setFromAxisAngle = function(axis, angle) {
+	mat4_setFromAxisAngle(this.ptr, axis.ptr, angle.ptr);
+	return this;
+}
 
+pc.Mat4.prototype.setFromEulerAngles = function(ex, ey, ez) {
+	mat4_setFromEulerAngles(this.ptr, ex, ey, ez);
+	return this;
+}
+
+pc.Mat4.prototype.setFrustum = function(left, right, bottom, top, znear, zfar) {
+	mat4_setFrustum(this.ptr, left, right, bottom, top, znear, zfar);
+	return this;
+}
+
+pc.Mat4.prototype.setIdentity = function() {
+	mat4_setIdentity(this.ptr);
+	return this;
+}
+
+pc.Mat4.prototype.setLookAt = function(position, target, up) {
+	mat4_setLookAt(this.ptr, position.ptr, target.ptr, up.ptr);
+	return this;
+}
+
+pc.Mat4.prototype.setOrtho = function(left, right, bottom, top, near, far) {
+	mat4_setOrtho(this.ptr, left, right, bottom, top, near, far);
+	return this;
+}
+
+pc.Mat4.prototype.setPerspective = function(fov, aspect, znear, zfar, fovIsHorizontal) {
+	mat4_setPerspective(this.ptr, fov, aspect, znear, zfar, fovIsHorizontal);
+	return this;
+}
+
+pc.Mat4.prototype.setScale = function(lhs, rhs) {
+	mat4_setScale(this.ptr, lhs.ptr, rhs.ptr);
+	return this;
+}
+pc.Mat4.prototype.setTRS = function(lhs, rhs) {
+	mat4_setTRS(this.ptr, lhs.ptr, rhs.ptr);
+	return this;
+}
+pc.Mat4.prototype.setTranslate = function(lhs, rhs) {
+	mat4_setTranslate(this.ptr, lhs.ptr, rhs.ptr);
+	return this;
+}
+pc.Mat4.prototype.transformPoint = function(lhs, rhs) {
+	mat4_transformPoint(this.ptr, lhs.ptr, rhs.ptr);
+	return this;
+}
+pc.Mat4.prototype.transformVec4 = function(lhs, rhs) {
+	mat4_transformVec4(this.ptr, lhs.ptr, rhs.ptr);
+	return this;
+}
+pc.Mat4.prototype.transformVector = function(lhs, rhs) {
+	mat4_transformVector(this.ptr, lhs.ptr, rhs.ptr);
+	return this;
+}
+pc.Mat4.prototype.mat4_transpose = function(lhs, rhs) {
+	mat4_mat4_transpose(this.ptr, lhs.ptr, rhs.ptr);
+	return this;
+}
 
 
 pc.Mat4.prototype.toString = function() {
