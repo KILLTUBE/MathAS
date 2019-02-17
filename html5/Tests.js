@@ -80,7 +80,7 @@ function tests_init() {
 				continue;
 			}
 		}
-		console.log(tabmax);
+
 		if (tabmax) {
 			// if we have any amount of counted tabs, remove them:
 			var tabrepeat = "\t".repeat(tabmax);
