@@ -63,6 +63,73 @@ pc.Quat.prototype.getAxisAngle = function(axis) {
 	return quat_getAxisAngle(this.ptr, axis.ptr);
 }
 
+pc.Quat.prototype.getEulerAngles = function(eulers) {
+	eulers = (eulers === undefined) ? new pc.Vec3() : eulers;
+	quat_getEulerAngles(this.ptr, eulers.ptr);
+	return this;
+}
+
+pc.Quat.prototype.invert = function() {
+	quat_invert(this.ptr);
+	return this;
+}
+
+pc.Quat.prototype.length = function() {
+	return quat_length(this.ptr);
+}
+
+pc.Quat.prototype.lengthSq = function() {
+	return quat_lengthSq(this.ptr);
+}
+
+pc.Quat.prototype.mul = function(rhs) {
+	quat_mul(this.ptr, rhs.ptr);
+	return this;
+}
+
+pc.Quat.prototype.mul2 = function(lhs, rhs) {
+	quat_mul2(this.ptr, lhs.ptr, rhs.ptr);
+	return this;
+}
+
+pc.Quat.prototype.normalize = function() {
+	quat_normalize(this.ptr);
+	return this;
+}
+
+pc.Quat.prototype.set = function(x, y, z, w) {
+	quat_set(this.ptr, x, y, z, w);
+	return this;
+}
+
+pc.Quat.prototype.setFromAxisAngle = function(axis, angle) {
+	quat_setFromAxisAngle(this.ptr, axis.ptr, angle);
+	return this;
+}
+
+pc.Quat.prototype.setFromEulerAngles = function(ex, ey, ez) {
+	quat_setFromEulerAngles(this.ptr, ex, ey, ez);
+	return this;
+}
+
+pc.Quat.prototype.setFromMat4 = function(mat4) {
+	quat_setFromMat4(this.ptr, mat4.ptr);
+	return this;
+}
+
+pc.Quat.prototype.slerp = function(lhs, rhs, alpha) {
+	quat_slerp(this.ptr, lhs.ptr, rhs.ptr, alpha);
+	return this;
+}
+
+pc.Quat.prototype.transformVector = function(vec, res) {
+	if (res === undefined) {
+		res = new pc.Vec3();
+	}
+	quat_transformVector(this.ptr, vec.ptr, res.ptr);
+	return res;
+}
+
 pc.Quat.prototype.toString = function() {
 	return '[' + this.x + ', ' + this.y + ', ' + this.z + ', ' + this.w + ']';
 }

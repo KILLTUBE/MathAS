@@ -14,75 +14,7 @@ export class Quat {
 		this.z = z;
 		this.w = w;
 	}
-	
-    /**
-     * @field
-     * @type Number
-     * @name pc.Quat#x
-     * @description The x component of the quaternion.
-     * @example
-     * var quat = new pc.Quat();
-     *
-     * // Get x
-     * var x = quat.x;
-     *
-     * // Set x
-     * quat.x = 0;
-     */
-    /**
-     * @field
-     * @type Number
-     * @name pc.Quat#y
-     * @description The y component of the quaternion.
-     * @example
-     * var quat = new pc.Quat();
-     *
-     * // Get y
-     * var y = quat.y;
-     *
-     * // Set y
-     * quat.y = 0;
-     */
-    /**
-     * @field
-     * @type Number
-     * @name pc.Quat#z
-     * @description The z component of the quaternion.
-     * @example
-     * var quat = new pc.Quat();
-     *
-     * // Get z
-     * var z = quat.z;
-     *
-     * // Set z
-     * quat.z = 0;
-     */
-    /**
-     * @field
-     * @type Number
-     * @name pc.Quat#w
-     * @description The w component of the quaternion.
-     * @example
-     * var quat = new pc.Quat();
-     *
-     * // Get w
-     * var w = quat.w;
-     *
-     * // Set w
-     * quat.w = 0;
-     */
 
-	/**
-	 * @function
-	 * @name pc.Quat#clone
-	 * @description Returns an identical copy of the specified quaternion.
-	 * @returns {pc.Quat} A quaternion containing the result of the cloning.
-	 * @example
-	 * var q = new pc.Quat(-0.11, -0.15, -0.46, 0.87);
-	 * var qclone = q.clone();
-	 *
-	 * console.log("The result of the cloning is: " + q.toString());
-	 */
 	clone(): Quat {
 		return new Quat(this.x, this.y, this.z, this.w);
 	}
@@ -91,42 +23,17 @@ export class Quat {
 		this.x *= -1;
 		this.y *= -1;
 		this.z *= -1;
-
 		return this;
 	}
 
-	/**
-	 * @function
-	 * @name pc.Quat#copy
-	 * @description Copies the contents of a source quaternion to a destination quaternion.
-	 * @param {pc.Quat} rhs The quaternion to be copied.
-	 * @returns {pc.Quat} Self for chaining.
-	 * @example
-	 * var src = new pc.Quat();
-	 * var dst = new pc.Quat();
-	 * dst.copy(src, src);
-	 * console.log("The two quaternions are " + (src.equals(dst) ? "equal" : "different"));
-	 */
 	copy(rhs: Quat): Quat {
 		this.x = rhs.x;
 		this.y = rhs.y;
 		this.z = rhs.z;
 		this.w = rhs.w;
-
 		return this;
 	}
 
-	/**
-	 * @function
-	 * @name pc.Quat#equals
-	 * @description Reports whether two quaternions are equal.
-	 * @param {pc.Quat} rhs The quaternion to be compared against.
-	 * @returns {Boolean} true if the quaternions are equal and false otherwise.
-	 * @example
-	 * var a = new pc.Quat();
-	 * var b = new pc.Quat();
-	 * console.log("The two quaternions are " + (a.equals(b) ? "equal" : "different"));
-	 */
 	equals(rhs: Quat): boolean {
 		return ((this.x === rhs.x) && (this.y === rhs.y) && (this.z === rhs.z) && (this.w === rhs.w));
 	}
@@ -182,14 +89,10 @@ export class Quat {
 	 * @returns {pc.Vec3} The 3-dimensional vector holding the Euler angles that
 	 * correspond to the supplied quaternion.
 	 */
-	//getEulerAngles(eulers?: Vec3): Vec3 { // TypeScript
 	getEulerAngles(eulers: Vec3): Vec3 {
 		var x: f32;
 		var y: f32;
 		var z: f32;
-
-		// TypeScript:
-		//eulers = (eulers === undefined) ? new pc.Vec3() : eulers;
 
 		var qx = this.x;
 		var qy = this.y;

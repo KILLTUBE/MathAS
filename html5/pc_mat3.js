@@ -5,8 +5,8 @@ mat3_clone        = instance.exports["Mat3#clone"];
 mat3_copy         = instance.exports["Mat3#copy"];
 mat3_equals       = instance.exports["Mat3#equals"];
 mat3_isIdentity   = instance.exports["Mat3#isIdentity"];
-mat3_setIdentity   = instance.exports["Mat3#setIdentity"];
-mat3_transpose   = instance.exports["Mat3#transpose"];
+mat3_setIdentity  = instance.exports["Mat3#setIdentity"];
+mat3_transpose    = instance.exports["Mat3#transpose"];
 mat3_mul2         = instance.exports["Mat3#mul2"];
 mat3_mul          = instance.exports["Mat3#mul"];
 
@@ -94,3 +94,37 @@ pc.Mat3.prototype.toString = function() {
 	t += ']';
 	return t;
 }
+
+/**
+ * @field
+ * @static
+ * @readonly
+ * @type pc.Mat3
+ * @name pc.Mat3.IDENTITY
+ * @description A constant matrix set to the identity.
+ */
+Object.defineProperty(pc.Mat3, 'IDENTITY', {
+	get: function () {
+		var identity = new pc.Mat3();
+		return function () {
+			return identity;
+		};
+	}()
+});
+
+/**
+ * @field
+ * @static
+ * @readonly
+ * @type pc.Mat3
+ * @name pc.Mat3.ZERO
+ * @description A constant matrix with all elements set to 0.
+ */
+Object.defineProperty(pc.Mat3, 'ZERO', {
+	get: function () {
+		var zero = new pc.Mat3().set([0, 0, 0, 0, 0, 0, 0, 0, 0]);
+		return function () {
+			return zero;
+		};
+	}()
+});
