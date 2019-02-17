@@ -139,7 +139,7 @@ pc.Mat4.prototype.mul2 = function(lhs, rhs) {
 }
 
 pc.Mat4.prototype.setFromAxisAngle = function(axis, angle) {
-	mat4_setFromAxisAngle(this.ptr, axis.ptr, angle.ptr);
+	mat4_setFromAxisAngle(this.ptr, axis.ptr, angle);
 	return this;
 }
 

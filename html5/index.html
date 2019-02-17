@@ -239,55 +239,45 @@
 			</test-js>
 			
 			<test-js>
-				var src = new pc.Mat4().setFromEulerAngles(10, 20, 30);
-				var dst = new pc.Mat4();
-				dst.copy(src);
-				console.log("The two matrices are " + (src.equals(dst) ? "equal" : "different"));
+				var a = new pc.Mat4().setFromEulerAngles(10, 20, 30);
+				var b = new pc.Mat4();
+				b.copy(a);
+				a.equals(b);
 			</test-js>
 			
 			<test-js>
 				var a = new pc.Mat4().setFromEulerAngles(10, 20, 30);
 				var b = new pc.Mat4();
-				console.log("The two matrices are " + (a.equals(b) ? "equal" : "different"));
+				!a.equals(b) && a.equals(a);
 			</test-js>
 			
 			<test-js>
-				// Create a 4x4 scale matrix
-				var m = new pc.Mat4().scale(2, 3, 4);
-				// Query the scale component
-				var scale = m.getScale();
+				var m = new pc.Mat4().setScale(2, 3, 4);
+				m.getScale().toString() == "[2, 3, 4]";
 			</test-js>
 			
 			<test-js>
-				// Create a 4x4 matrix
-				var m = new pc.Mat4();
-				// Query the z-axis component
+				var m = new pc.Mat4().setTranslate(2, 3, 4);
 				var t = new pc.Vec3();
-				m.getTranslation(t);
+				m.getTranslation(t).toString() == "[2, 3, 4]";
 			</test-js>
 			
 			<test-js>
-				// Create a 4x4 matrix
 				var m = new pc.Mat4();
-				// Query the z-axis component
 				var x = new pc.Vec3();
-				m.getX(x);
+				m.getX(x).toString() == "[1, 0, 0]";
 			</test-js>
 			
 			<test-js>
-				// Create a 4x4 matrix
 				var m = new pc.Mat4();
-				// Query the z-axis component
 				var y = new pc.Vec3();
-				m.getY(y);
+				m.getY(y).toString() == "[0, 1, 0]";
 			</test-js>
 			
 			<test-js>
-				// Create a 4x4 matrix
 				var m = new pc.Mat4();
-				// Query the z-axis component
 				var z = new pc.Vec3();
-				m.getZ(z);
+				m.getZ(z).toString() == "[0, 0, 1]";
 			</test-js>
 			
 			<test-js>
@@ -963,6 +953,14 @@
 		<tests-js>
 			<h1>Vec4 stuff</h1>
 
+			<test-js>
+				pc.Vec4.ONE.toString() == "[1, 1, 1, 1]";
+			</test-js>
+
+			<test-js>
+				pc.Vec4.ZERO.toString() == "[0, 0, 0, 0]";
+			</test-js>
+			
 			<test-js>
 				var v = new pc.Vec4(1, 2, 3, 4);
 				v.toString() == "[1, 2, 3, 4]";

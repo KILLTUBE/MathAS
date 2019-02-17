@@ -155,3 +155,38 @@ Object.defineProperty(pc.Vec4.prototype, 'w', {
 		module.F32[(this.ptr >> 2) + 3] = newValue;
 	}
 });
+
+
+/**
+ * @field
+ * @static
+ * @readonly
+ * @type pc.Vec4
+ * @name pc.Vec4.ONE
+ * @description A constant vector set to [1, 1, 1, 1].
+ */
+Object.defineProperty(pc.Vec4, 'ONE', {
+	get: (function () {
+		var one = new pc.Vec4(1, 1, 1, 1);
+		return function () {
+			return one;
+		};
+	}())
+});
+
+/**
+ * @field
+ * @static
+ * @readonly
+ * @type pc.Vec4
+ * @name pc.Vec4.ZERO
+ * @description A constant vector set to [0, 0, 0, 0].
+ */
+Object.defineProperty(pc.Vec4, 'ZERO', {
+	get: (function () {
+		var zero = new pc.Vec4(0, 0, 0, 0);
+		return function () {
+			return zero;
+		};
+	}())
+});
