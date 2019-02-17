@@ -515,58 +515,6 @@ export class Mat4 {
 		return this.setFrustum(-xmax, xmax, -ymax, ymax, znear, zfar);
 	}
 
-
-
-
-	/**
-	 * @private
-	 * @function
-	 * @name pc.Mat4#setTranslate
-	 * @description Sets the specified matrix to a translation matrix.
-	 * @param {f32} x The x-component of the translation.
-	 * @param {f32} y The y-component of the translation.
-	 * @param {f32} z The z-component of the translation.
-	 * @returns {pc.Mat4} Self for chaining.
-	 * @example
-	 * // Create a 4x4 translation matrix
-	 * var tm = new pc.Mat4().setTranslate(10, 10, 10);
-	 */
-	setTranslate(x: f32, y: f32, z: f32): Mat4 {
-		var m = this.data;
-
-		m[0] = 1;
-		m[1] = 0;
-		m[2] = 0;
-		m[3] = 0;
-		m[4] = 0;
-		m[5] = 1;
-		m[6] = 0;
-		m[7] = 0;
-		m[8] = 0;
-		m[9] = 0;
-		m[10] = 1;
-		m[11] = 0;
-		m[12] = x;
-		m[13] = y;
-		m[14] = z;
-		m[15] = 1;
-
-		return this;
-	}
-
-	/**
-	 * @private
-	 * @function
-	 * @name pc.Mat4#setScale
-	 * @description Sets the specified matrix to a scale matrix.
-	 * @param {f32} x The x-component of the scale.
-	 * @param {f32} y The y-component of the scale.
-	 * @param {f32} z The z-component of the scale.
-	 * @returns {pc.Mat4} Self for chaining.
-	 * @example
-	 * // Create a 4x4 scale matrix
-	 * var sm = new pc.Mat4().setScale(10, 10, 10);
-	 */
 	setScale(x: f32, y: f32, z: f32): Mat4 {
 		var m = this.data;
 
@@ -589,37 +537,6 @@ export class Mat4 {
 
 		return this;
 	}
-
-
-
-	/**
-	 * @function
-	 * @name pc.Mat4#set
-	 * @description Sets matrix data from an array.
-	 * @param {Array} src Source array. Must have 16 values.
-	 * @returns {pc.Mat4} Self for chaining.
-	 */
-	//set(src: any): Mat4 {
-	//	var dst = this.data;
-	//	dst[0] = src[0];
-	//	dst[1] = src[1];
-	//	dst[2] = src[2];
-	//	dst[3] = src[3];
-	//	dst[4] = src[4];
-	//	dst[5] = src[5];
-	//	dst[6] = src[6];
-	//	dst[7] = src[7];
-	//	dst[8] = src[8];
-	//	dst[9] = src[9];
-	//	dst[10] = src[10];
-	//	dst[11] = src[11];
-	//	dst[12] = src[12];
-	//	dst[13] = src[13];
-	//	dst[14] = src[14];
-	//	dst[15] = src[15];
-    //
-	//	return this;
-	//}
 
 
 	/**
@@ -690,32 +607,36 @@ export class Mat4 {
 
 		return this;
 	}
-
 	
-	/**
-	 * @function
-	 * @name pc.Mat4#transformPoint
-	 * @description Transforms a 3-dimensional point by a 4x4 matrix.
-	 * @param {pc.Vec3} vec The 3-dimensional point to be transformed.
-	 * @param {pc.Vec3} [res] An optional 3-dimensional point to receive the result of the transformation.
-	 * @returns {pc.Vec3} The input point v transformed by the current instance.
-	 * @example
-	 * // Create a 3-dimensional point
-	 * var v = new pc.Vec3(1, 2, 3);
-	 *
-	 * // Create a 4x4 rotation matrix
-	 * var m = new pc.Mat4().setFromEulerAngles(10, 20, 30);
-	 *
-	 * var tv = m.transformPoint(v);
-	 */
+	setTranslate(x: f32, y: f32, z: f32): Mat4 {
+		var m = this.data;
+
+		m[0] = 1;
+		m[1] = 0;
+		m[2] = 0;
+		m[3] = 0;
+		m[4] = 0;
+		m[5] = 1;
+		m[6] = 0;
+		m[7] = 0;
+		m[8] = 0;
+		m[9] = 0;
+		m[10] = 1;
+		m[11] = 0;
+		m[12] = x;
+		m[13] = y;
+		m[14] = z;
+		m[15] = 1;
+
+		return this;
+	}
+
 	transformPoint(vec: Vec3, res: Vec3): Vec3 {
 		var m = this.data;
 
 		var x = vec.x;
 		var y = vec.y;
 		var z = vec.z;
-
-		//res = (res === undefined) ? new pc.Vec3() : res;
 
 		res.x = x * m[0] + y * m[4] + z * m[8] + m[12];
 		res.y = x * m[1] + y * m[5] + z * m[9] + m[13];
@@ -724,57 +645,6 @@ export class Mat4 {
 		return res;
 	}
 
-	/**
-	 * @function
-	 * @name pc.Mat4#transformVector
-	 * @description Transforms a 3-dimensional vector by a 4x4 matrix.
-	 * @param {pc.Vec3} vec The 3-dimensional vector to be transformed.
-	 * @param {pc.Vec3} [res] An optional 3-dimensional vector to receive the result of the transformation.
-	 * @returns {pc.Vec3} The input vector v transformed by the current instance.
-	 * @example
-	 * // Create a 3-dimensional vector
-	 * var v = new pc.Vec3(1, 2, 3);
-	 *
-	 * // Create a 4x4 rotation matrix
-	 * var m = new pc.Mat4().setFromEulerAngles(10, 20, 30);
-	 *
-	 * var tv = m.transformVector(v);
-	 */
-	transformVector(vec: Vec3, res: Vec3): Vec3 {
-		var m = this.data;
-
-		var x = vec.x;
-		var y = vec.y;
-		var z = vec.z;
-
-		//res = (res === undefined) ? new pc.Vec3() : res;
-
-		res.x = x * m[0] + y * m[4] + z * m[8];
-		res.y = x * m[1] + y * m[5] + z * m[9];
-		res.z = x * m[2] + y * m[6] + z * m[10];
-
-		return res;
-	}
-
-	/**
-	 * @function
-	 * @name pc.Mat4#transformVec4
-	 * @description Transforms a 4-dimensional vector by a 4x4 matrix.
-	 * @param {pc.Vec4} vec The 4-dimensional vector to be transformed.
-	 * @param {pc.Vec4} [res] An optional 4-dimensional vector to receive the result of the transformation.
-	 * @returns {pc.Vec4} The input vector v transformed by the current instance.
-	 * @example
-	 * // Create an input 4-dimensional vector
-	 * var v = new pc.Vec4(1, 2, 3, 4);
-	 *
-	 * // Create an output 4-dimensional vector
-	 * var result = new pc.Vec4();
-	 *
-	 * // Create a 4x4 rotation matrix
-	 * var m = new pc.Mat4().setFromEulerAngles(10, 20, 30);
-	 *
-	 * m.transformVec4(v, result);
-	 */
 	transformVec4(vec: Vec4, res: Vec4): Vec4 {
 		var m = this.data;
 
@@ -782,8 +652,6 @@ export class Mat4 {
 		var y = vec.y;
 		var z = vec.z;
 		var w = vec.w;
-
-		//res = (res === undefined) ? new pc.Vec4() : res;
 
 		res.x = x * m[0] + y * m[4] + z * m[8] + w * m[12];
 		res.y = x * m[1] + y * m[5] + z * m[9] + w * m[13];
@@ -793,17 +661,20 @@ export class Mat4 {
 		return res;
 	}
 
-	/**
-	 * @function
-	 * @name pc.Mat4#transpose
-	 * @description Sets the specified matrix to its transpose.
-	 * @returns {pc.Mat4} Self for chaining.
-	 * @example
-	 * var m = new pc.Mat4();
-	 *
-	 * // Transpose in place
-	 * m.transpose();
-	 */
+	transformVector(vec: Vec3, res: Vec3): Vec3 {
+		var m = this.data;
+
+		var x = vec.x;
+		var y = vec.y;
+		var z = vec.z;
+
+		res.x = x * m[0] + y * m[4] + z * m[8];
+		res.y = x * m[1] + y * m[5] + z * m[9];
+		res.z = x * m[2] + y * m[6] + z * m[10];
+
+		return res;
+	}
+
 	transpose(): Mat4 {
 		var m = this.data;
 

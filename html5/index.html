@@ -230,9 +230,10 @@
 			</test-js>
 			
 			<test-js>
-				var src = new pc.Mat4().setFromEulerAngles(10, 20, 30);
-				var dst = src.clone();
-				console.log("The two matrices are " + (src.equals(dst) ? "equal" : "different"));
+				var a = new pc.Mat4().setFromEulerAngles(10, 20, 30);
+				var b = a.clone();
+				var c = new pc.Mat4();
+				a.equals(b) && !b.equals(c);
 			</test-js>
 			
 			<test-js>
@@ -425,15 +426,89 @@
 			</test-js>
 			
 			<test-js>
-			
+				// @name pc.Mat4#setScale
+				// @description Sets the specified matrix to a scale matrix.
+				// @param {f32} x The x-component of the scale.
+				// @param {f32} y The y-component of the scale.
+				// @param {f32} z The z-component of the scale.
+				// @returns {pc.Mat4} Self for chaining.
+				// @example
+				// // Create a 4x4 scale matrix
+				// var sm = new pc.Mat4().setScale(10, 10, 10);
 			</test-js>
 			
 			<test-js>
-			
+				// @name pc.Mat4#setTranslate
+				// @description Sets the specified matrix to a translation matrix.
+				// @param {f32} x The x-component of the translation.
+				// @param {f32} y The y-component of the translation.
+				// @param {f32} z The z-component of the translation.
+				// @returns {pc.Mat4} Self for chaining.
+				// @example
+				// // Create a 4x4 translation matrix
+				// var tm = new pc.Mat4().setTranslate(10, 10, 10);
 			</test-js>
 			
 			<test-js>
+				// @name pc.Mat4#transformPoint
+				// @description Transforms a 3-dimensional point by a 4x4 matrix.
+				// @param {pc.Vec3} vec The 3-dimensional point to be transformed.
+				// @param {pc.Vec3} [res] An optional 3-dimensional point to receive the result of the transformation.
+				// @returns {pc.Vec3} The input point v transformed by the current instance.
+				// @example
+				// // Create a 3-dimensional point
+				// var v = new pc.Vec3(1, 2, 3);
+				// 
+				// // Create a 4x4 rotation matrix
+				// var m = new pc.Mat4().setFromEulerAngles(10, 20, 30);
+				// 
+				// var tv = m.transformPoint(v);
+			</test-js>
 			
+			<test-js>
+				// @name pc.Mat4#transformVec4
+				// @description Transforms a 4-dimensional vector by a 4x4 matrix.
+				// @param {pc.Vec4} vec The 4-dimensional vector to be transformed.
+				// @param {pc.Vec4} [res] An optional 4-dimensional vector to receive the result of the transformation.
+				// @returns {pc.Vec4} The input vector v transformed by the current instance.
+				// @example
+				// // Create an input 4-dimensional vector
+				// var v = new pc.Vec4(1, 2, 3, 4);
+				// 
+				// // Create an output 4-dimensional vector
+				// var result = new pc.Vec4();
+				// 
+				// // Create a 4x4 rotation matrix
+				// var m = new pc.Mat4().setFromEulerAngles(10, 20, 30);
+				// 
+				// m.transformVec4(v, result);
+			</test-js>
+			
+			<test-js>
+				// @name pc.Mat4#transformVector
+				// @description Transforms a 3-dimensional vector by a 4x4 matrix.
+				// @param {pc.Vec3} vec The 3-dimensional vector to be transformed.
+				// @param {pc.Vec3} [res] An optional 3-dimensional vector to receive the result of the transformation.
+				// @returns {pc.Vec3} The input vector v transformed by the current instance.
+				// @example
+				// // Create a 3-dimensional vector
+				// var v = new pc.Vec3(1, 2, 3);
+				// 
+				// // Create a 4x4 rotation matrix
+				// var m = new pc.Mat4().setFromEulerAngles(10, 20, 30);
+				// 
+				// var tv = m.transformVector(v);
+			</test-js>
+			
+			<test-js>
+				// @name pc.Mat4#transpose
+				// @description Sets the specified matrix to its transpose.
+				// @returns {pc.Mat4} Self for chaining.
+				// @example
+				// var m = new pc.Mat4();
+				// 
+				// // Transpose in place
+				// m.transpose();
 			</test-js>
 			
 			<test-js>

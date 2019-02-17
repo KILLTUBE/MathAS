@@ -173,34 +173,79 @@ pc.Mat4.prototype.setPerspective = function(fov, aspect, znear, zfar, fovIsHoriz
 	return this;
 }
 
-pc.Mat4.prototype.setScale = function(lhs, rhs) {
-	mat4_setScale(this.ptr, lhs.ptr, rhs.ptr);
+pc.Mat4.prototype.setScale = function(x, y, z) {
+	mat4_setScale(this.ptr, x, y, z);
 	return this;
 }
-pc.Mat4.prototype.setTRS = function(lhs, rhs) {
-	mat4_setTRS(this.ptr, lhs.ptr, rhs.ptr);
+
+pc.Mat4.prototype.setTRS = function(t, r, s) {
+	mat4_setTRS(this.ptr, t.ptr, r.ptr, s.ptr);
 	return this;
 }
-pc.Mat4.prototype.setTranslate = function(lhs, rhs) {
-	mat4_setTranslate(this.ptr, lhs.ptr, rhs.ptr);
+
+pc.Mat4.prototype.setTranslate = function(x, y, z) {
+	mat4_setTranslate(this.ptr, x, y, z);
 	return this;
 }
-pc.Mat4.prototype.transformPoint = function(lhs, rhs) {
-	mat4_transformPoint(this.ptr, lhs.ptr, rhs.ptr);
+
+pc.Mat4.prototype.transformPoint = function(vec, res) {
+	if (res === undefined) {
+		res = new pc.Vec3();
+	}
+	mat4_transformPoint(this.ptr, vec.ptr, res.ptr);
+	return res;
+}
+
+pc.Mat4.prototype.transformVec4 = function(vec, res) {
+	if (res === undefined) {
+		res = new pc.Vec3();
+	}
+	mat4_transformVec4(this.ptr, vec.ptr, res.ptr);
+	return res;
+}
+
+pc.Mat4.prototype.transformVector = function(vec, res) {
+	if (res === undefined) {
+		res = new pc.Vec3();
+	}
+	mat4_transformVector(this.ptr, vec.ptr, res.ptr);
+	return res;
+}
+
+pc.Mat4.prototype.transpose = function() {
+	mat4_mat4_transpose(this.ptr);
 	return this;
 }
-pc.Mat4.prototype.transformVec4 = function(lhs, rhs) {
-	mat4_transformVec4(this.ptr, lhs.ptr, rhs.ptr);
-	return this;
-}
-pc.Mat4.prototype.transformVector = function(lhs, rhs) {
-	mat4_transformVector(this.ptr, lhs.ptr, rhs.ptr);
-	return this;
-}
-pc.Mat4.prototype.mat4_transpose = function(lhs, rhs) {
-	mat4_mat4_transpose(this.ptr, lhs.ptr, rhs.ptr);
-	return this;
-}
+
+	/**
+	 * @function
+	 * @name pc.Mat4#set
+	 * @description Sets matrix data from an array.
+	 * @param {Array} src Source array. Must have 16 values.
+	 * @returns {pc.Mat4} Self for chaining.
+	 */
+	//set(src: any): Mat4 {
+	//	var dst = this.data;
+	//	dst[0] = src[0];
+	//	dst[1] = src[1];
+	//	dst[2] = src[2];
+	//	dst[3] = src[3];
+	//	dst[4] = src[4];
+	//	dst[5] = src[5];
+	//	dst[6] = src[6];
+	//	dst[7] = src[7];
+	//	dst[8] = src[8];
+	//	dst[9] = src[9];
+	//	dst[10] = src[10];
+	//	dst[11] = src[11];
+	//	dst[12] = src[12];
+	//	dst[13] = src[13];
+	//	dst[14] = src[14];
+	//	dst[15] = src[15];
+    //
+	//	return this;
+	//}
+
 
 
 pc.Mat4.prototype.toString = function() {
