@@ -55,7 +55,7 @@ pc.Mat4.prototype.add = function(rhs) {
 }
 
 pc.Mat4.prototype.add2 = function(lhs, rhs) {
-	mat4_add(this.ptr, lhs.ptr, rhs.ptr);
+	mat4_add2(this.ptr, lhs.ptr, rhs.ptr);
 	return this;
 }
 
@@ -217,36 +217,26 @@ pc.Mat4.prototype.transpose = function() {
 	return this;
 }
 
-	/**
-	 * @function
-	 * @name pc.Mat4#set
-	 * @description Sets matrix data from an array.
-	 * @param {Array} src Source array. Must have 16 values.
-	 * @returns {pc.Mat4} Self for chaining.
-	 */
-	//set(src: any): Mat4 {
-	//	var dst = this.data;
-	//	dst[0] = src[0];
-	//	dst[1] = src[1];
-	//	dst[2] = src[2];
-	//	dst[3] = src[3];
-	//	dst[4] = src[4];
-	//	dst[5] = src[5];
-	//	dst[6] = src[6];
-	//	dst[7] = src[7];
-	//	dst[8] = src[8];
-	//	dst[9] = src[9];
-	//	dst[10] = src[10];
-	//	dst[11] = src[11];
-	//	dst[12] = src[12];
-	//	dst[13] = src[13];
-	//	dst[14] = src[14];
-	//	dst[15] = src[15];
-    //
-	//	return this;
-	//}
-
-
+pc.Mat4.prototype.set = function(src) {
+	var dst = this.data;
+	dst[0] = src[0];
+	dst[1] = src[1];
+	dst[2] = src[2];
+	dst[3] = src[3];
+	dst[4] = src[4];
+	dst[5] = src[5];
+	dst[6] = src[6];
+	dst[7] = src[7];
+	dst[8] = src[8];
+	dst[9] = src[9];
+	dst[10] = src[10];
+	dst[11] = src[11];
+	dst[12] = src[12];
+	dst[13] = src[13];
+	dst[14] = src[14];
+	dst[15] = src[15];
+	return this;
+}
 
 pc.Mat4.prototype.toString = function() {
 	var i, t;
@@ -258,3 +248,30 @@ pc.Mat4.prototype.toString = function() {
 	t += ']';
 	return t;
 }
+
+Object.defineProperty(pc.Mat4, 'IDENTITY', {
+	get: (function () {
+		var identity = new pc.Mat4();
+		return function () {
+			return identity;
+		};
+	}())
+});
+
+Object.defineProperty(pc.Mat4, 'ONE', {
+	get: (function () {
+		var zero = new pc.Mat4().set([1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1]);
+		return function () {
+			return zero;
+		};
+	}())
+});
+
+Object.defineProperty(pc.Mat4, 'ZERO', {
+	get: (function () {
+		var zero = new pc.Mat4().set([0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]);
+		return function () {
+			return zero;
+		};
+	}())
+});

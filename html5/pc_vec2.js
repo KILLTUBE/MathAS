@@ -142,3 +142,72 @@ Object.defineProperty(pc.Vec2.prototype, 'y', {
 		module.F32[(this.ptr >> 2) + 1] = newValue;
 	}
 });
+
+
+/**
+ * @field
+ * @static
+ * @readonly
+ * @type pc.Vec2
+ * @name pc.Vec2.ONE
+ * @description A constant vector set to [1, 1].
+ */
+Object.defineProperty(pc.Vec2, 'ONE', {
+	get: (function () {
+		var one = new pc.Vec2(1, 1);
+		return function () {
+			return one;
+		};
+	}())
+});
+
+/**
+ * @field
+ * @static
+ * @readonly
+ * @type pc.Vec2
+ * @name pc.Vec2.RIGHT
+ * @description A constant vector set to [1, 0].
+ */
+Object.defineProperty(pc.Vec2, 'RIGHT', {
+	get: (function () {
+		var right = new pc.Vec2(1, 0);
+		return function () {
+			return right;
+		};
+	}())
+});
+
+/**
+ * @field
+ * @static
+ * @readonly
+ * @type pc.Vec2
+ * @name pc.Vec2.UP
+ * @description A constant vector set to [0, 1].
+ */
+Object.defineProperty(pc.Vec2, 'UP', {
+	get: (function () {
+		var down = new pc.Vec2(0, 1);
+		return function () {
+			return down;
+		};
+	}())
+});
+
+/**
+ * @field
+ * @static
+ * @readonly
+ * @type pc.Vec2
+ * @name pc.Vec2.ZERO
+ * @description A constant vector set to [0, 0].
+ */
+Object.defineProperty(pc.Vec2, 'ZERO', {
+	get: (function () {
+		var zero = new pc.Vec2(0, 0);
+		return function () {
+			return zero;
+		};
+	}())
+});

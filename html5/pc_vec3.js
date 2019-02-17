@@ -156,3 +156,137 @@ Object.defineProperty(pc.Vec3.prototype, 'z', {
 		module.F32[(this.ptr >> 2) + 2] = newValue;
 	}
 });
+
+
+/**
+ * @static
+ * @readonly
+ * @type pc.Vec3
+ * @name pc.Vec3.BACK
+ * @description A constant vector set to [0, 0, 1].
+ */
+Object.defineProperty(pc.Vec3, 'BACK', {
+	get: (function () {
+		var back = new pc.Vec3(0, 0, 1);
+		return function () {
+			return back;
+		};
+	}())
+});
+
+/**
+ * @static
+ * @readonly
+ * @type pc.Vec3
+ * @name pc.Vec3.DOWN
+ * @description A constant vector set to [0, -1, 0].
+ */
+Object.defineProperty(pc.Vec3, 'DOWN', {
+	get: (function () {
+		var down = new pc.Vec3(0, -1, 0);
+		return function () {
+			return down;
+		};
+	}())
+});
+
+/**
+ * @static
+ * @readonly
+ * @type pc.Vec3
+ * @name pc.Vec3.FORWARD
+ * @description A constant vector set to [0, 0, -1].
+ */
+Object.defineProperty(pc.Vec3, 'FORWARD', {
+	get: (function () {
+		var forward = new pc.Vec3(0, 0, -1);
+		return function () {
+			return forward;
+		};
+	}())
+});
+
+/**
+ * @field
+ * @static
+ * @readonly
+ * @type pc.Vec3
+ * @name pc.Vec3.LEFT
+ * @description A constant vector set to [-1, 0, 0].
+ */
+Object.defineProperty(pc.Vec3, 'LEFT', {
+	get: (function () {
+		var left = new pc.Vec3(-1, 0, 0);
+		return function () {
+			return left;
+		};
+	}())
+});
+
+/**
+ * @field
+ * @static
+ * @readonly
+ * @type pc.Vec3
+ * @name pc.Vec3.ONE
+ * @description A constant vector set to [1, 1, 1].
+ */
+Object.defineProperty(pc.Vec3, 'ONE', {
+	get: (function () {
+		var one = new pc.Vec3(1, 1, 1);
+		return function () {
+			return one;
+		};
+	}())
+});
+
+/**
+ * @field
+ * @static
+ * @readonly
+ * @type pc.Vec3
+ * @name pc.Vec3.RIGHT
+ * @description A constant vector set to [1, 0, 0].
+ */
+Object.defineProperty(pc.Vec3, 'RIGHT', {
+	get: (function () {
+		var right = new pc.Vec3(1, 0, 0);
+		return function () {
+			return right;
+		};
+	}())
+});
+
+/**
+ * @field
+ * @static
+ * @readonly
+ * @type pc.Vec3
+ * @name pc.Vec3.UP
+ * @description A constant vector set to [0, 1, 0].
+ */
+Object.defineProperty(pc.Vec3, 'UP', {
+	get: (function () {
+		var down = new pc.Vec3(0, 1, 0);
+		return function () {
+			return down;
+		};
+	}())
+});
+
+/**
+ * @field
+ * @static
+ * @readonly
+ * @type pc.Vec3
+ * @name pc.Vec3.ZERO
+ * @description A constant vector set to [0, 0, 0].
+ */
+Object.defineProperty(pc.Vec3, 'ZERO', {
+	get: (function () {
+		var zero = new pc.Vec3(0, 0, 0);
+		return function () {
+			return zero;
+		};
+	}())
+});

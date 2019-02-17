@@ -220,13 +220,15 @@
 			</test-js>
 			
 			<test-js>
-				var m = new pc.Mat4();
-				m.add2(pc.Mat4.IDENTITY, pc.Mat4.ONE);
+				var a = new pc.Mat4();
+				a.add(pc.Mat4.ONE);
+				a.toString() == "[2, 1, 1, 1, 1, 2, 1, 1, 1, 1, 2, 1, 1, 1, 1, 2]";
 			</test-js>
 			
 			<test-js>
 				var m = new pc.Mat4();
-				m.add(pc.Mat4.ONE);
+				m.add2(pc.Mat4.IDENTITY, pc.Mat4.ONE);
+				m.toString() == "[2, 1, 1, 1, 1, 2, 1, 1, 1, 1, 2, 1, 1, 1, 1, 2]";
 			</test-js>
 			
 			<test-js>
@@ -781,6 +783,38 @@
 
 		<tests-js>
 			<h1>Vec3 stuff</h1>
+
+			<test-js>
+				pc.Vec3.BACK.toString() == "[0, 0, 1]";
+			</test-js>
+			
+			<test-js>
+				pc.Vec3.DOWN.toString() == "[0, -1, 0]";
+			</test-js>
+			
+			<test-js>
+				pc.Vec3.FORWARD.toString() == "[0, 0, -1]";
+			</test-js>
+			
+			<test-js>
+				pc.Vec3.LEFT.toString() == "[-1, 0, 0]";
+			</test-js>
+			
+			<test-js>
+				pc.Vec3.ONE.toString() == "[1, 1, 1]";
+			</test-js>
+			
+			<test-js>
+				pc.Vec3.RIGHT.toString() == "[1, 0, 0]";
+			</test-js>
+			
+			<test-js>
+				pc.Vec3.UP.toString() == "[0, 1, 0]";
+			</test-js>
+			
+			<test-js>
+				pc.Vec3.ZERO.toString() == "[0, 0, 0]";
+			</test-js>
 
 			<test-js>
 				var v = new pc.Vec3(1, 2, 3);
