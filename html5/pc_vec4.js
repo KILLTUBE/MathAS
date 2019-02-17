@@ -116,7 +116,7 @@ pc.Vec4.prototype.toString = function() {
 	return '[' + this.x + ', ' + this.y + ', ' + this.z + ', ' + this.w + ']';
 }
 
-pc.Vec3.prototype.toStringFixed = function(n) {
+pc.Vec4.prototype.toStringFixed = function(n) {
 	return '[' + this.x.toFixed(n) + ', ' + this.y.toFixed(n) + ', ' + this.z.toFixed(n) + ', ' + this.w.toFixed(n) + ']';
 }
 

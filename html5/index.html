@@ -250,7 +250,106 @@
 				angle.toFixed(4) == "132.8436";
 			</test-js>
 			
-			<test-js></test-js>		
+			<test-js>
+				var q = new pc.Quat();
+				q.setFromAxisAngle(new pc.Vec3(0, 1, 0), 90);
+				var v = new pc.Vec3();
+				var angle = q.getAxisAngle(v);
+				angle == 90 && v.toString() == "[0, 1, 0]";
+			</test-js>
+			
+			<test-js>
+				var q = new pc.Quat(0.1, 0.2, 0.3, 0.4);
+				var v = new pc.Vec3();
+				q.getEulerAngles(v)
+				v.toStringFixed(4) == "[12.5288, 5.7392, 20.7256]";
+			</test-js>
+			
+			<test-js>
+				var a = new pc.Quat(0.1, 0.2, 0.3, 0.4);
+				a.invert();
+				a.toStringFixed(4) == "[-0.1826, -0.3651, -0.5477, 0.7303]";
+			</test-js>
+			
+			<test-js>
+				var a = new pc.Quat(0.1, 0.2, 0.3, 0.4);
+				a.length().toFixed(4) == 0.5477;
+			</test-js>
+			
+			<test-js>
+				var a = new pc.Quat(0.1, 0.2, 0.3, 0.4);
+				a.lengthSq().toFixed(4) == "0.3000";
+			</test-js>
+			
+			<test-js>
+				var a = new pc.Quat().setFromEulerAngles(0, 10, 0);
+				var b = new pc.Quat().setFromEulerAngles(0, 20, 0);
+				a.mul(b);
+				var v = new pc.Vec3();
+				a.getEulerAngles(v);
+				v.toStringFixed(4) == "[0.0000, 30.0000, 0.0000]";
+			</test-js>
+			
+			<test-js>
+				var a = new pc.Quat().setFromEulerAngles(0, 10, 0);
+				var b = new pc.Quat().setFromEulerAngles(0, 20, 0);
+				var c = new pc.Quat();
+				c.mul2(a, b);
+				var v = new pc.Vec3();
+				c.getEulerAngles(v);
+				v.toStringFixed(4) == "[0.0000, 30.0000, 0.0000]";
+			</test-js>
+			
+			<test-js>
+				var a = new pc.Quat(0.1, 0.2, 0.3, 0.4);
+				a.normalize();
+				a.toStringFixed(4) == "[0.1826, 0.3651, 0.5477, 0.7303]";
+			</test-js>
+			
+			<test-js>
+				var a = new pc.Quat(0.1, 0.2, 0.3, 0.4);
+				a.set(1, 2, 3, 4);
+				a.toString(4) == "[1, 2, 3, 4]";
+			</test-js>
+			
+			<test-js>
+				var q = new pc.Quat();
+				q.setFromAxisAngle(new pc.Vec3(0, 1, 0), 90);
+				q.toStringFixed(4) == "[0.0000, 0.7071, 0.0000, 0.7071]";
+			</test-js>
+			
+			<test-js>
+				var q = new pc.Quat();
+				q.setFromEulerAngles(45, 90, 180);
+				q.toStringFixed(4) == "[-0.6533, 0.2706, 0.6533, 0.2706]";
+			</test-js>
+			
+			<test-js>
+				// Create a 4x4 rotation matrix of 180 degrees around the y-axis
+				var rot = new pc.Mat4().setFromAxisAngle(pc.Vec3.UP, 180);
+				// Convert to a quaternion
+				var q = new pc.Quat().setFromMat4(rot);
+			</test-js>
+			
+			<test-js>
+				var q1 = new pc.Quat(-0.11,-0.15,-0.46,0.87);
+				var q2 = new pc.Quat(-0.21,-0.21,-0.67,0.68);
+				var a = new pc.Quat().slerp(q1, q2, 0);   // equals q1
+				var b = new pc.Quat().slerp(q1, q2, 0.5); // midpoint interpolant
+				var c = new pc.Quat().slerp(q1, q2, 1);   // equals q2
+				a.toStringFixed(4) == q1.toStringFixed(4) &&
+				c.toStringFixed(4) == q2.toStringFixed(4) &&
+				b.toStringFixed(4) == "[-0.1619, -0.1821, -0.5716, 0.7840]";
+			</test-js>
+			
+			<test-js>
+				var v = new pc.Vec3(1, 2, 3);
+				var q = new pc.Quat().setFromEulerAngles(10, 20, 30);
+				var tv = q.transformVector(v);
+				tv.toStringFixed(4) == "[1.0674, 2.2891, 2.7606]";
+			</test-js>
+			
+			<test-js></test-js>
 		</tests-js>
 
 
