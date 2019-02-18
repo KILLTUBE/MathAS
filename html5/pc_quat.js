@@ -1,6 +1,7 @@
+quat_constructor        = instance.exports["Quat#constructor"];
+
 quat_clone              = instance.exports["Quat#clone"];
 quat_conjugate          = instance.exports["Quat#conjugate"];
-quat_constructor        = instance.exports["Quat#constructor"];
 quat_copy               = instance.exports["Quat#copy"];
 quat_equals             = instance.exports["Quat#equals"];
 quat_getAxisAngle       = instance.exports["Quat#getAxisAngle"];
@@ -172,4 +173,22 @@ Object.defineProperty(pc.Quat.prototype, 'w', {
 	set: function(newValue) {
 		module.F32[(this.ptr >> 2) + 3] = newValue;
 	}
+});
+
+Object.defineProperty(pc.Quat, 'IDENTITY', {
+	get: (function () {
+		var identity = new pc.Quat();
+		return function () {
+			return identity;
+		};
+	}())
+});
+
+Object.defineProperty(pc.Quat, 'ZERO', {
+	get: (function () {
+		var zero = new pc.Quat(0, 0, 0, 0);
+		return function () {
+			return zero;
+		};
+	}())
 });

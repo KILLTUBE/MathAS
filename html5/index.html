@@ -212,7 +212,19 @@
 
 
 		<tests-js>
-			<h1>Mat4 stuff</h1>		
+			<h1>Mat4 stuff</h1>
+			
+			<test-js>
+				pc.Mat4.IDENTITY.toString() == "[1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1]";
+			</test-js>
+			
+			<test-js>
+				pc.Mat4.ONE.toString() == "[1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1]";
+			</test-js>
+			
+			<test-js>
+				pc.Mat4.ZERO.toString() == "[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]";
+			</test-js>
 			
 			<test-js>
 				var a = new pc.Mat4();
@@ -282,225 +294,120 @@
 			
 			<test-js>
 				// Create a 4x4 rotation matrix of 180 degrees around the y-axis
-				var rot = new pc.Mat4().setFromAxisAngle(pc.Vec3.UP, 180);
+				var rot = new pc.Mat4().setFromAxisAngle(pc.Vec3.UP, 179);
 				// Invert in place
 				rot.invert();
+				rot.toStringFixed(4) == "[-0.9998, 0.0000, 0.0175, 0.0000, 0.0000, 1.0000, 0.0000, 0.0000, -0.0175, 0.0000, -0.9998, 0.0000, 0.0000, 0.0000, 0.0000, 1.0000]";
 			</test-js>
 			
 			<test-js>
-				var rot = new pc.Mat4().setFromAxisAngle(pc.Vec3.UP, 180);
-				rot.invertTo3x3
+				var mat4 = new pc.Mat4().setFromAxisAngle(pc.Vec3.UP, 179);
+				var mat3 = new pc.Mat3();
+				mat4.invertTo3x3(mat3);
+				mat3.toStringFixed(4) == "[-0.9998, 0.0000, 0.0175, 0.0000, 1.0000, 0.0000, -0.0175, 0.0000, -0.9998]";
 			</test-js>
 			
 			<test-js>
-				var m = new pc.Mat4();
-				console.log("The matrix is " + (m.isIdentity() ? "identity" : "not identity"));
+				var a = new pc.Mat4();
+				a.isIdentity() && !pc.Mat4.ONE.isIdentity();
 			</test-js>
 			
 			<test-js>
 				var a = new pc.Mat4().setFromEulerAngles(10, 20, 30);
 				var b = new pc.Mat4().setFromAxisAngle(pc.Vec3.UP, 180);
 				a.mul(b); // a = a * b
-				console.log("The result of the multiplication is: " a.toString());
+				a.toStringFixed(2) == "[-0.81, -0.47, 0.34, 0.00, -0.44, 0.88, 0.16, 0.00, -0.38, -0.02, -0.93, 0.00, 0.00, 0.00, 0.00, 1.00]";
 			</test-js>
 			
 			<test-js>
 				var a = new pc.Mat4().setFromEulerAngles(10, 20, 30);
 				var b = new pc.Mat4().setFromAxisAngle(pc.Vec3.UP, 180);
 				var r = new pc.Mat4();
-				// r = a * b
-				r.mul2(a, b);
-				console.log("The result of the multiplication is: " r.toString());
+				r.mul2(a, b); // r = a * b
+				r.toStringFixed(2) == "[-0.81, -0.47, 0.34, 0.00, -0.44, 0.88, 0.16, 0.00, -0.38, -0.02, -0.93, 0.00, 0.00, 0.00, 0.00, 1.00]";
 			</test-js>
 			
 			<test-js>
-				// setFromAxisAngle
-				
-				// @description Sets the specified matrix to a rotation matrix equivalent to a rotation around
-				// an axis. The axis must be normalized (unit length) and the angle must be specified in degrees.
-				// @param {pc.Vec3} axis The normalized axis vector around which to rotate.
-				// @param {f32} angle The angle of rotation in degrees.
-				// @returns {pc.Mat4} Self for chaining.
-				// @example
-				// // Create a 4x4 rotation matrix
-				// var rm = new pc.Mat4().setFromAxisAngle(pc.Vec3.UP, 90);
+				var a = new pc.Mat4().setFromAxisAngle(pc.Vec3.UP, 85);
+				a.toStringFixed(1) == "[0.1, 0.0, -1.0, 0.0, 0.0, 1.0, 0.0, 0.0, 1.0, 0.0, 0.1, 0.0, 0.0, 0.0, 0.0, 1.0]";
 			</test-js>
 			
 			<test-js>
-				// @name pc.Mat4#setFromEulerAngles
-				// @description Sets the specified matrix to a rotation matrix defined by
-				// Euler angles. The Euler angles are specified in XYZ order and in degrees.
-				// @param {f32} ex Angle to rotate around X axis in degrees.
-				// @param {f32} ey Angle to rotate around Y axis in degrees.
-				// @param {f32} ez Angle to rotate around Z axis in degrees.
-				// @returns {pc.Mat4} Self for chaining.
-				// @example
-				// var m = new pc.Mat4();
-				// m.setFromEulerAngles(45, 90, 180);
+				var m = new pc.Mat4();
+				m.setFromEulerAngles(45, 90, 180);
+				m.toStringFixed(2) == "[0.00, 0.00, -1.00, 0.00, -0.71, -0.71, -0.00, 0.00, -0.71, 0.71, -0.00, 0.00, 0.00, 0.00, 0.00, 1.00]";
 			</test-js>
 			
 			<test-js>
-				// @name pc.Mat4#setFrustum
-				// @description Sets the specified matrix to a perspective projection matrix. The function's parameters define
-				// the shape of a frustum.
-				// @param {f32} left The x-coordinate for the left edge of the camera's projection plane in eye space.
-				// @param {f32} right The x-coordinate for the right edge of the camera's projection plane in eye space.
-				// @param {f32} bottom The y-coordinate for the bottom edge of the camera's projection plane in eye space.
-				// @param {f32} top The y-coordinate for the top edge of the camera's projection plane in eye space.
-				// @param {f32} znear The near clip plane in eye coordinates.
-				// @param {f32} zfar The far clip plane in eye coordinates.
-				// @returns {pc.Mat4} Self for chaining.
-				// @example
-				// // Create a 4x4 perspective projection matrix
-				// var f = pc.Mat4().setFrustum(-2, 2, -1, 1, 1, 1000);
+				var a = new pc.Mat4().setFrustum(-2, 2, -1, 1, 1, 1000);
+				a.toStringFixed(2) == "[0.50, 0.00, 0.00, 0.00, 0.00, 1.00, 0.00, 0.00, 0.00, 0.00, -1.00, -1.00, 0.00, 0.00, -2.00, 0.00]";
 			</test-js>
 			
 			<test-js>
-				// @name pc.Mat4#setIdentity
-				// @description Sets the specified matrix to the identity matrix.
-				// @returns {pc.Mat4} Self for chaining.
-				// @example
-				// m.setIdentity();
-				// console.log("The matrix is " + (m.isIdentity() ? "identity" : "not identity"));
+				var a = new pc.Mat4();
+				a.copy(pc.Mat4.ONE);
+				a.setIdentity();
+				a.isIdentity();
 			</test-js>
 			
 			<test-js>
-				// @name pc.Mat4#setLookAt
-				// @description Sets the specified matrix to a viewing matrix derived from an eye point, a target point
-				// and an up vector. The matrix maps the target point to the negative z-axis and the eye point to the
-				// origin, so that when you use a typical projection matrix, the center of the scene maps to the center
-				// of the viewport. Similarly, the direction described by the up vector projected onto the viewing plane
-				// is mapped to the positive y-axis so that it points upward in the viewport. The up vector must not be
-				// parallel to the line of sight from the eye to the reference point.
-				// @param {pc.Vec3} position 3-d vector holding view position.
-				// @param {pc.Vec3} target 3-d vector holding reference point.
-				// @param {pc.Vec3} up 3-d vector holding the up direction.
-				// @returns {pc.Mat4} Self for chaining.
-				// @example
-				// var position = new pc.Vec3(10, 10, 10);
-				// var target = new pc.Vec3(0, 0, 0);
-				// var up = new pc.Vec3(0, 1, 0);
-				// var m = new pc.Mat4().setLookAt(position, target, up);
+				var position = new pc.Vec3(10, 10, 10);
+				var target = new pc.Vec3(0, 0, 0);
+				var up = new pc.Vec3(0, 1, 0);
+				var m = new pc.Mat4().setLookAt(position, target, up);
+				m.toStringFixed(4) == "[0.7071, 0.0000, -0.7071, 0.0000, -0.4082, 0.8165, -0.4082, 0.0000, 0.5774, 0.5774, 0.5774, 0.0000, 10.0000, 10.0000, 10.0000, 1.0000]";
 			</test-js>
 			
 			<test-js>
-				// @name pc.Mat4#setOrtho
-				// @description Sets the specified matrix to an orthographic projection matrix. The function's parameters
-				// define the shape of a cuboid-shaped frustum.
-				// @param {f32} left The x-coordinate for the left edge of the camera's projection plane in eye space.
-				// @param {f32} right The x-coordinate for the right edge of the camera's projection plane in eye space.
-				// @param {f32} bottom The y-coordinate for the bottom edge of the camera's projection plane in eye space.
-				// @param {f32} top The y-coordinate for the top edge of the camera's projection plane in eye space.
-				// @param {f32} near The near clip plane in eye coordinates.
-				// @param {f32} far The far clip plane in eye coordinates.
-				// @returns {pc.Mat4} Self for chaining.
-				// @example
-				// // Create a 4x4 orthographic projection matrix
-				// var ortho = pc.Mat4().ortho(-2, 2, -2, 2, 1, 1000);
+				var a = new pc.Mat4().setOrtho(-2, 2, -2, 2, 1, 1000);
+				a.toStringFixed(4) == "[0.5000, 0.0000, 0.0000, 0.0000, 0.0000, 0.5000, 0.0000, 0.0000, 0.0000, 0.0000, -0.0020, 0.0000, 0.0000, 0.0000, -1.0020, 1.0000]";
 			</test-js>
 			
 			<test-js>
-				// pc.Mat4#setPerspective
-				// @description Sets the specified matrix to a perspective projection matrix. The function's
-				// parameters define the shape of a frustum.
-				// @param {f32} fov The frustum's field of view in degrees. The fovIsHorizontal parameter
-				// controls whether this is a vertical or horizontal field of view. By default, it's a vertical
-				// field of view.
-				// @param {f32} aspect The aspect ratio of the frustum's projection plane (width / height).
-				// @param {f32} znear The near clip plane in eye coordinates.
-				// @param {f32} zfar The far clip plane in eye coordinates.
-				// @param {Boolean} [fovIsHorizontal=false] Set to true to treat the fov as horizontal (x-axis)
-				// and false for vertical (y-axis). Defaults to false.
-				// @returns {pc.Mat4} Self for chaining.
-				// @example
-				// // Create a 4x4 perspective projection matrix
-				// var persp = pc.Mat4().setPerspective(45, 16 / 9, 1, 1000);
+				var a = new pc.Mat4().setPerspective(45, 16 / 9, 1, 1000);
+				a.toStringFixed(4) == "[1.3580, 0.0000, 0.0000, 0.0000, 0.0000, 2.4142, 0.0000, 0.0000, 0.0000, 0.0000, -1.0020, -1.0000, 0.0000, 0.0000, -2.0020, 0.0000]";
 			</test-js>
 			
 			<test-js>
-				// @name pc.Mat4#setScale
-				// @description Sets the specified matrix to a scale matrix.
-				// @param {f32} x The x-component of the scale.
-				// @param {f32} y The y-component of the scale.
-				// @param {f32} z The z-component of the scale.
-				// @returns {pc.Mat4} Self for chaining.
-				// @example
-				// // Create a 4x4 scale matrix
-				// var sm = new pc.Mat4().setScale(10, 10, 10);
+				var a = new pc.Mat4().setScale(10, 10, 10);
+				a.toString() == "[10, 0, 0, 0, 0, 10, 0, 0, 0, 0, 10, 0, 0, 0, 0, 1]";
 			</test-js>
 			
 			<test-js>
-				// @name pc.Mat4#setTranslate
-				// @description Sets the specified matrix to a translation matrix.
-				// @param {f32} x The x-component of the translation.
-				// @param {f32} y The y-component of the translation.
-				// @param {f32} z The z-component of the translation.
-				// @returns {pc.Mat4} Self for chaining.
-				// @example
-				// // Create a 4x4 translation matrix
-				// var tm = new pc.Mat4().setTranslate(10, 10, 10);
+				var a = new pc.Mat4().setTranslate(10, 10, 10);
+				a.toString() == "[1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 10, 10, 10, 1]";
 			</test-js>
 			
 			<test-js>
-				// @name pc.Mat4#transformPoint
-				// @description Transforms a 3-dimensional point by a 4x4 matrix.
-				// @param {pc.Vec3} vec The 3-dimensional point to be transformed.
-				// @param {pc.Vec3} [res] An optional 3-dimensional point to receive the result of the transformation.
-				// @returns {pc.Vec3} The input point v transformed by the current instance.
-				// @example
-				// // Create a 3-dimensional point
-				// var v = new pc.Vec3(1, 2, 3);
-				// 
-				// // Create a 4x4 rotation matrix
-				// var m = new pc.Mat4().setFromEulerAngles(10, 20, 30);
-				// 
-				// var tv = m.transformPoint(v);
+				var v = new pc.Vec3(1, 2, 3);
+				var rm = new pc.Mat4().setFromEulerAngles(10, 20, 30);
+				var tv = rm.transformPoint(v);
+				tv.toStringFixed(4) == "[1.0674, 2.2891, 2.7606]";
 			</test-js>
 			
 			<test-js>
-				// @name pc.Mat4#transformVec4
-				// @description Transforms a 4-dimensional vector by a 4x4 matrix.
-				// @param {pc.Vec4} vec The 4-dimensional vector to be transformed.
-				// @param {pc.Vec4} [res] An optional 4-dimensional vector to receive the result of the transformation.
-				// @returns {pc.Vec4} The input vector v transformed by the current instance.
-				// @example
-				// // Create an input 4-dimensional vector
-				// var v = new pc.Vec4(1, 2, 3, 4);
-				// 
-				// // Create an output 4-dimensional vector
-				// var result = new pc.Vec4();
-				// 
-				// // Create a 4x4 rotation matrix
-				// var m = new pc.Mat4().setFromEulerAngles(10, 20, 30);
-				// 
-				// m.transformVec4(v, result);
+				var v = new pc.Vec4(1, 2, 3, 4);
+				var result = new pc.Vec4();
+				var rm = new pc.Mat4().setFromEulerAngles(10, 20, 30);
+				rm.transformVec4(v, result);
+				result.toStringFixed(4) == "[1.0674, 2.2891, 2.7606, 4.0000]";
 			</test-js>
 			
 			<test-js>
-				// @name pc.Mat4#transformVector
-				// @description Transforms a 3-dimensional vector by a 4x4 matrix.
-				// @param {pc.Vec3} vec The 3-dimensional vector to be transformed.
-				// @param {pc.Vec3} [res] An optional 3-dimensional vector to receive the result of the transformation.
-				// @returns {pc.Vec3} The input vector v transformed by the current instance.
-				// @example
-				// // Create a 3-dimensional vector
-				// var v = new pc.Vec3(1, 2, 3);
-				// 
-				// // Create a 4x4 rotation matrix
-				// var m = new pc.Mat4().setFromEulerAngles(10, 20, 30);
-				// 
-				// var tv = m.transformVector(v);
+				var v = new pc.Vec3(1, 2, 3);
+				var rm = new pc.Mat4().setFromEulerAngles(10, 20, 30);
+				var tv = rm.transformVector(v);
+				tv.toStringFixed(4) == "[1.0674, 2.2891, 2.7606]";
 			</test-js>
 			
 			<test-js>
-				// @name pc.Mat4#transpose
-				// @description Sets the specified matrix to its transpose.
-				// @returns {pc.Mat4} Self for chaining.
-				// @example
-				// var m = new pc.Mat4();
-				// 
-				// // Transpose in place
-				// m.transpose();
+				var rm = new pc.Mat4().setFromEulerAngles(10, 20, 30);
+				rm.transpose();
+				rm.toStringFixed(4) == "[0.8138, -0.4410, 0.3785, 0.0000, 0.4698, 0.8826, 0.0180, 0.0000, -0.3420, 0.1632, 0.9254, 0.0000, 0.0000, 0.0000, 0.0000, 1.0000]";
+			</test-js>
+			
+			<test-js>
+			
 			</test-js>
 			
 			<test-js>
@@ -614,9 +521,10 @@
 			
 			<test-js>
 				// Create a 4x4 rotation matrix of 180 degrees around the y-axis
-				var rot = new pc.Mat4().setFromAxisAngle(pc.Vec3.UP, 180);
+				var rot = new pc.Mat4().setFromAxisAngle(pc.Vec3.UP, 179);
 				// Convert to a quaternion
 				var q = new pc.Quat().setFromMat4(rot);
+				q.toStringFixed(4) == "[0.0000, 1.0000, 0.0000, 0.0087]";
 			</test-js>
 			
 			<test-js>
@@ -643,7 +551,31 @@
 
 
 		<tests-js>
-			<h1>Vec2 stuff</h1>		
+			<h1>Vec2 stuff</h1>
+			
+			<test-js>
+				pc.Vec2.ONE.toString() == "[1, 1]";
+			</test-js>
+			
+			<test-js>
+				pc.Vec2.LEFT.toString() == "[-1, 0]";
+			</test-js>
+			
+			<test-js>
+				pc.Vec2.RIGHT.toString() == "[1, 0]";
+			</test-js>
+			
+			<test-js>
+				pc.Vec2.UP.toString() == "[0, 1]";
+			</test-js>
+			
+			<test-js>
+				pc.Vec2.DOWN.toString() == "[0, -1]";
+			</test-js>
+			
+			<test-js>
+				pc.Vec2.ZERO.toString() == "[0, 0]";
+			</test-js>
 			
 			<test-js>
 				var v = new pc.Vec2(1, 2);

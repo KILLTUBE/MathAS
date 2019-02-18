@@ -213,7 +213,7 @@ pc.Mat4.prototype.transformVector = function(vec, res) {
 }
 
 pc.Mat4.prototype.transpose = function() {
-	mat4_mat4_transpose(this.ptr);
+	mat4_transpose(this.ptr);
 	return this;
 }
 
@@ -243,6 +243,17 @@ pc.Mat4.prototype.toString = function() {
 	t = '[';
 	for (i = 0; i < 16; i += 1) {
 		t += this.data[i];
+		t += (i !== 15) ? ', ' : '';
+	}
+	t += ']';
+	return t;
+}
+
+pc.Mat4.prototype.toStringFixed = function(n) {
+	var i, t;
+	t = '[';
+	for (i = 0; i < 16; i += 1) {
+		t += this.data[i].toFixed(n);
 		t += (i !== 15) ? ', ' : '';
 	}
 	t += ']';

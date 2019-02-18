@@ -1,9 +1,9 @@
+vec2_constructor  = instance.exports["Vec2#constructor"];
+
 vec2_add          = instance.exports["Vec2#add"];
 vec2_add2         = instance.exports["Vec2#add2"];
 vec2_clone        = instance.exports["Vec2#clone"];
-vec2_constructor  = instance.exports["Vec2#constructor"];
 vec2_copy         = instance.exports["Vec2#copy"];
-//vec2_cross        = instance.exports["Vec2#cross"];
 vec2_dot          = instance.exports["Vec2#dot"];
 vec2_equals       = instance.exports["Vec2#equals"];
 vec2_length       = instance.exports["Vec2#length"];
@@ -12,15 +12,10 @@ vec2_lerp         = instance.exports["Vec2#lerp"];
 vec2_mul          = instance.exports["Vec2#mul"];
 vec2_mul2         = instance.exports["Vec2#mul2"];
 vec2_normalize    = instance.exports["Vec2#normalize"];
-//vec2_project      = instance.exports["Vec2#project"];
 vec2_scale        = instance.exports["Vec2#scale"];
 vec2_set          = instance.exports["Vec2#set"];
 vec2_sub          = instance.exports["Vec2#sub"];
 vec2_sub2         = instance.exports["Vec2#sub2"];
-
-/**
- * @constructor
- */
 
 pc.Vec2 = function(x, y) {
 	if (x && x.length === 2) {
@@ -55,11 +50,6 @@ pc.Vec2.prototype.copy = function(rhs) {
 	vec2_copy(this.ptr, rhs.ptr);
 	return this;
 }
-
-//pc.Vec2.prototype.cross = function(lhs, rhs) {
-//	vec2_cross(this.ptr, lhs.ptr, rhs.ptr);
-//	return this;
-//}
 
 pc.Vec2.prototype.dot = function(rhs) {
 	return vec2_dot(this.ptr, rhs.ptr);
@@ -143,71 +133,56 @@ Object.defineProperty(pc.Vec2.prototype, 'y', {
 	}
 });
 
-
-/**
- * @field
- * @static
- * @readonly
- * @type pc.Vec2
- * @name pc.Vec2.ONE
- * @description A constant vector set to [1, 1].
- */
 Object.defineProperty(pc.Vec2, 'ONE', {
 	get: (function () {
-		var one = new pc.Vec2(1, 1);
+		var tmp = new pc.Vec2(1, 1);
 		return function () {
-			return one;
+			return tmp;
 		};
 	}())
 });
 
-/**
- * @field
- * @static
- * @readonly
- * @type pc.Vec2
- * @name pc.Vec2.RIGHT
- * @description A constant vector set to [1, 0].
- */
+Object.defineProperty(pc.Vec2, 'LEFT', {
+	get: (function () {
+		var tmp = new pc.Vec2(-1, 0);
+		return function () {
+			return tmp;
+		};
+	}())
+});
+
 Object.defineProperty(pc.Vec2, 'RIGHT', {
 	get: (function () {
-		var right = new pc.Vec2(1, 0);
+		var tmp = new pc.Vec2(1, 0);
 		return function () {
-			return right;
+			return tmp;
 		};
 	}())
 });
 
-/**
- * @field
- * @static
- * @readonly
- * @type pc.Vec2
- * @name pc.Vec2.UP
- * @description A constant vector set to [0, 1].
- */
 Object.defineProperty(pc.Vec2, 'UP', {
 	get: (function () {
-		var down = new pc.Vec2(0, 1);
+		var tmp = new pc.Vec2(0, 1);
 		return function () {
-			return down;
+			return tmp;
 		};
 	}())
 });
 
-/**
- * @field
- * @static
- * @readonly
- * @type pc.Vec2
- * @name pc.Vec2.ZERO
- * @description A constant vector set to [0, 0].
- */
+Object.defineProperty(pc.Vec2, 'DOWN', {
+	get: (function () {
+		var tmp = new pc.Vec2(0, -1);
+		return function () {
+			return tmp;
+		};
+	}())
+});
+
 Object.defineProperty(pc.Vec2, 'ZERO', {
 	get: (function () {
-		var zero = new pc.Vec2(0, 0);
+		var tmp = new pc.Vec2(0, 0);
 		return function () {
-			return zero;
+			return tmp;
 		};
 	}())
 });

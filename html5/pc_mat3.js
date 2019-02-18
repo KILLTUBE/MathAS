@@ -1,4 +1,5 @@
 mat3_constructor  = instance.exports["Mat3#constructor"];
+
 mat3_add          = instance.exports["Mat3#add"];
 mat3_add2         = instance.exports["Mat3#add2"];
 mat3_clone        = instance.exports["Mat3#clone"];
@@ -50,7 +51,6 @@ pc.Mat3.prototype.copy = function(rhs) {
 	return this;
 }
 
-
 pc.Mat3.prototype.set = function(src) {
 	var dst = this.data;
 
@@ -95,14 +95,16 @@ pc.Mat3.prototype.toString = function() {
 	return t;
 }
 
-/**
- * @field
- * @static
- * @readonly
- * @type pc.Mat3
- * @name pc.Mat3.IDENTITY
- * @description A constant matrix set to the identity.
- */
+pc.Mat3.prototype.toStringFixed = function(n) {
+	var t = '[';
+	for (var i = 0; i < 9; i++) {
+		t += this.data[i].toFixed(n);
+		t += (i !== 8) ? ', ' : '';
+	}
+	t += ']';
+	return t;
+}
+
 Object.defineProperty(pc.Mat3, 'IDENTITY', {
 	get: function () {
 		var identity = new pc.Mat3();
@@ -112,14 +114,6 @@ Object.defineProperty(pc.Mat3, 'IDENTITY', {
 	}()
 });
 
-/**
- * @field
- * @static
- * @readonly
- * @type pc.Mat3
- * @name pc.Mat3.ZERO
- * @description A constant matrix with all elements set to 0.
- */
 Object.defineProperty(pc.Mat3, 'ZERO', {
 	get: function () {
 		var zero = new pc.Mat3().set([0, 0, 0, 0, 0, 0, 0, 0, 0]);
