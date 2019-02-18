@@ -2,6 +2,8 @@
 
 Live demo: http://mathas.killtube.org/html5/
 
+Discord: https://discord.gg/HSxy24J
+
 **Installation**
 
 Make sure to install node v10 first:
@@ -36,6 +38,12 @@ npm install
 
 ./doit.sh
 ```
+
+Currently some unit tests will fail, because this `sin/cos/tan` PR isn't merged yet: 
+
+https://github.com/AssemblyScript/assemblyscript/pull/491
+
+Please overwrite `node_modules/assemblyscript/std/assembly/math.ts` manually with `std/assembly/math.ts` from that PR.
 
 **webserver stuff**
 
