@@ -1,8 +1,8 @@
 # MathAS
 
 Live demo: http://mathas.killtube.org/html5/
-
 Discord: https://discord.gg/HSxy24J
+Donate: https://www.paypal.me/kungfooman/10
 
 **Installation**
 
