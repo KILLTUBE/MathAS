@@ -65,68 +65,14 @@
 			}
 		</style>
 	
-		<script src="utils.js"></script>
 		<script src="Tests.js"></script>
-		<script src="Loader.js"></script>
+		<script src="main.js"></script>
 
 		<script>
-
-			function fetch_script(url) {
-				return new Promise(function(resolve, reject) {
-					var script = document.createElement("script");
-					script.type = "text/javascript";
-					script.onload = function () {
-						resolve(script);
-					};
-					script.src = url /* + "?now=" + Date.now()*/;
-					document.head.appendChild(script);
-				});
-			}
-
-			async function main() {
-				response = await fetch("../build/untouched.wasm");
-				//buffer = await response.arrayBuffer();
-				
-				imports = {};
-				
-				/*
-				imports.env = {};
-				imports.env.memoryBase = 0;
-				imports.env.tableBase = 0;
-				if (!imports.env.memory) {
-					imports.env.memory = new WebAssembly.Memory({ initial: 20 });
-				}
-				if (!imports.env.table) {
-					imports.env.table = new WebAssembly.Table({ initial: 0, element: 'anyfunc' });
-				}
-				*/
-				
-				//module = Loader.instantiateBuffer(buffer, imports);
-				module = await Loader.instantiateStreaming(response, imports);
-				
-				//console.log(module.I8.length);
-				
-				// next three lines just test the auto-generated demangled class, which isn't so useful currently
-				// this PR might change it: https://github.com/AssemblyScript/assemblyscript/pull/437
-				// a = new module.Vec3(1,2,3)
-				// b = new module.Vec3(11,22,33)
-				// console.log("a.add(b)", a.add(b)); // returns no class but a raw pointer
-				
-				pc = {}; // namespace for all pc_*.js files
-				await fetch_script("pc_mat3.js");
-				await fetch_script("pc_mat4.js");
-				await fetch_script("pc_quat.js");
-				await fetch_script("pc_vec2.js");
-				await fetch_script("pc_vec3.js");
-				await fetch_script("pc_vec4.js");
-				
-				tests_init();
-			}
-
-			main().then(function() {
+			init_mathas("http://127.0.0.1/MathAS/").then(function() {
 				console.log("main() called");
+				tests_init();
 			});
-
 		</script>
 	</head>
 	<body>
