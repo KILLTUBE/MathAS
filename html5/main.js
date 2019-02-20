@@ -50,4 +50,12 @@ async function init_mathas(url) {
 	await fetch_script(url + "/html5/pc_vec2.js");
 	await fetch_script(url + "/html5/pc_vec3.js");
 	await fetch_script(url + "/html5/pc_vec4.js");
+
+	
+	//init_mat3();
+	//init_mat4();
+	//init_quat();
+	//init_vec2();
+	//init_vec3();
+	//init_vec4();
 }
