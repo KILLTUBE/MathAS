@@ -44,9 +44,8 @@ pc.Mat4.wrap = function(ptr) {
 
 pc.Mat4.prototype.setupWrapper = function() {
 	//this.wrap = module.Mat4.wrap(this.ptr)
-	var ptr_data = module.U32[this.ptr >> 2];
-	var ptr_ptr_data = module.U32[ptr_data >> 2];
-	this.data = new Float32Array(instance.exports.memory.buffer, ptr_ptr_data + 8, 16);
+	this.data = new Float32Array(module.memory.buffer, this.ptr, 16);
+	this.data.ptr = this.ptr;
 }
 
 pc.Mat4.prototype.add = function(rhs) {

@@ -201,18 +201,16 @@ export class Quat {
 		var s: f32;
 		var rs: f32;
 		
-		var m = m_.data;
-
-		// Cache matrix values for super-speed
-		var m00 = m[0];
-		var m01 = m[1];
-		var m02 = m[2];
-		var m10 = m[4];
-		var m11 = m[5];
-		var m12 = m[6];
-		var m20 = m[8];
-		var m21 = m[9];
-		var m22 = m[10];
+		// Cache matrix values for super-speed (comment from original JS code lol)
+		var m00 = m_.m0;
+		var m01 = m_.m1;
+		var m02 = m_.m2;
+		var m10 = m_.m4;
+		var m11 = m_.m5;
+		var m12 = m_.m6;
+		var m20 = m_.m8;
+		var m21 = m_.m9;
+		var m22 = m_.m10;
 
 		// Remove the scale from the matrix
 		var lx: f32 = 1.0 / Mathf.sqrt(m00 * m00 + m01 * m01 + m02 * m02);

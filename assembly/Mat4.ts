@@ -5,14 +5,46 @@ import {Quat} from "./Quat";
 import {pc_math} from "./Math"
 
 export class Mat4 {
-	data: Float32Array;
+	m0: f32;
+	m1: f32;
+	m2: f32;
+	m3: f32;
+	m4: f32;
+	m5: f32;
+	m6: f32;
+	m7: f32;
+	m8: f32;
+	m9: f32;
+	m10: f32;
+	m11: f32;
+	m12: f32;
+	m13: f32;
+	m14: f32;
+	m15: f32;	
 
 	constructor() {
-		var tmp = new Float32Array(16);
-		// Create an identity matrix. Note that a new Float32Array has all elements set
-		// to zero by default, so we only need to set the relevant elements to one.
-		tmp[0] = tmp[5] = tmp[10] = tmp[15] = 1;
-		this.data = tmp;
+		this.m0 = 1;
+
+		this.m1 = 0;
+		this.m2 = 0;
+		this.m3 = 0;
+		this.m4 = 0;
+
+		this.m5 = 1;
+		
+		this.m6 = 0;
+		this.m7 = 0;
+		this.m8 = 0;
+		this.m9 = 0;
+
+		this.m10 = 1;
+		
+		this.m11 = 0;
+		this.m12 = 0;
+		this.m13 = 0;
+		this.m14 = 0;
+
+		this.m15 = 1;
 	}
 	
 	add(rhs: Mat4): Mat4 {
@@ -20,27 +52,22 @@ export class Mat4 {
 	}
 	
 	add2(lhs: Mat4, rhs: Mat4): Mat4 {
-		var a = lhs.data,
-			b = rhs.data,
-			r = this.data;
-
-		r[0] = a[0] + b[0];
-		r[1] = a[1] + b[1];
-		r[2] = a[2] + b[2];
-		r[3] = a[3] + b[3];
-		r[4] = a[4] + b[4];
-		r[5] = a[5] + b[5];
-		r[6] = a[6] + b[6];
-		r[7] = a[7] + b[7];
-		r[8] = a[8] + b[8];
-		r[9] = a[9] + b[9];
-		r[10] = a[10] + b[10];
-		r[11] = a[11] + b[11];
-		r[12] = a[12] + b[12];
-		r[13] = a[13] + b[13];
-		r[14] = a[14] + b[14];
-		r[15] = a[15] + b[15];
-
+		this.m0  = lhs.m0  + rhs.m0;
+		this.m1  = lhs.m1  + rhs.m1;
+		this.m2  = lhs.m2  + rhs.m2;
+		this.m3  = lhs.m3  + rhs.m3;
+		this.m4  = lhs.m4  + rhs.m4;
+		this.m5  = lhs.m5  + rhs.m5;
+		this.m6  = lhs.m6  + rhs.m6;
+		this.m7  = lhs.m7  + rhs.m7;
+		this.m8  = lhs.m8  + rhs.m8;
+		this.m9  = lhs.m9  + rhs.m9;
+		this.m10 = lhs.m10 + rhs.m10;
+		this.m11 = lhs.m11 + rhs.m11;
+		this.m12 = lhs.m12 + rhs.m12;
+		this.m13 = lhs.m13 + rhs.m13;
+		this.m14 = lhs.m14 + rhs.m14;
+		this.m15 = lhs.m15 + rhs.m15;
 		return this;
 	}
 
@@ -52,49 +79,44 @@ export class Mat4 {
 	}
 
 	copy(rhs: Mat4): Mat4 {
-		var src = rhs.data,
-			dst = this.data;
-
-		dst[0] = src[0];
-		dst[1] = src[1];
-		dst[2] = src[2];
-		dst[3] = src[3];
-		dst[4] = src[4];
-		dst[5] = src[5];
-		dst[6] = src[6];
-		dst[7] = src[7];
-		dst[8] = src[8];
-		dst[9] = src[9];
-		dst[10] = src[10];
-		dst[11] = src[11];
-		dst[12] = src[12];
-		dst[13] = src[13];
-		dst[14] = src[14];
-		dst[15] = src[15];
-
+		this.m0  = rhs.m0;
+		this.m1  = rhs.m1;
+		this.m2  = rhs.m2;
+		this.m3  = rhs.m3;
+		this.m4  = rhs.m4;
+		this.m5  = rhs.m5;
+		this.m6  = rhs.m6;
+		this.m7  = rhs.m7;
+		this.m8  = rhs.m8;
+		this.m9  = rhs.m9;
+		this.m10 = rhs.m10;
+		this.m11 = rhs.m11;
+		this.m12 = rhs.m12;
+		this.m13 = rhs.m13;
+		this.m14 = rhs.m14;
+		this.m15 = rhs.m15;
 		return this;
 	}
 
 	equals(rhs: Mat4): boolean {
-		var l = this.data,
-			r = rhs.data;
-
-		return ((l[0] === r[0]) &&
-				(l[1] === r[1]) &&
-				(l[2] === r[2]) &&
-				(l[3] === r[3]) &&
-				(l[4] === r[4]) &&
-				(l[5] === r[5]) &&
-				(l[6] === r[6]) &&
-				(l[7] === r[7]) &&
-				(l[8] === r[8]) &&
-				(l[9] === r[9]) &&
-				(l[10] === r[10]) &&
-				(l[11] === r[11]) &&
-				(l[12] === r[12]) &&
-				(l[13] === r[13]) &&
-				(l[14] === r[14]) &&
-				(l[15] === r[15]));
+		return (
+			(this.m0  === rhs.m0 ) &&
+			(this.m1  === rhs.m1 ) &&
+			(this.m2  === rhs.m2 ) &&
+			(this.m3  === rhs.m3 ) &&
+			(this.m4  === rhs.m4 ) &&
+			(this.m5  === rhs.m5 ) &&
+			(this.m6  === rhs.m6 ) &&
+			(this.m7  === rhs.m7 ) &&
+			(this.m8  === rhs.m8 ) &&
+			(this.m9  === rhs.m9 ) &&
+			(this.m10 === rhs.m10) &&
+			(this.m11 === rhs.m11) &&
+			(this.m12 === rhs.m12) &&
+			(this.m13 === rhs.m13) &&
+			(this.m14 === rhs.m14) &&
+			(this.m15 === rhs.m15)
+		);
 	}
 
 	getScale(scale: Vec3): Vec3 {
@@ -111,39 +133,38 @@ export class Mat4 {
 	}
 	
 	getTranslation(t: Vec3): Vec3 {
-		return t.set(this.data[12], this.data[13], this.data[14]);
+		return t.set(this.m12, this.m13, this.m14);
 	}
 
 	getX(x: Vec3): Vec3 {
-		return x.set(this.data[0], this.data[1], this.data[2]);
+		return x.set(this.m0, this.m1, this.m2);
 	}
 
 	getY(y: Vec3): Vec3 {
-		return y.set(this.data[4], this.data[5], this.data[6]);
+		return y.set(this.m4, this.m5, this.m6);
 	}
 
 	getZ(z: Vec3): Vec3 {
-		return z.set(this.data[8], this.data[9], this.data[10]);
+		return z.set(this.m8, this.m9, this.m10);
 	}
 
 	invert(): Mat4 {
-		var m = this.data;
-		var a00 = m[0];
-		var a01 = m[1];
-		var a02 = m[2];
-		var a03 = m[3];
-		var a10 = m[4];
-		var a11 = m[5];
-		var a12 = m[6];
-		var a13 = m[7];
-		var a20 = m[8];
-		var a21 = m[9];
-		var a22 = m[10];
-		var a23 = m[11];
-		var a30 = m[12];
-		var a31 = m[13];
-		var a32 = m[14];
-		var a33 = m[15];
+		var a00 = this.m0;
+		var a01 = this.m1;
+		var a02 = this.m2;
+		var a03 = this.m3;
+		var a10 = this.m4;
+		var a11 = this.m5;
+		var a12 = this.m6;
+		var a13 = this.m7;
+		var a20 = this.m8;
+		var a21 = this.m9;
+		var a22 = this.m10;
+		var a23 = this.m11;
+		var a30 = this.m12;
+		var a31 = this.m13;
+		var a32 = this.m14;
+		var a33 = this.m15;
 
 		var b00: f32 = a00 * a11 - a01 * a10;
 		var b01: f32 = a00 * a12 - a02 * a10;
@@ -163,46 +184,42 @@ export class Mat4 {
 			this.setIdentity();
 		} else {
 			var invDet: f32 = 1.0 / det;
-
-			m[0] = (a11 * b11 - a12 * b10 + a13 * b09) * invDet;
-			m[1] = (-a01 * b11 + a02 * b10 - a03 * b09) * invDet;
-			m[2] = (a31 * b05 - a32 * b04 + a33 * b03) * invDet;
-			m[3] = (-a21 * b05 + a22 * b04 - a23 * b03) * invDet;
-			m[4] = (-a10 * b11 + a12 * b08 - a13 * b07) * invDet;
-			m[5] = (a00 * b11 - a02 * b08 + a03 * b07) * invDet;
-			m[6] = (-a30 * b05 + a32 * b02 - a33 * b01) * invDet;
-			m[7] = (a20 * b05 - a22 * b02 + a23 * b01) * invDet;
-			m[8] = (a10 * b10 - a11 * b08 + a13 * b06) * invDet;
-			m[9] = (-a00 * b10 + a01 * b08 - a03 * b06) * invDet;
-			m[10] = (a30 * b04 - a31 * b02 + a33 * b00) * invDet;
-			m[11] = (-a20 * b04 + a21 * b02 - a23 * b00) * invDet;
-			m[12] = (-a10 * b09 + a11 * b07 - a12 * b06) * invDet;
-			m[13] = (a00 * b09 - a01 * b07 + a02 * b06) * invDet;
-			m[14] = (-a30 * b03 + a31 * b01 - a32 * b00) * invDet;
-			m[15] = (a20 * b03 - a21 * b01 + a22 * b00) * invDet;
+			this.m0  = ( a11 * b11 - a12 * b10 + a13 * b09) * invDet;
+			this.m1  = (-a01 * b11 + a02 * b10 - a03 * b09) * invDet;
+			this.m2  = ( a31 * b05 - a32 * b04 + a33 * b03) * invDet;
+			this.m3  = (-a21 * b05 + a22 * b04 - a23 * b03) * invDet;
+			this.m4  = (-a10 * b11 + a12 * b08 - a13 * b07) * invDet;
+			this.m5  = ( a00 * b11 - a02 * b08 + a03 * b07) * invDet;
+			this.m6  = (-a30 * b05 + a32 * b02 - a33 * b01) * invDet;
+			this.m7  = ( a20 * b05 - a22 * b02 + a23 * b01) * invDet;
+			this.m8  = ( a10 * b10 - a11 * b08 + a13 * b06) * invDet;
+			this.m9  = (-a00 * b10 + a01 * b08 - a03 * b06) * invDet;
+			this.m10 = ( a30 * b04 - a31 * b02 + a33 * b00) * invDet;
+			this.m11 = (-a20 * b04 + a21 * b02 - a23 * b00) * invDet;
+			this.m12 = (-a10 * b09 + a11 * b07 - a12 * b06) * invDet;
+			this.m13 = ( a00 * b09 - a01 * b07 + a02 * b06) * invDet;
+			this.m14 = (-a30 * b03 + a31 * b01 - a32 * b00) * invDet;
+			this.m15 = ( a20 * b03 - a21 * b01 + a22 * b00) * invDet;
 		}
-
-
 		return this;
 	}
 
 
 
 	invertTo3x3(res: Mat3): Mat4 {
-		var m = this.data;
 		var r = res.data;
 
-		var m0 = m[0];
-		var m1 = m[1];
-		var m2 = m[2];
+		var m0 = this.m0;
+		var m1 = this.m1;
+		var m2 = this.m2;
 
-		var m4 = m[4];
-		var m5 = m[5];
-		var m6 = m[6];
+		var m4 = this.m4;
+		var m5 = this.m5;
+		var m6 = this.m6;
 
-		var m8 = m[8];
-		var m9 = m[9];
-		var m10 = m[10];
+		var m8  = this.m8;
+		var m9  = this.m9;
+		var m10 = this.m10;
 
 		var a11 =  m10 * m5 - m6 * m9;
 		var a21 = -m10 * m1 + m2 * m9;
@@ -235,24 +252,24 @@ export class Mat4 {
 	}
 
 	isIdentity(): boolean {
-		var m = this.data;
-
-		return ((m[0] === 1) &&
-				(m[1] === 0) &&
-				(m[2] === 0) &&
-				(m[3] === 0) &&
-				(m[4] === 0) &&
-				(m[5] === 1) &&
-				(m[6] === 0) &&
-				(m[7] === 0) &&
-				(m[8] === 0) &&
-				(m[9] === 0) &&
-				(m[10] === 1) &&
-				(m[11] === 0) &&
-				(m[12] === 0) &&
-				(m[13] === 0) &&
-				(m[14] === 0) &&
-				(m[15] === 1));
+		return (
+			(this.m0 === 1) &&
+			(this.m1 === 0) &&
+			(this.m2 === 0) &&
+			(this.m3 === 0) &&
+			(this.m4 === 0) &&
+			(this.m5 === 1) &&
+			(this.m6 === 0) &&
+			(this.m7 === 0) &&
+			(this.m8 === 0) &&
+			(this.m9 === 0) &&
+			(this.m10 === 1) &&
+			(this.m11 === 0) &&
+			(this.m12 === 0) &&
+			(this.m13 === 0) &&
+			(this.m14 === 0) &&
+			(this.m15 === 1)
+		);
 	}
 
 	mul(rhs: Mat4): Mat4 {
@@ -260,62 +277,58 @@ export class Mat4 {
 	}
 	
 	mul2(lhs: Mat4, rhs: Mat4): Mat4 {
-		var a = lhs.data;
-		var b = rhs.data;
-		var r = this.data;
+		var a00 = lhs.m0;
+		var a01 = lhs.m1;
+		var a02 = lhs.m2;
+		var a03 = lhs.m3;
+		var a10 = lhs.m4;
+		var a11 = lhs.m5;
+		var a12 = lhs.m6;
+		var a13 = lhs.m7;
+		var a20 = lhs.m8;
+		var a21 = lhs.m9;
+		var a22 = lhs.m10;
+		var a23 = lhs.m11;
+		var a30 = lhs.m12;
+		var a31 = lhs.m13;
+		var a32 = lhs.m14;
+		var a33 = lhs.m15;
 
-		var a00 = a[0];
-		var a01 = a[1];
-		var a02 = a[2];
-		var a03 = a[3];
-		var a10 = a[4];
-		var a11 = a[5];
-		var a12 = a[6];
-		var a13 = a[7];
-		var a20 = a[8];
-		var a21 = a[9];
-		var a22 = a[10];
-		var a23 = a[11];
-		var a30 = a[12];
-		var a31 = a[13];
-		var a32 = a[14];
-		var a33 = a[15];
+		var b0 = rhs.m0;
+		var b1 = rhs.m1;
+		var b2 = rhs.m2;
+		var b3 = rhs.m3;
+		this.m0  = a00 * b0 + a10 * b1 + a20 * b2 + a30 * b3;
+		this.m1  = a01 * b0 + a11 * b1 + a21 * b2 + a31 * b3;
+		this.m2  = a02 * b0 + a12 * b1 + a22 * b2 + a32 * b3;
+		this.m3  = a03 * b0 + a13 * b1 + a23 * b2 + a33 * b3;
 
-		var b0 = b[0];
-		var b1 = b[1];
-		var b2 = b[2];
-		var b3 = b[3];
-		r[0]  = a00 * b0 + a10 * b1 + a20 * b2 + a30 * b3;
-		r[1]  = a01 * b0 + a11 * b1 + a21 * b2 + a31 * b3;
-		r[2]  = a02 * b0 + a12 * b1 + a22 * b2 + a32 * b3;
-		r[3]  = a03 * b0 + a13 * b1 + a23 * b2 + a33 * b3;
+		b0 = rhs.m4;
+		b1 = rhs.m5;
+		b2 = rhs.m6;
+		b3 = rhs.m7;
+		this.m4  = a00 * b0 + a10 * b1 + a20 * b2 + a30 * b3;
+		this.m5  = a01 * b0 + a11 * b1 + a21 * b2 + a31 * b3;
+		this.m6  = a02 * b0 + a12 * b1 + a22 * b2 + a32 * b3;
+		this.m7  = a03 * b0 + a13 * b1 + a23 * b2 + a33 * b3;
 
-		b0 = b[4];
-		b1 = b[5];
-		b2 = b[6];
-		b3 = b[7];
-		r[4]  = a00 * b0 + a10 * b1 + a20 * b2 + a30 * b3;
-		r[5]  = a01 * b0 + a11 * b1 + a21 * b2 + a31 * b3;
-		r[6]  = a02 * b0 + a12 * b1 + a22 * b2 + a32 * b3;
-		r[7]  = a03 * b0 + a13 * b1 + a23 * b2 + a33 * b3;
+		b0 = rhs.m8;
+		b1 = rhs.m9;
+		b2 = rhs.m10;
+		b3 = rhs.m11;
+		this.m8  = a00 * b0 + a10 * b1 + a20 * b2 + a30 * b3;
+		this.m9  = a01 * b0 + a11 * b1 + a21 * b2 + a31 * b3;
+		this.m10 = a02 * b0 + a12 * b1 + a22 * b2 + a32 * b3;
+		this.m11 = a03 * b0 + a13 * b1 + a23 * b2 + a33 * b3;
 
-		b0 = b[8];
-		b1 = b[9];
-		b2 = b[10];
-		b3 = b[11];
-		r[8]  = a00 * b0 + a10 * b1 + a20 * b2 + a30 * b3;
-		r[9]  = a01 * b0 + a11 * b1 + a21 * b2 + a31 * b3;
-		r[10] = a02 * b0 + a12 * b1 + a22 * b2 + a32 * b3;
-		r[11] = a03 * b0 + a13 * b1 + a23 * b2 + a33 * b3;
-
-		b0 = b[12];
-		b1 = b[13];
-		b2 = b[14];
-		b3 = b[15];
-		r[12] = a00 * b0 + a10 * b1 + a20 * b2 + a30 * b3;
-		r[13] = a01 * b0 + a11 * b1 + a21 * b2 + a31 * b3;
-		r[14] = a02 * b0 + a12 * b1 + a22 * b2 + a32 * b3;
-		r[15] = a03 * b0 + a13 * b1 + a23 * b2 + a33 * b3;
+		b0 = rhs.m12;
+		b1 = rhs.m13;
+		b2 = rhs.m14;
+		b3 = rhs.m15;
+		this.m12 = a00 * b0 + a10 * b1 + a20 * b2 + a30 * b3;
+		this.m13 = a01 * b0 + a11 * b1 + a21 * b2 + a31 * b3;
+		this.m14 = a02 * b0 + a12 * b1 + a22 * b2 + a32 * b3;
+		this.m15 = a03 * b0 + a13 * b1 + a23 * b2 + a33 * b3;
 
 		return this;
 	}
@@ -331,24 +344,23 @@ export class Mat4 {
 		var t: f32 = 1.0 - c;
 		var tx: f32 = t * x;
 		var ty: f32 = t * y;
-		var m = this.data;
 
-		m[0] = tx * x + c;
-		m[1] = tx * y + s * z;
-		m[2] = tx * z - s * y;
-		m[3] = 0;
-		m[4] = tx * y - s * z;
-		m[5] = ty * y + c;
-		m[6] = ty * z + s * x;
-		m[7] = 0;
-		m[8] = tx * z + s * y;
-		m[9] = ty * z - x * s;
-		m[10] = t * z * z + c;
-		m[11] = 0;
-		m[12] = 0;
-		m[13] = 0;
-		m[14] = 0;
-		m[15] = 1;
+		this.m0 = tx * x + c;
+		this.m1 = tx * y + s * z;
+		this.m2 = tx * z - s * y;
+		this.m3 = 0;
+		this.m4 = tx * y - s * z;
+		this.m5 = ty * y + c;
+		this.m6 = ty * z + s * x;
+		this.m7 = 0;
+		this.m8 = tx * z + s * y;
+		this.m9 = ty * z - x * s;
+		this.m10 = t * z * z + c;
+		this.m11 = 0;
+		this.m12 = 0;
+		this.m13 = 0;
+		this.m14 = 0;
+		this.m15 = 1;
 
 		return this;
 	}
@@ -370,28 +382,26 @@ export class Mat4 {
 		var s3 = Mathf.sin(-ez);
 		var c3 = Mathf.cos(-ez);
 
-		var m = this.data;
-
 		// Set rotation elements
-		m[0] = c2 * c3;
-		m[1] = -c2 * s3;
-		m[2] = s2;
-		m[3] = 0;
+		this.m0 = c2 * c3;
+		this.m1 = -c2 * s3;
+		this.m2 = s2;
+		this.m3 = 0;
 
-		m[4] = c1 * s3 + c3 * s1 * s2;
-		m[5] = c1 * c3 - s1 * s2 * s3;
-		m[6] = -c2 * s1;
-		m[7] = 0;
+		this.m4 = c1 * s3 + c3 * s1 * s2;
+		this.m5 = c1 * c3 - s1 * s2 * s3;
+		this.m6 = -c2 * s1;
+		this.m7 = 0;
 
-		m[8] = s1 * s3 - c1 * c3 * s2;
-		m[9] = c3 * s1 + c1 * s2 * s3;
-		m[10] = c1 * c2;
-		m[11] = 0;
+		this.m8 = s1 * s3 - c1 * c3 * s2;
+		this.m9 = c3 * s1 + c1 * s2 * s3;
+		this.m10 = c1 * c2;
+		this.m11 = 0;
 
-		m[12] = 0;
-		m[13] = 0;
-		m[14] = 0;
-		m[15] = 1;
+		this.m12 = 0;
+		this.m13 = 0;
+		this.m14 = 0;
+		this.m15 = 1;
 
 		return this;
 	}
@@ -402,46 +412,43 @@ export class Mat4 {
 		var temp3: f32 = top - bottom;
 		var temp4: f32 = zfar - znear;
 
-		var r = this.data;
-		r[0] = temp1 / temp2;
-		r[1] = 0;
-		r[2] = 0;
-		r[3] = 0;
-		r[4] = 0;
-		r[5] = temp1 / temp3;
-		r[6] = 0;
-		r[7] = 0;
-		r[8] = (right + left) / temp2;
-		r[9] = (top + bottom) / temp3;
-		r[10] = (-zfar - znear) / temp4;
-		r[11] = -1;
-		r[12] = 0;
-		r[13] = 0;
-		r[14] = (-temp1 * zfar) / temp4;
-		r[15] = 0;
+		this.m0 = temp1 / temp2;
+		this.m1 = 0;
+		this.m2 = 0;
+		this.m3 = 0;
+		this.m4 = 0;
+		this.m5 = temp1 / temp3;
+		this.m6 = 0;
+		this.m7 = 0;
+		this.m8 = (right + left) / temp2;
+		this.m9 = (top + bottom) / temp3;
+		this.m10 = (-zfar - znear) / temp4;
+		this.m11 = -1;
+		this.m12 = 0;
+		this.m13 = 0;
+		this.m14 = (-temp1 * zfar) / temp4;
+		this.m15 = 0;
 
 		return this;
 	}
 
 	setIdentity(): Mat4 {
-		var m = this.data;
-		m[0] = 1;
-		m[1] = 0;
-		m[2] = 0;
-		m[3] = 0;
-		m[4] = 0;
-		m[5] = 1;
-		m[6] = 0;
-		m[7] = 0;
-		m[8] = 0;
-		m[9] = 0;
-		m[10] = 1;
-		m[11] = 0;
-		m[12] = 0;
-		m[13] = 0;
-		m[14] = 0;
-		m[15] = 1;
-
+		this.m0 = 1;
+		this.m1 = 0;
+		this.m2 = 0;
+		this.m3 = 0;
+		this.m4 = 0;
+		this.m5 = 1;
+		this.m6 = 0;
+		this.m7 = 0;
+		this.m8 = 0;
+		this.m9 = 0;
+		this.m10 = 1;
+		this.m11 = 0;
+		this.m12 = 0;
+		this.m13 = 0;
+		this.m14 = 0;
+		this.m15 = 1;
 		return this;
 	}
 
@@ -455,48 +462,43 @@ export class Mat4 {
 		x.cross(y, z).normalize();
 		y.cross(z, x);
 
-		var r = this.data;
-
-		r[0]  = x.x;
-		r[1]  = x.y;
-		r[2]  = x.z;
-		r[3]  = 0;
-		r[4]  = y.x;
-		r[5]  = y.y;
-		r[6]  = y.z;
-		r[7]  = 0;
-		r[8]  = z.x;
-		r[9]  = z.y;
-		r[10] = z.z;
-		r[11] = 0;
-		r[12] = position.x;
-		r[13] = position.y;
-		r[14] = position.z;
-		r[15] = 1;
+		this.m0  = x.x;
+		this.m1  = x.y;
+		this.m2  = x.z;
+		this.m3  = 0;
+		this.m4  = y.x;
+		this.m5  = y.y;
+		this.m6  = y.z;
+		this.m7  = 0;
+		this.m8  = z.x;
+		this.m9  = z.y;
+		this.m10 = z.z;
+		this.m11 = 0;
+		this.m12 = position.x;
+		this.m13 = position.y;
+		this.m14 = position.z;
+		this.m15 = 1;
 
 		return this;
 	}
 
 	setOrtho(left: f32, right: f32, bottom: f32, top: f32, near: f32, far: f32): Mat4 {
-		var r = this.data;
-
-		r[0] = 2 / (right - left);
-		r[1] = 0;
-		r[2] = 0;
-		r[3] = 0;
-		r[4] = 0;
-		r[5] = 2 / (top - bottom);
-		r[6] = 0;
-		r[7] = 0;
-		r[8] = 0;
-		r[9] = 0;
-		r[10] = -2 / (far - near);
-		r[11] = 0;
-		r[12] = -(right + left) / (right - left);
-		r[13] = -(top + bottom) / (top - bottom);
-		r[14] = -(far + near) / (far - near);
-		r[15] = 1;
-
+		this.m0 = 2 / (right - left);
+		this.m1 = 0;
+		this.m2 = 0;
+		this.m3 = 0;
+		this.m4 = 0;
+		this.m5 = 2 / (top - bottom);
+		this.m6 = 0;
+		this.m7 = 0;
+		this.m8 = 0;
+		this.m9 = 0;
+		this.m10 = -2 / (far - near);
+		this.m11 = 0;
+		this.m12 = -(right + left) / (right - left);
+		this.m13 = -(top + bottom) / (top - bottom);
+		this.m14 = -(far + near) / (far - near);
+		this.m15 = 1;
 		return this;
 	}
 
@@ -516,28 +518,24 @@ export class Mat4 {
 	}
 
 	setScale(x: f32, y: f32, z: f32): Mat4 {
-		var m = this.data;
-
-		m[0] = x;
-		m[1] = 0;
-		m[2] = 0;
-		m[3] = 0;
-		m[4] = 0;
-		m[5] = y;
-		m[6] = 0;
-		m[7] = 0;
-		m[8] = 0;
-		m[9] = 0;
-		m[10] = z;
-		m[11] = 0;
-		m[12] = 0;
-		m[13] = 0;
-		m[14] = 0;
-		m[15] = 1;
-
+		this.m0 = x;
+		this.m1 = 0;
+		this.m2 = 0;
+		this.m3 = 0;
+		this.m4 = 0;
+		this.m5 = y;
+		this.m6 = 0;
+		this.m7 = 0;
+		this.m8 = 0;
+		this.m9 = 0;
+		this.m10 = z;
+		this.m11 = 0;
+		this.m12 = 0;
+		this.m13 = 0;
+		this.m14 = 0;
+		this.m15 = 1;
 		return this;
 	}
-
 
 	/**
 	 * @function
@@ -583,124 +581,106 @@ export class Mat4 {
 		var wy = qw * y2;
 		var wz = qw * z2;
 
-		var m = this.data;
+		this.m0 = (1 - (yy + zz)) * sx;
+		this.m1 = (xy + wz) * sx;
+		this.m2 = (xz - wy) * sx;
+		this.m3 = 0;
 
-		m[0] = (1 - (yy + zz)) * sx;
-		m[1] = (xy + wz) * sx;
-		m[2] = (xz - wy) * sx;
-		m[3] = 0;
+		this.m4 = (xy - wz) * sy;
+		this.m5 = (1 - (xx + zz)) * sy;
+		this.m6 = (yz + wx) * sy;
+		this.m7 = 0;
 
-		m[4] = (xy - wz) * sy;
-		m[5] = (1 - (xx + zz)) * sy;
-		m[6] = (yz + wx) * sy;
-		m[7] = 0;
+		this.m8 = (xz + wy) * sz;
+		this.m9 = (yz - wx) * sz;
+		this.m10 = (1 - (xx + yy)) * sz;
+		this.m11 = 0;
 
-		m[8] = (xz + wy) * sz;
-		m[9] = (yz - wx) * sz;
-		m[10] = (1 - (xx + yy)) * sz;
-		m[11] = 0;
-
-		m[12] = tx;
-		m[13] = ty;
-		m[14] = tz;
-		m[15] = 1;
+		this.m12 = tx;
+		this.m13 = ty;
+		this.m14 = tz;
+		this.m15 = 1;
 
 		return this;
 	}
 	
 	setTranslate(x: f32, y: f32, z: f32): Mat4 {
-		var m = this.data;
-
-		m[0] = 1;
-		m[1] = 0;
-		m[2] = 0;
-		m[3] = 0;
-		m[4] = 0;
-		m[5] = 1;
-		m[6] = 0;
-		m[7] = 0;
-		m[8] = 0;
-		m[9] = 0;
-		m[10] = 1;
-		m[11] = 0;
-		m[12] = x;
-		m[13] = y;
-		m[14] = z;
-		m[15] = 1;
-
+		this.m0 = 1;
+		this.m1 = 0;
+		this.m2 = 0;
+		this.m3 = 0;
+		this.m4 = 0;
+		this.m5 = 1;
+		this.m6 = 0;
+		this.m7 = 0;
+		this.m8 = 0;
+		this.m9 = 0;
+		this.m10 = 1;
+		this.m11 = 0;
+		this.m12 = x;
+		this.m13 = y;
+		this.m14 = z;
+		this.m15 = 1;
 		return this;
 	}
 
 	transformPoint(vec: Vec3, res: Vec3): Vec3 {
-		var m = this.data;
-
 		var x = vec.x;
 		var y = vec.y;
 		var z = vec.z;
-
-		res.x = x * m[0] + y * m[4] + z * m[8] + m[12];
-		res.y = x * m[1] + y * m[5] + z * m[9] + m[13];
-		res.z = x * m[2] + y * m[6] + z * m[10] + m[14];
-
+		res.x = x * this.m0 + y * this.m4 + z * this.m8  + this.m12;
+		res.y = x * this.m1 + y * this.m5 + z * this.m9  + this.m13;
+		res.z = x * this.m2 + y * this.m6 + z * this.m10 + this.m14;
 		return res;
 	}
 
 	transformVec4(vec: Vec4, res: Vec4): Vec4 {
-		var m = this.data;
-
 		var x = vec.x;
 		var y = vec.y;
 		var z = vec.z;
 		var w = vec.w;
-
-		res.x = x * m[0] + y * m[4] + z * m[8] + w * m[12];
-		res.y = x * m[1] + y * m[5] + z * m[9] + w * m[13];
-		res.z = x * m[2] + y * m[6] + z * m[10] + w * m[14];
-		res.w = x * m[3] + y * m[7] + z * m[11] + w * m[15];
-
+		res.x = x * this.m0 + y * this.m4 + z * this.m8  + w * this.m12;
+		res.y = x * this.m1 + y * this.m5 + z * this.m9  + w * this.m13;
+		res.z = x * this.m2 + y * this.m6 + z * this.m10 + w * this.m14;
+		res.w = x * this.m3 + y * this.m7 + z * this.m11 + w * this.m15;
 		return res;
 	}
 
 	transformVector(vec: Vec3, res: Vec3): Vec3 {
-		var m = this.data;
-
 		var x = vec.x;
 		var y = vec.y;
 		var z = vec.z;
-
-		res.x = x * m[0] + y * m[4] + z * m[8];
-		res.y = x * m[1] + y * m[5] + z * m[9];
-		res.z = x * m[2] + y * m[6] + z * m[10];
-
+		res.x = x * this.m0 + y * this.m4 + z * this.m8;
+		res.y = x * this.m1 + y * this.m5 + z * this.m9;
+		res.z = x * this.m2 + y * this.m6 + z * this.m10;
 		return res;
 	}
 
 	transpose(): Mat4 {
-		var m = this.data;
 
-		var tmp = m[1];
-		m[1] = m[4];
-		m[4] = tmp;
+		var tmp = this.m1;
+		this.m1 = this.m4;
+		this.m4 = tmp;
 
-		tmp = m[2];
-		m[2] = m[8];
-		m[8] = tmp;
+		tmp = this.m2;
+		this.m2 = this.m8;
+		this.m8 = tmp;
 
-		tmp = m[3];
-		m[3] = m[12];
-		m[12] = tmp;
+		tmp = this.m3;
+		this.m3 = this.m12;
+		this.m12 = tmp;
 
-		tmp = m[6];
-		m[6] = m[9];
-		m[9] = tmp;
+		tmp = this.m6;
+		this.m6 = this.m9;
+		this.m9 = tmp;
 
-		tmp = m[7];
-		m[7] = m[13];
-		m[13] = tmp;
+		tmp = this.m7;
+		this.m7 = this.m13;
+		this.m13 = tmp;
 
-		tmp = m[11];
-		m[11] = m[14];
-		m[14] = tmp;
+		tmp = this.m11;
+		this.m11 = this.m14;
+		this.m14 = tmp;
 
 		return this;
 	}
