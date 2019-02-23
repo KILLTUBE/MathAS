@@ -208,7 +208,14 @@
 				var b = new pc.Mat4();
 				!a.equals(b) && a.equals(a);
 			</test-js>
-			
+
+			<test-js>
+				// Create a 4x4 rotation matrix of 45 degrees around the y-axis
+				var m = new pc.Mat4().setFromAxisAngle(pc.Vec3.UP, 45);
+				var eulers = m.getEulerAngles();
+				eulers.toStringFixed(4) == "[0.0000, 45.0000, 0.0000]";
+			</test-js>
+
 			<test-js>
 				var m = new pc.Mat4().setScale(2, 3, 4);
 				m.getScale().toString() == "[2, 3, 4]";

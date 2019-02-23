@@ -119,6 +119,38 @@ export class Mat4 {
 		);
 	}
 
+	getEulerAngles(eulers: Vec3): Vec3 {
+		var x: f32;
+		var z: f32;
+
+		var scale = PreallocatedVec3.getEulerAngles_scale;
+
+		this.getScale(scale);
+		var sx = scale.x;
+		var sy = scale.y;
+		var sz = scale.z;
+
+		var y = Mathf.asin(-this.m2 / sx);
+		var halfPi = Mathf.PI * 0.5;
+
+		if (y < halfPi) {
+			if (y > -halfPi) {
+				x = Mathf.atan2(this.m6 / sy, this.m10 / sz);
+				z = Mathf.atan2(this.m1 / sx, this.m0 / sx);
+			} else {
+				// Not a unique solution
+				z = 0;
+				x = -Mathf.atan2(this.m4 / sy, this.m5 / sy);
+			}
+		} else {
+			// Not a unique solution
+			z = 0;
+			x = Mathf.atan2(this.m4 / sy, this.m5 / sy);
+		}
+
+		return eulers.set(x, y, z).scale(pc_math.RAD_TO_DEG);
+	}
+
 	getScale(scale: Vec3): Vec3 {
 		var x = PreallocatedVec3.getScale_x;
 		var y = PreallocatedVec3.getScale_y;
@@ -684,58 +716,4 @@ export class Mat4 {
 
 		return this;
 	}
-
-
-
-	/**
-	 * @function
-	 * @name pc.Mat4#getEulerAngles
-	 * @description Extracts the Euler angles equivalent to the rotational portion
-	 * of the specified matrix. The returned Euler angles are in XYZ order an in degrees.
-	 * @param {pc.Vec3} [eulers] A 3-d vector to receive the Euler angles.
-	 * @returns {pc.Vec3} A 3-d vector containing the Euler angles.
-	 * @example
-	 * // Create a 4x4 rotation matrix of 45 degrees around the y-axis
-	 * var m = new pc.Mat4().setFromAxisAngle(pc.Vec3.UP, 45);
-	 *
-	 * var eulers = m.getEulerAngles();
-	 */
-	/*
-	getEulerAngles(eulers: Vec3): Vec3 {
-		var x: f32;
-		var z: f32;
-
-		var scale = PreallocatedVec3.getEulerAngles_scale;
-		//eulers = (eulers === undefined) ? new pc.Vec3() : eulers;
-
-		this.getScale(scale);
-		var sx = scale.x;
-		var sy = scale.y;
-		var sz = scale.z;
-
-		var m = this.data;
-
-		var y = Mathf.asin(-m[2] / sx);
-		var halfPi = Mathf.PI * 0.5;
-
-		if (y < halfPi) {
-			if (y > -halfPi) {
-				x = Mathf.atan2(m[6] / sy, m[10] / sz);
-				z = Mathf.atan2(m[1] / sx, m[0] / sx);
-			} else {
-				// Not a unique solution
-				z = 0;
-				x = -Mathf.atan2(m[4] / sy, m[5] / sy);
-			}
-		} else {
-			// Not a unique solution
-			z = 0;
-			x = Mathf.atan2(m[4] / sy, m[5] / sy);
-		}
-
-		return eulers.set(x, y, z).scale(pc_math.RAD_TO_DEG);
-	}
-	*/
-
-
 }

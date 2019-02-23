@@ -5,6 +5,7 @@ mat4_add2               = instance.exports["Mat4#add2"];
 mat4_clone              = instance.exports["Mat4#clone"];
 mat4_copy               = instance.exports["Mat4#copy"];
 mat4_equals             = instance.exports["Mat4#equals"];
+mat4_getEulerAngles     = instance.exports["Mat4#getEulerAngles"];
 mat4_getScale           = instance.exports["Mat4#getScale"];
 mat4_getTranslation     = instance.exports["Mat4#getTranslation"];
 mat4_getX               = instance.exports["Mat4#getX"];
@@ -71,6 +72,14 @@ pc.Mat4.prototype.copy = function(rhs) {
 
 pc.Mat4.prototype.equals = function(rhs) {
 	return !!mat4_equals(this.ptr, rhs.ptr);
+}
+
+pc.Mat4.prototype.getEulerAngles = function(eulers) {
+	if (eulers === undefined) {
+		eulers = new pc.Vec3();
+	}
+	mat4_getEulerAngles(this.ptr, eulers.ptr);
+	return eulers;
 }
 
 pc.Mat4.prototype.getScale = function(scale) {
