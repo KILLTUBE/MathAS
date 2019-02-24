@@ -2,7 +2,8 @@ const asc = require("assemblyscript/cli/asc");
 asc.main([
 	"assembly/index.ts",
 	"--binaryFile", "build/untouched.wasm",
-	"--optimize",
+	//"--optimize",
+	"-O3",
 	"--sourceMap",
 	"--measure"
 ], {
