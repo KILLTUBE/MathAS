@@ -33,20 +33,28 @@ mat4_transpose          = instance.exports["Mat4#transpose"];
 
 pc.Mat4 = function() {
 	this.ptr = mat4_constructor(0);
-	this.setupWrapper();
+	// if (module.tlfs) {
+	//	this.bufferByteLength = 0;
+	// } else {
+		this.assignDataView();
+	// }
 }
 
 pc.Mat4.wrap = function(ptr) {
 	var tmp = Object.create(pc.Mat4.prototype);
 	tmp.ptr = ptr;
-	tmp.setupWrapper();
+	// if (tlfs) {
+	//	tmp.bufferByteLength = 0;
+	// } else {
+		tmp.assignDataView();
+	// }
 	return tmp;
 }
 
-pc.Mat4.prototype.setupWrapper = function() {
+pc.Mat4.prototype.assignDataView = function() {
 	//this.wrap = module.Mat4.wrap(this.ptr)
 	this.data = new Float32Array(module.memory.buffer, this.ptr, 16);
-	this.data.ptr = this.ptr;
+	//this.data.ptr = this.ptr;
 }
 
 pc.Mat4.prototype.add = function(rhs) {
@@ -267,6 +275,26 @@ pc.Mat4.prototype.toStringFixed = function(n) {
 	t += ']';
 	return t;
 }
+
+/*
+Useful for: TLSF allocator.
+But currently I use the Arena allocator, because it's faster.
+I simply preallocate 300mb and update the dataviews *never*.
+
+Object.defineProperty(pc.Mat4.prototype, 'data', {
+	get: function() {
+		if (this.bufferByteLength != module.memory.buffer.byteLength) {
+			// Recreate dataview when the wasm arraybuffer changed size.
+			// Needed because dataviews become invalid when original arraybuffer resizes.
+			// I cache them because recreating dataviews for 64 animated models costs like 5ms per frame.
+			this.cachedDataView = new Float32Array(module.memory.buffer, this.ptr, 16);
+			this.bufferByteLength = module.memory.buffer.byteLength;
+			console.log("recreate dataview for ", this);
+		}
+		return this.cachedDataView;
+	}
+});
+*/
 
 Object.defineProperty(pc.Mat4, 'IDENTITY', {
 	get: (function () {
