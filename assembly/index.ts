@@ -1,4 +1,6 @@
-import "allocator/tlsf";
+
+//import "allocator/tlsf";
+import "allocator/arena";
 export {memory};
 
 export {Mat3} from "./Mat3"
