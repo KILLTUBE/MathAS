@@ -2,17 +2,17 @@ import { Vec3 } from "./Vec3";
 import { Quat } from "./Quat";
 
 enum AnimationKeyableType {
-    NUM               ,
-    VEC2              ,
-    VEC               , // todo: rename to VEC3
-    VEC4              ,
-    QUAT              ,
-    NUM_CUBICSCPLINE  ,
-    VEC2_CUBICSCPLINE ,
-    VEC_CUBICSCPLINE  , // todo: rename to VEC3_CUBICSPLINE
-    VEC4_CUBICSCPLINE ,
-    QUAT_CUBICSCPLINE 
-};
+    NUM               = 0,
+    VEC2              = 1,
+    VEC               = 2, // todo: rename to VEC3
+    VEC4              = 3,
+    QUAT              = 4,
+    NUM_CUBICSCPLINE  = 5,
+    VEC2_CUBICSCPLINE = 6,
+    VEC_CUBICSCPLINE  = 7, // todo: rename to VEC3_CUBICSPLINE
+    VEC4_CUBICSCPLINE = 8,
+    QUAT_CUBICSCPLINE = 9
+}
 
 /**
  * @summary static method: tangent 1, value 1, tangent 2, value 2, proportion
@@ -29,7 +29,7 @@ export function cubicHermite(t1: f32, v1: f32, t2: f32, v2: f32, p: f32): f32 {
 
     // interpolation
     return v1 * h0 + v2 * h1 + t1 * h2 + t2 * h3;
-};
+}
 
 export class AnimationKeyableNum {
 	type: AnimationKeyableType;
@@ -58,7 +58,7 @@ export class AnimationKeyableNum {
 	linearBlend(lhs: AnimationKeyableNum, rhs: AnimationKeyableNum, alpha: f32) {
 		this.value = (1.0 - alpha) * lhs.value + alpha * rhs.value;
 	}
-};
+}
 
 export class AnimationKeyableVec {
 	type: AnimationKeyableType;
