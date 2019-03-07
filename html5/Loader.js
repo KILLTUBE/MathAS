@@ -60,24 +60,23 @@ function postInstantiate(baseModule, instance) {
 
 	/** Updates memory views if memory has grown meanwhile. */
 	function checkMem() {
-		// see: https://github.com/WebAssembly/design/issues/1210
-		if (buffer !== memory.buffer) {
-			buffer = memory.buffer;
-			I8	= new Int8Array(buffer);
-			U8	= new Uint8Array(buffer);
-			I16 = new Int16Array(buffer);
-			U16 = new Uint16Array(buffer);
-			I32 = new Int32Array(buffer);
-			U32 = new Uint32Array(buffer);
-			if (hasBigInt64) {
-				I64 = new BigInt64Array(buffer);
-				U64 = new BigUint64Array(buffer);
-			}
-			F32 = new Float32Array(buffer);
-			F64 = new Float64Array(buffer);
+		var baseModule = this;
+		buffer = memory.buffer;
+		baseModule.I8	= new Int8Array(buffer);
+		baseModule.U8	= new Uint8Array(buffer);
+		baseModule.I16 = new Int16Array(buffer);
+		baseModule.U16 = new Uint16Array(buffer);
+		baseModule.I32 = new Int32Array(buffer);
+		baseModule.U32 = new Uint32Array(buffer);
+		if (hasBigInt64) {
+			baseModule.I64 = new BigInt64Array(buffer);
+			baseModule.U64 = new BigUint64Array(buffer);
 		}
+		baseModule.F32 = new Float32Array(buffer);
+		baseModule.F64 = new Float64Array(buffer);
 	}
-	checkMem();
+	baseModule.updateDataViews = checkMem.bind(baseModule);
+	baseModule.updateDataViews();
 
 	/** Allocates a new string in the module's memory and returns its pointer. */
 	function newString(str) {
@@ -198,18 +197,7 @@ function postInstantiate(baseModule, instance) {
 	baseModule.table = baseModule.table || table;
 
 	// Demangle exports and provide the usual utility on the prototype
-	return demangle(rawExports, Object.defineProperties(baseModule, {
-		I8: { get: function() { checkMem(); return I8; } },
-		U8: { get: function() { checkMem(); return U8; } },
-		I16: { get: function() { checkMem(); return I16; } },
-		U16: { get: function() { checkMem(); return U16; } },
-		I32: { get: function() { checkMem(); return I32; } },
-		U32: { get: function() { checkMem(); return U32; } },
-		I64: { get: function() { checkMem(); return I64; } },
-		U64: { get: function() { checkMem(); return U64; } },
-		F32: { get: function() { checkMem(); return F32; } },
-		F64: { get: function() { checkMem(); return F64; } }
-	}));
+	return demangle(rawExports, baseModule);
 }
 
 /** Wraps a WebAssembly function while also taking care of variable arguments. */
