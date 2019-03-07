@@ -20,12 +20,12 @@ enum AnimationKeyableType {
 
 export function cubicHermite(t1: f32, v1: f32, t2: f32, v2: f32, p: f32): f32 {
     // basis
-    var p2 = p * p;
-    var p3 = p2 * p;
-    var h0 = 2 * p3 - 3 * p2 + 1;
-    var h1 = -2 * p3 + 3 * p2;
-    var h2 = p3 - 2 * p2 + p;
-    var h3 = p3 - p2;
+    var p2: f32 = p * p;
+    var p3: f32 = p2 * p;
+    var h0: f32 = 2 * p3 - 3 * p2 + 1;
+    var h1: f32 = -2 * p3 + 3 * p2;
+    var h2: f32 = p3 - 2 * p2 + p;
+    var h3: f32 = p3 - p2;
 
     // interpolation
     return v1 * h0 + v2 * h1 + t1 * h2 + t2 * h3;
@@ -55,7 +55,7 @@ export class AnimationKeyableNum {
 		);
 	}
 
-	linearBlend(lhs: AnimationKeyableNum, rhs: AnimationKeyableNum, alpha: f32) {
+	linearBlend(lhs: AnimationKeyableNum, rhs: AnimationKeyableNum, alpha: f32): void {
 		this.value = (1.0 - alpha) * lhs.value + alpha * rhs.value;
 	}
 }
@@ -84,7 +84,7 @@ export class AnimationKeyableVec {
 		);
 	}
 
-	linearBlend(lhs: AnimationKeyableVec, rhs: AnimationKeyableVec, alpha: f32) {
+	linearBlend(lhs: AnimationKeyableVec, rhs: AnimationKeyableVec, alpha: f32): void {
 		this.value.lerp(lhs.value, rhs.value, alpha);
 	}
 }
@@ -113,7 +113,7 @@ export class AnimationKeyableQuat {
 		);
 	}
 
-	linearBlend(lhs: AnimationKeyableQuat, rhs: AnimationKeyableQuat, alpha: f32) {
+	linearBlend(lhs: AnimationKeyableQuat, rhs: AnimationKeyableQuat, alpha: f32): void {
 		this.value.slerp(lhs.value, rhs.value, alpha);
 	}
 }
@@ -150,7 +150,7 @@ export class AnimationKeyableNumCubicSpline {
 		);
 	}
 
-	cubicHermite(lhs: AnimationKeyableNumCubicSpline, rhs: AnimationKeyableNumCubicSpline, alpha: f32) {
+	cubicHermite(lhs: AnimationKeyableNumCubicSpline, rhs: AnimationKeyableNumCubicSpline, alpha: f32): void {
 		var g = rhs.time - lhs.time;
 		this.value = cubicHermite(g * lhs.outTangent, lhs.value, g * rhs.inTangent, rhs.value, alpha);
 	}
@@ -188,7 +188,7 @@ export class AnimationKeyableVecCubicSpline {
 		);
 	}
 
-	cubicHermite(lhs: AnimationKeyableVecCubicSpline, rhs: AnimationKeyableVecCubicSpline, alpha: f32) {
+	cubicHermite(lhs: AnimationKeyableVecCubicSpline, rhs: AnimationKeyableVecCubicSpline, alpha: f32): void {
 		var g = rhs.time - lhs.time;
 		this.value.x = cubicHermite(g * lhs.outTangent.x, lhs.value.x, g * rhs.inTangent.x, rhs.value.x, alpha);
 		this.value.y = cubicHermite(g * lhs.outTangent.y, lhs.value.y, g * rhs.inTangent.y, rhs.value.y, alpha);
@@ -228,7 +228,7 @@ export class AnimationKeyableQuatCubicSpline {
 		);
 	}
 
-	cubicHermite(lhs: AnimationKeyableQuatCubicSpline, rhs: AnimationKeyableQuatCubicSpline, alpha: f32) {
+	cubicHermite(lhs: AnimationKeyableQuatCubicSpline, rhs: AnimationKeyableQuatCubicSpline, alpha: f32): void {
 		var g = rhs.time - lhs.time;
 		this.value.w = cubicHermite(g * lhs.outTangent.w, lhs.value.w, g * rhs.inTangent.w, rhs.value.w, alpha);
 		this.value.x = cubicHermite(g * lhs.outTangent.x, lhs.value.x, g * rhs.inTangent.x, rhs.value.x, alpha);
