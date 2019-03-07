@@ -44,6 +44,7 @@ async function init_mathas(url) {
 	// console.log("a.add(b)", a.add(b)); // returns no class but a raw pointer
 	
 	pc = {}; // namespace for all pc_*.js files
+	await fetch_script(url + "/html5/pc_animationkeyable.js");
 	await fetch_script(url + "/html5/pc_mat3.js");
 	await fetch_script(url + "/html5/pc_mat4.js");
 	await fetch_script(url + "/html5/pc_quat.js");
