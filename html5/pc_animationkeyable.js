@@ -15,6 +15,14 @@ AnimationKeyableNum = function(time, value) {
 	this.ptr = AnimationKeyableNum_constructor(0, time, value);
 }
 
+AnimationKeyableNum.prototype.copy = function(other) {
+	AnimationKeyableNum_copy(this.ptr, other.ptr);
+}
+
+AnimationKeyableNum.prototype.linearBlend = function(lhs, rhs, alpha) {
+	AnimationKeyableNum_linearBlend(this.ptr, lhs.ptr, rhs.ptr, alpha);
+}
+
 AnimationKeyableNum.prototype.toString = function() {
 	return "new AnimationKeyableNum(" + this.time + ", " + this.value + ");";
 }
@@ -50,20 +58,22 @@ Object.defineProperty(AnimationKeyableNum.prototype, 'value', {
 	}
 });
 
-AnimationKeyableNumCubicSpline_clone             = instance.exports["AnimationKeyableNumCubicSpline#clone"]  
-AnimationKeyableNumCubicSpline_constructor       = instance.exports["AnimationKeyableNumCubicSpline#constructor"]        
-AnimationKeyableNumCubicSpline_copy              = instance.exports["AnimationKeyableNumCubicSpline#copy"] 
-AnimationKeyableNumCubicSpline_cubicHermite      = instance.exports["AnimationKeyableNumCubicSpline#cubicHermite"]         
-//AnimationKeyableNumCubicSpline#get:inTangent     = instance.exports["AnimationKeyableNumCubicSpline#"]          
-//AnimationKeyableNumCubicSpline#get:outTangent    = instance.exports["AnimationKeyableNumCubicSpline#"]           
-//AnimationKeyableNumCubicSpline#get:time          = instance.exports["AnimationKeyableNumCubicSpline#"]     
-//AnimationKeyableNumCubicSpline#get:type          = instance.exports["AnimationKeyableNumCubicSpline#"]     
-//AnimationKeyableNumCubicSpline#get:value         = instance.exports["AnimationKeyableNumCubicSpline#"]      
-//AnimationKeyableNumCubicSpline#set:inTangent     = instance.exports["AnimationKeyableNumCubicSpline#"]          
-//AnimationKeyableNumCubicSpline#set:outTangent    = instance.exports["AnimationKeyableNumCubicSpline#"]           
-//AnimationKeyableNumCubicSpline#set:time          = instance.exports["AnimationKeyableNumCubicSpline#"]     
-//AnimationKeyableNumCubicSpline#set:type          = instance.exports["AnimationKeyableNumCubicSpline#"]     
-//AnimationKeyableNumCubicSpline#set:value         = instance.exports["AnimationKeyableNumCubicSpline#"]      
+AnimationKeyableNumCubicSpline_clone             = instance.exports["AnimationKeyableNumCubicSpline#clone"];
+AnimationKeyableNumCubicSpline_constructor       = instance.exports["AnimationKeyableNumCubicSpline#constructor"];
+AnimationKeyableNumCubicSpline_copy              = instance.exports["AnimationKeyableNumCubicSpline#copy"];
+AnimationKeyableNumCubicSpline_cubicHermite      = instance.exports["AnimationKeyableNumCubicSpline#cubicHermite"];
+AnimationKeyableNumCubicSpline_get_inTangent     = instance.exports["AnimationKeyableNumCubicSpline#get:inTangent"];
+AnimationKeyableNumCubicSpline_get_outTangent    = instance.exports["AnimationKeyableNumCubicSpline#get:outTangent"];
+AnimationKeyableNumCubicSpline_get_time          = instance.exports["AnimationKeyableNumCubicSpline#get:time"];
+AnimationKeyableNumCubicSpline_get_type          = instance.exports["AnimationKeyableNumCubicSpline#get:type"];
+AnimationKeyableNumCubicSpline_get_value         = instance.exports["AnimationKeyableNumCubicSpline#get:value"];
+AnimationKeyableNumCubicSpline_set_inTangent     = instance.exports["AnimationKeyableNumCubicSpline#set:inTangent"];
+AnimationKeyableNumCubicSpline_set_outTangent    = instance.exports["AnimationKeyableNumCubicSpline#set:outTangent"];
+AnimationKeyableNumCubicSpline_set_time          = instance.exports["AnimationKeyableNumCubicSpline#set:time"];
+AnimationKeyableNumCubicSpline_set_type          = instance.exports["AnimationKeyableNumCubicSpline#set:type"];
+AnimationKeyableNumCubicSpline_set_value         = instance.exports["AnimationKeyableNumCubicSpline#set:value"];
+
+
 
 AnimationKeyableQuat_clone        = instance.exports["AnimationKeyableQuat#clone"];
 AnimationKeyableQuat_constructor  = instance.exports["AnimationKeyableQuat#constructor"];
@@ -80,6 +90,14 @@ AnimationKeyableQuat = function(time, value) {
 	time = time || 0.0;
 	value = value || new pc.Quat();
 	this.ptr = AnimationKeyableQuat_constructor(0, time, value.ptr);
+}
+
+AnimationKeyableQuat.prototype.copy = function(other) {
+	AnimationKeyableQuat_copy(this.ptr, other.ptr);
+}
+
+AnimationKeyableQuat.prototype.linearBlend = function(lhs, rhs, alpha) {
+	AnimationKeyableQuat_linearBlend(this.ptr, lhs.ptr, rhs.ptr, alpha);
 }
 
 AnimationKeyableQuat.prototype.toString = function() {
@@ -122,16 +140,16 @@ AnimationKeyableQuatCubicSpline_clone          = instance.exports["AnimationKeya
 AnimationKeyableQuatCubicSpline_constructor    = instance.exports["AnimationKeyableQuatCubicSpline#constructor"];
 AnimationKeyableQuatCubicSpline_copy           = instance.exports["AnimationKeyableQuatCubicSpline#copy"];
 AnimationKeyableQuatCubicSpline_cubicHermite   = instance.exports["AnimationKeyableQuatCubicSpline#cubicHermite"];
-//AnimationKeyableQuatCubicSpline_get:inTangent  = instance.exports["AnimationKeyableQuatCubicSpline#"];
-//AnimationKeyableQuatCubicSpline_get:outTangent = instance.exports["AnimationKeyableQuatCubicSpline#"];
-//AnimationKeyableQuatCubicSpline_get:time       = instance.exports["AnimationKeyableQuatCubicSpline#"];
-//AnimationKeyableQuatCubicSpline_get:type       = instance.exports["AnimationKeyableQuatCubicSpline#"];
-//AnimationKeyableQuatCubicSpline_get:value      = instance.exports["AnimationKeyableQuatCubicSpline#"];
-//AnimationKeyableQuatCubicSpline_set:inTangent  = instance.exports["AnimationKeyableQuatCubicSpline#"];
-//AnimationKeyableQuatCubicSpline_set:outTangent = instance.exports["AnimationKeyableQuatCubicSpline#"];
-//AnimationKeyableQuatCubicSpline_set:time       = instance.exports["AnimationKeyableQuatCubicSpline#"];
-//AnimationKeyableQuatCubicSpline_set:type       = instance.exports["AnimationKeyableQuatCubicSpline#"];
-//AnimationKeyableQuatCubicSpline_set:value      = instance.exports["AnimationKeyableQuatCubicSpline#"];
+AnimationKeyableQuatCubicSpline_get_inTangent  = instance.exports["AnimationKeyableQuatCubicSpline#get:inTangent"];
+AnimationKeyableQuatCubicSpline_get_outTangent = instance.exports["AnimationKeyableQuatCubicSpline#get:outTangent"];
+AnimationKeyableQuatCubicSpline_get_time       = instance.exports["AnimationKeyableQuatCubicSpline#get:time"];
+AnimationKeyableQuatCubicSpline_get_type       = instance.exports["AnimationKeyableQuatCubicSpline#get:type"];
+AnimationKeyableQuatCubicSpline_get_value      = instance.exports["AnimationKeyableQuatCubicSpline#get:value"];
+AnimationKeyableQuatCubicSpline_set_inTangent  = instance.exports["AnimationKeyableQuatCubicSpline#set:inTangent"];
+AnimationKeyableQuatCubicSpline_set_outTangent = instance.exports["AnimationKeyableQuatCubicSpline#set:outTangent"];
+AnimationKeyableQuatCubicSpline_set_time       = instance.exports["AnimationKeyableQuatCubicSpline#set:time"];
+AnimationKeyableQuatCubicSpline_set_type       = instance.exports["AnimationKeyableQuatCubicSpline#set:type"];
+AnimationKeyableQuatCubicSpline_set_value      = instance.exports["AnimationKeyableQuatCubicSpline#set:value"];
 
 AnimationKeyableVec_clone         = instance.exports["AnimationKeyableVec#clone"];
 AnimationKeyableVec_constructor   = instance.exports["AnimationKeyableVec#constructor"];
@@ -148,6 +166,14 @@ AnimationKeyableVec = function(time, value) {
 	time = time || 0.0;
 	value = value || new pc.Vec3();
 	this.ptr = AnimationKeyableVec_constructor(0, time, value.ptr);
+}
+
+AnimationKeyableVec.prototype.copy = function(other) {
+	AnimationKeyableVec_copy(this.ptr, other.ptr);
+}
+
+AnimationKeyableVec.prototype.linearBlend = function(lhs, rhs, alpha) {
+	AnimationKeyableVec_linearBlend(this.ptr, lhs.ptr, rhs.ptr, alpha);
 }
 
 AnimationKeyableVec.prototype.toString = function() {
@@ -191,13 +217,13 @@ AnimationKeyableVecCubicSpline_clone           = instance.exports["AnimationKeya
 AnimationKeyableVecCubicSpline_constructor     = instance.exports["AnimationKeyableVecCubicSpline#constructor"];
 AnimationKeyableVecCubicSpline_copy            = instance.exports["AnimationKeyableVecCubicSpline#copy"];
 AnimationKeyableVecCubicSpline_cubicHermite    = instance.exports["AnimationKeyableVecCubicSpline#cubicHermite"];
-//AnimationKeyableVecCubicSpline#get:inTangent   = instance.exports["AnimationKeyableVecCubicSpline#"];
-//AnimationKeyableVecCubicSpline#get:outTangent  = instance.exports["AnimationKeyableVecCubicSpline#"];
-//AnimationKeyableVecCubicSpline#get:time        = instance.exports["AnimationKeyableVecCubicSpline#"];
-//AnimationKeyableVecCubicSpline#get:type        = instance.exports["AnimationKeyableVecCubicSpline#"];
-//AnimationKeyableVecCubicSpline#get:value       = instance.exports["AnimationKeyableVecCubicSpline#"];
-//AnimationKeyableVecCubicSpline#set:inTangent   = instance.exports["AnimationKeyableVecCubicSpline#"];
-//AnimationKeyableVecCubicSpline#set:outTangent  = instance.exports["AnimationKeyableVecCubicSpline#"];
-//AnimationKeyableVecCubicSpline#set:time        = instance.exports["AnimationKeyableVecCubicSpline#"];
-//AnimationKeyableVecCubicSpline#set:type        = instance.exports["AnimationKeyableVecCubicSpline#"];
-//AnimationKeyableVecCubicSpline#set:value       = instance.exports["AnimationKeyableVecCubicSpline#"];
+AnimationKeyableVecCubicSpline_get_inTangent   = instance.exports["AnimationKeyableVecCubicSpline#get:inTangent"];
+AnimationKeyableVecCubicSpline_get_outTangent  = instance.exports["AnimationKeyableVecCubicSpline#get:outTangent"];
+AnimationKeyableVecCubicSpline_get_time        = instance.exports["AnimationKeyableVecCubicSpline#get:time"];
+AnimationKeyableVecCubicSpline_get_type        = instance.exports["AnimationKeyableVecCubicSpline#get:type"];
+AnimationKeyableVecCubicSpline_get_value       = instance.exports["AnimationKeyableVecCubicSpline#get:value"];
+AnimationKeyableVecCubicSpline_set_inTangent   = instance.exports["AnimationKeyableVecCubicSpline#set:inTangent"];
+AnimationKeyableVecCubicSpline_set_outTangent  = instance.exports["AnimationKeyableVecCubicSpline#set:outTangent"];
+AnimationKeyableVecCubicSpline_set_time        = instance.exports["AnimationKeyableVecCubicSpline#set:time"];
+AnimationKeyableVecCubicSpline_set_type        = instance.exports["AnimationKeyableVecCubicSpline#set:type"];
+AnimationKeyableVecCubicSpline_set_value       = instance.exports["AnimationKeyableVecCubicSpline#set:value"];
