@@ -101,6 +101,12 @@
 			</test-js>
 
 			<test-js>
+				var a = new AnimationKeyableNum(1.1, 2.2);
+				var b = a.clone();
+				b.toStringFixed(2) == "new AnimationKeyableNum(1.10, 2.20);";
+			</test-js>
+
+			<test-js>
 			</test-js>
 		</tests-js>
 
@@ -120,6 +126,12 @@
 			</test-js>
 
 			<test-js>
+				var a = new AnimationKeyableVec(1.1, new pc.Vec3(2.2, 3.3, 4.4));
+				var b = a.clone();
+				b.toStringFixed(2) == "new AnimationKeyableVec(1.10, [2.20, 3.30, 4.40]);";
+			</test-js>
+
+			<test-js>
 			</test-js>
 		</tests-js>
 
@@ -135,6 +147,12 @@
 				var a = new AnimationKeyableQuat(1.1, new pc.Quat(2.2, 3.3, 4.4, 5.5));
 				var b = new AnimationKeyableQuat();
 				b.copy(a);
+				b.toStringFixed(2) == "new AnimationKeyableQuat(1.10, [2.20, 3.30, 4.40, 5.50]);";
+			</test-js>
+
+			<test-js>
+				var a = new AnimationKeyableQuat(1.1, new pc.Quat(2.2, 3.3, 4.4, 5.5));
+				var b = a.clone();
 				b.toStringFixed(2) == "new AnimationKeyableQuat(1.10, [2.20, 3.30, 4.40, 5.50]);";
 			</test-js>
 

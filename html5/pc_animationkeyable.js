@@ -15,6 +15,18 @@ AnimationKeyableNum = function(time, value) {
 	this.ptr = AnimationKeyableNum_constructor(0, time, value);
 }
 
+AnimationKeyableNum.wrap = function(ptr) {
+	var tmp = Object.create(AnimationKeyableNum.prototype);
+	tmp.ptr = ptr;
+	return tmp;
+}
+
+AnimationKeyableNum.prototype.clone = function() {
+	var ptr = AnimationKeyableNum_clone(this.ptr);
+	var tmp = AnimationKeyableNum.wrap(ptr);
+	return tmp;
+}
+
 AnimationKeyableNum.prototype.copy = function(other) {
 	AnimationKeyableNum_copy(this.ptr, other.ptr);
 }
@@ -92,6 +104,18 @@ AnimationKeyableQuat = function(time, value) {
 	this.ptr = AnimationKeyableQuat_constructor(0, time, value.ptr);
 }
 
+AnimationKeyableQuat.wrap = function(ptr) {
+	var tmp = Object.create(AnimationKeyableQuat.prototype);
+	tmp.ptr = ptr;
+	return tmp;
+}
+
+AnimationKeyableQuat.prototype.clone = function() {
+	var ptr = AnimationKeyableQuat_clone(this.ptr);
+	var tmp = AnimationKeyableQuat.wrap(ptr);
+	return tmp;
+}
+
 AnimationKeyableQuat.prototype.copy = function(other) {
 	AnimationKeyableQuat_copy(this.ptr, other.ptr);
 }
@@ -166,6 +190,18 @@ AnimationKeyableVec = function(time, value) {
 	time = time || 0.0;
 	value = value || new pc.Vec3();
 	this.ptr = AnimationKeyableVec_constructor(0, time, value.ptr);
+}
+
+AnimationKeyableVec.wrap = function(ptr) {
+	var tmp = Object.create(AnimationKeyableVec.prototype);
+	tmp.ptr = ptr;
+	return tmp;
+}
+
+AnimationKeyableVec.prototype.clone = function() {
+	var ptr = AnimationKeyableVec_clone(this.ptr);
+	var tmp = AnimationKeyableVec.wrap(ptr);
+	return tmp;
 }
 
 AnimationKeyableVec.prototype.copy = function(other) {
