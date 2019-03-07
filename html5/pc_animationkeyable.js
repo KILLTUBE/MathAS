@@ -1,41 +1,44 @@
-
-
-var AnimationKeyableType = {
-    NUM              : 0,
-    VEC2             : 1,
-    VEC              : 2, // todo: rename to VEC3
-    VEC4             : 3,
-    QUAT             : 4,
-    NUM_CUBICSCPLINE : 5,
-    VEC2_CUBICSCPLINE: 6,
-    VEC_CUBICSCPLINE : 7, // todo: rename to VEC3_CUBICSPLINE
-    VEC4_CUBICSCPLINE: 8,
-    QUAT_CUBICSCPLINE: 9
-}
-
 AnimationKeyableNum_clone       = instance.exports["AnimationKeyableNum#clone"];
 AnimationKeyableNum_constructor = instance.exports["AnimationKeyableNum#constructor"];
 AnimationKeyableNum_copy        = instance.exports["AnimationKeyableNum#copy"];
-//AnimationKeyableNum_get:time    = instance.exports["AnimationKeyableNum#"];
-//AnimationKeyableNum_get:type    = instance.exports["AnimationKeyableNum#"];
+AnimationKeyableNum_get_time    = instance.exports["AnimationKeyableNum#get:time"];
+AnimationKeyableNum_get_type    = instance.exports["AnimationKeyableNum#get:type"];
 AnimationKeyableNum_get_value   = instance.exports["AnimationKeyableNum#get:value"];
 AnimationKeyableNum_linearBlend = instance.exports["AnimationKeyableNum#linearBlend"];
-//AnimationKeyableNum_set:time    = instance.exports["AnimationKeyableNum#"];
-//AnimationKeyableNum_set:type    = instance.exports["AnimationKeyableNum#"];
+AnimationKeyableNum_set_time    = instance.exports["AnimationKeyableNum#set:time"];
+AnimationKeyableNum_set_type    = instance.exports["AnimationKeyableNum#set:type"];
 AnimationKeyableNum_set_value   = instance.exports["AnimationKeyableNum#set:value"];
 
 AnimationKeyableNum = function(time, value) {
 	time = time || 0.0;
 	value = value || 0.0;
-	this.type = AnimationKeyableType.AnimationKeyableNum;
 	this.ptr = AnimationKeyableNum_constructor(0, time, value);
 }
+
+Object.defineProperty(AnimationKeyableNum.prototype, 'time', {
+	get: function() {
+		return AnimationKeyableNum_get_time(this.ptr);
+	},
+	set: function(newValue) {
+		// todo
+	}
+});
+
+Object.defineProperty(AnimationKeyableNum.prototype, 'type', {
+	get: function() {
+		return AnimationKeyableNum_get_type(this.ptr);
+	},
+	set: function(newValue) {
+		// todo
+	}
+});
 
 Object.defineProperty(AnimationKeyableNum.prototype, 'value', {
 	get: function() {
 		return AnimationKeyableNum_get_value(this.ptr);
 	},
 	set: function(newValue) {
+		// todo
 	}
 });
 
@@ -57,13 +60,52 @@ AnimationKeyableNumCubicSpline_cubicHermite      = instance.exports["AnimationKe
 AnimationKeyableQuat_clone        = instance.exports["AnimationKeyableQuat#clone"];
 AnimationKeyableQuat_constructor  = instance.exports["AnimationKeyableQuat#constructor"];
 AnimationKeyableQuat_copy         = instance.exports["AnimationKeyableQuat#copy"];
-//AnimationKeyableQuat#get:time     = instance.exports["AnimationKeyableQuat#"]    
-//AnimationKeyableQuat#get:type     = instance.exports["AnimationKeyableQuat#"]    
-//AnimationKeyableQuat#get:value    = instance.exports["AnimationKeyableQuat#"]     
+AnimationKeyableQuat_get_time     = instance.exports["AnimationKeyableQuat#get:time"];
+AnimationKeyableQuat_get_type     = instance.exports["AnimationKeyableQuat#get:type"];
+AnimationKeyableQuat_get_value    = instance.exports["AnimationKeyableQuat#get:value"];
 AnimationKeyableQuat_linearBlend  = instance.exports["AnimationKeyableQuat#linearBlend"];
-//AnimationKeyableQuat#set:time     = instance.exports["AnimationKeyableQuat#"]    
-//AnimationKeyableQuat#set:type     = instance.exports["AnimationKeyableQuat#"]    
-//AnimationKeyableQuat#set:value    = instance.exports["AnimationKeyableQuat#"]     
+AnimationKeyableQuat_set_time     = instance.exports["AnimationKeyableQuat#set:time"];
+AnimationKeyableQuat_set_type     = instance.exports["AnimationKeyableQuat#set:type"];
+AnimationKeyableQuat_set_value    = instance.exports["AnimationKeyableQuat#set:value"];
+
+AnimationKeyableQuat = function(time, value) {
+	time = time || 0.0;
+	value = value || new pc.Quat();
+	this.ptr = AnimationKeyableQuat_constructor(0, time, value.ptr);
+}
+
+AnimationKeyableQuat.prototype.toString = function() {
+	return "AnimationKeyableQuat time=" + this.time + "value=" + this.value;
+}
+
+
+Object.defineProperty(AnimationKeyableQuat.prototype, 'time', {
+	get: function() {
+		return AnimationKeyableQuat_get_time(this.ptr);
+	},
+	set: function(newValue) {
+		// todo
+	}
+});
+
+Object.defineProperty(AnimationKeyableQuat.prototype, 'type', {
+	get: function() {
+		return AnimationKeyableQuat_get_type(this.ptr);
+	},
+	set: function(newValue) {
+		// todo
+	}
+});
+
+Object.defineProperty(AnimationKeyableQuat.prototype, 'value', {
+	get: function() {
+		var ptr_value = AnimationKeyableQuat_get_value(this.ptr);
+		return pc.Quat.wrap(ptr_value);
+	},
+	set: function(newValue) {
+		// todo
+	}
+});
 
 AnimationKeyableQuatCubicSpline_clone          = instance.exports["AnimationKeyableQuatCubicSpline#clone"];
 AnimationKeyableQuatCubicSpline_constructor    = instance.exports["AnimationKeyableQuatCubicSpline#constructor"];
@@ -95,8 +137,6 @@ AnimationKeyableVec_set_value     = instance.exports["AnimationKeyableVec#set:va
 AnimationKeyableVec = function(time, value) {
 	time = time || 0.0;
 	value = value || new pc.Vec3();
-	this.type = AnimationKeyableType.AnimationKeyableVec;
-	console.log(value.ptr);
 	this.ptr = AnimationKeyableVec_constructor(0, time, value.ptr);
 }
 

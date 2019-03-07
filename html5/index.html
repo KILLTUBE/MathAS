@@ -84,6 +84,26 @@
 		-->
 		<h2>CTRL + Enter: Re<i>e</i>valuate the test code</h2>
 
+
+		<tests-js>
+			<h1>AnimationKeyable stuff</h1>		
+			
+			<test-js>
+				var a = new AnimationKeyableNum(1.1, 2.2);
+				a.toString();
+			</test-js>
+
+			<test-js>
+				var a = new AnimationKeyableVec(1.1, new pc.Vec3(2.2, 3.3, 4.4));
+				a.toString();
+			</test-js>
+
+			<test-js>
+				var a = new AnimationKeyableQuat(1.1, new pc.Quat(2.2, 3.3, 4.4, 5.5));
+				a.toString();
+			</test-js>
+		</tests-js>
+
 		<tests-js>
 			<h1>Mat3 stuff</h1>		
 			
