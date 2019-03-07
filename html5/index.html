@@ -90,17 +90,17 @@
 			
 			<test-js>
 				var a = new AnimationKeyableNum(1.1, 2.2);
-				a.toString();
+				a.toStringFixed(2) == "new AnimationKeyableNum(1.10, 2.20);";
 			</test-js>
 
 			<test-js>
 				var a = new AnimationKeyableVec(1.1, new pc.Vec3(2.2, 3.3, 4.4));
-				a.toString();
+				a.toStringFixed(2) == "new AnimationKeyableVec(1.10, [2.20, 3.30, 4.40]);";
 			</test-js>
 
 			<test-js>
 				var a = new AnimationKeyableQuat(1.1, new pc.Quat(2.2, 3.3, 4.4, 5.5));
-				a.toString();
+				a.toStringFixed(2) == "new AnimationKeyableQuat(1.10, [2.20, 3.30, 4.40, 5.50]);";
 			</test-js>
 		</tests-js>
 
