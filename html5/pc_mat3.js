@@ -13,21 +13,27 @@ mat3_mul          = instance.exports["Mat3#mul"];
 
 pc.Mat3 = function() {
 	this.ptr = mat3_constructor(0);
-	this.setupWrapper();
+	// if (module.tlfs) {
+	//	this.bufferByteLength = 0;
+	// } else {
+		this.assignDataView();
+	// }
 }
 
 pc.Mat3.wrap = function(ptr) {
 	var tmp = Object.create(pc.Mat3.prototype);
 	tmp.ptr = ptr;
-	tmp.setupWrapper();
+	// if (module.tlfs) {
+	//	tmp.bufferByteLength = 0;
+	// } else {
+		this.assignDataView();
+	// }
 	return tmp;
 }
 
-pc.Mat3.prototype.setupWrapper = function() {
+pc.Mat3.prototype.assignDataView = function() {
 	//this.wrap = module.Mat3.wrap(this.ptr)
-	var ptr_data = module.U32[this.ptr >> 2];
-	var ptr_ptr_data = module.U32[ptr_data >> 2];
-	this.data = new Float32Array(instance.exports.memory.buffer, ptr_ptr_data + 8, 9);
+	this.data = new Float32Array(module.memory.buffer, this.ptr, 9);
 }
 
 pc.Mat3.prototype.add = function(rhs) {

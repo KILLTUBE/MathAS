@@ -239,8 +239,6 @@ export class Mat4 {
 
 
 	invertTo3x3(res: Mat3): Mat4 {
-		var r = res.data;
-
 		var m0 = this.m0;
 		var m1 = this.m1;
 		var m2 = this.m2;
@@ -270,15 +268,15 @@ export class Mat4 {
 
 		var idet: f32 = 1 / det;
 
-		r[0] = idet * a11;
-		r[1] = idet * a21;
-		r[2] = idet * a31;
-		r[3] = idet * a12;
-		r[4] = idet * a22;
-		r[5] = idet * a32;
-		r[6] = idet * a13;
-		r[7] = idet * a23;
-		r[8] = idet * a33;
+		res.m0 = idet * a11;
+		res.m1 = idet * a21;
+		res.m2 = idet * a31;
+		res.m3 = idet * a12;
+		res.m4 = idet * a22;
+		res.m5 = idet * a32;
+		res.m6 = idet * a13;
+		res.m7 = idet * a23;
+		res.m8 = idet * a33;
 
 		return this;
 	}
