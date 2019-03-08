@@ -115,7 +115,7 @@
 			
 			<test-js>
 				var keyable = new AnimationKeyableNumCubicSpline(0.5, 1, 2, 3);
-				keyable
+				keyable.toString() == "new AnimationKeyableNumCubicSpline(0.5, 1, 2, 3);";
 			</test-js>
 
 			<test-js>
@@ -124,10 +124,7 @@
 				keyable.value = 1;
 				keyable.inTangent = 2;
 				keyable.outTangent = 3;
-				keyable
-			</test-js>
-
-			<test-js>
+				keyable.toString() == "new AnimationKeyableNumCubicSpline(0.5, 1, 2, 3);";
 			</test-js>
 
 			<test-js>
@@ -169,7 +166,7 @@
 					new pc.Vec3(11, 22, 33),
 					new pc.Vec3(111, 222, 333)
 				);
-				keyable
+				keyable.toString() == "new AnimationKeyableVecCubicSpline(0.5, [1, 2, 3], [11, 22, 33], [111, 222, 333]);"
 			</test-js>
 
 			<test-js>
@@ -178,10 +175,7 @@
 				keyable.value.set(1, 2, 3);
 				keyable.inTangent.set(11, 22, 33);
 				keyable.outTangent.set(111, 222, 333);
-				keyable
-			</test-js>
-
-			<test-js>
+				keyable.toString() == "new AnimationKeyableVecCubicSpline(0.5, [1, 2, 3], [11, 22, 33], [111, 222, 333]);"
 			</test-js>
 
 			<test-js>
@@ -223,19 +217,16 @@
 						new pc.Quat(11, 22, 33, 44),
 						new pc.Quat(111, 222, 333, 444)
 					);
-					keyable
+					keyable.toString() == "new AnimationKeyableQuatCubicSpline(0.5, [1, 2, 3, 4], [11, 22, 33, 44], [111, 222, 333, 444]);"
 			</test-js>
 	
 			<test-js>
 				var keyable = new AnimationKeyableQuatCubicSpline();
 				keyable.time = 0.5;
 				keyable.value.set(1, 2, 3, 4);
-				keyable.inTangent.set(11, 22, 33, 33);
+				keyable.inTangent.set(11, 22, 33, 44);
 				keyable.outTangent.set(111, 222, 333, 444);
-				keyable
-			</test-js>
-
-			<test-js>
+				keyable.toString() == "new AnimationKeyableQuatCubicSpline(0.5, [1, 2, 3, 4], [11, 22, 33, 44], [111, 222, 333, 444]);"
 			</test-js>
 
 			<test-js>

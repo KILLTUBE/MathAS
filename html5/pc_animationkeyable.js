@@ -57,7 +57,7 @@ Object.defineProperty(AnimationKeyableNum.prototype, 'time', {
 		return AnimationKeyableNum_get_time(this.ptr);
 	},
 	set: function(newValue) {
-		console.log("todo");
+		return AnimationKeyableNum_set_time(this.ptr, newValue);
 	}
 });
 
@@ -66,7 +66,7 @@ Object.defineProperty(AnimationKeyableNum.prototype, 'type', {
 		return AnimationKeyableNum_get_type(this.ptr);
 	},
 	set: function(newValue) {
-		console.log("todo");
+		return AnimationKeyableNum_set_type(this.ptr, newValue);
 	}
 });
 
@@ -75,7 +75,7 @@ Object.defineProperty(AnimationKeyableNum.prototype, 'value', {
 		return AnimationKeyableNum_get_value(this.ptr);
 	},
 	set: function(newValue) {
-		console.log("todo");
+		return AnimationKeyableNum_set_value(this.ptr, newValue);
 	}
 });
 
@@ -148,7 +148,7 @@ Object.defineProperty(AnimationKeyableNumCubicSpline.prototype, 'time', {
 		return AnimationKeyableNumCubicSpline_get_time(this.ptr);
 	},
 	set: function(newValue) {
-		console.log("todo");
+		return AnimationKeyableNumCubicSpline_set_time(this.ptr, newValue);
 	}
 });
 
@@ -157,7 +157,7 @@ Object.defineProperty(AnimationKeyableNumCubicSpline.prototype, 'type', {
 		return AnimationKeyableNumCubicSpline_get_type(this.ptr);
 	},
 	set: function(newValue) {
-		console.log("todo");
+		return AnimationKeyableNumCubicSpline_set_type(this.ptr, newValue);
 	}
 });
 
@@ -166,7 +166,7 @@ Object.defineProperty(AnimationKeyableNumCubicSpline.prototype, 'value', {
 		return AnimationKeyableNumCubicSpline_get_value(this.ptr);
 	},
 	set: function(newValue) {
-		console.log("todo");
+		return AnimationKeyableNumCubicSpline_set_value(this.ptr, newValue);
 	}
 });
 
@@ -175,7 +175,7 @@ Object.defineProperty(AnimationKeyableNumCubicSpline.prototype, 'inTangent', {
 		return AnimationKeyableNumCubicSpline_get_inTangent(this.ptr);
 	},
 	set: function(newValue) {
-		console.log("todo");
+		return AnimationKeyableNumCubicSpline_set_inTangent(this.ptr, newValue);
 	}
 });
 
@@ -184,7 +184,7 @@ Object.defineProperty(AnimationKeyableNumCubicSpline.prototype, 'outTangent', {
 		return AnimationKeyableNumCubicSpline_get_outTangent(this.ptr);
 	},
 	set: function(newValue) {
-		console.log("todo");
+		return AnimationKeyableNumCubicSpline_set_outTangent(this.ptr, newValue);
 	}
 });
 
@@ -247,7 +247,7 @@ Object.defineProperty(AnimationKeyableQuat.prototype, 'time', {
 		return AnimationKeyableQuat_get_time(this.ptr);
 	},
 	set: function(newValue) {
-		console.log("todo");
+		return AnimationKeyableQuat_set_time(this.ptr, newValue);
 	}
 });
 
@@ -256,7 +256,7 @@ Object.defineProperty(AnimationKeyableQuat.prototype, 'type', {
 		return AnimationKeyableQuat_get_type(this.ptr);
 	},
 	set: function(newValue) {
-		console.log("todo");
+		return AnimationKeyableQuat_set_type(this.ptr, newValue);
 	}
 });
 
@@ -288,8 +288,8 @@ AnimationKeyableQuatCubicSpline_set_value      = instance.exports["AnimationKeya
 AnimationKeyableQuatCubicSpline = function(time, value, inTangent, outTangent) {
 	time = time || 0.0;
 	value = value || new pc.Quat();
-	inTangent = value || new pc.Quat();
-	outTangent = value || new pc.Quat();
+	inTangent = inTangent || new pc.Quat();
+	outTangent = outTangent || new pc.Quat();
 	this.ptr = AnimationKeyableQuatCubicSpline_constructor(0, time, value.ptr, inTangent.ptr, outTangent.ptr);
 }
 
@@ -339,7 +339,7 @@ Object.defineProperty(AnimationKeyableQuatCubicSpline.prototype, 'time', {
 		return AnimationKeyableQuatCubicSpline_get_time(this.ptr);
 	},
 	set: function(newValue) {
-		console.log("todo");
+		return AnimationKeyableQuatCubicSpline_set_time(this.ptr, newValue);
 	}
 });
 
@@ -348,7 +348,7 @@ Object.defineProperty(AnimationKeyableQuatCubicSpline.prototype, 'type', {
 		return AnimationKeyableQuatCubicSpline_get_type(this.ptr);
 	},
 	set: function(newValue) {
-		console.log("todo");
+		return AnimationKeyableQuatCubicSpline_set_type(this.ptr, newValue);
 	}
 });
 
@@ -441,7 +441,7 @@ Object.defineProperty(AnimationKeyableVec.prototype, 'time', {
 		return AnimationKeyableVec_get_time(this.ptr);
 	},
 	set: function(newValue) {
-		console.log("todo");
+		return AnimationKeyableVec_set_time(this.ptr, newValue);
 	}
 });
 
@@ -450,7 +450,7 @@ Object.defineProperty(AnimationKeyableVec.prototype, 'type', {
 		return AnimationKeyableVec_get_type(this.ptr);
 	},
 	set: function(newValue) {
-		console.log("todo");
+		return AnimationKeyableVec_set_type(this.ptr, newValue);
 	}
 });
 
@@ -535,7 +535,7 @@ Object.defineProperty(AnimationKeyableVecCubicSpline.prototype, 'time', {
 		return AnimationKeyableVecCubicSpline_get_time(this.ptr);
 	},
 	set: function(newValue) {
-		console.log("todo vec cs time");
+		return AnimationKeyableVecCubicSpline_set_time(this.ptr, newValue);
 	}
 });
 
@@ -544,7 +544,7 @@ Object.defineProperty(AnimationKeyableVecCubicSpline.prototype, 'type', {
 		return AnimationKeyableVecCubicSpline_get_type(this.ptr);
 	},
 	set: function(newValue) {
-		console.log("todo vec cs type");
+		return AnimationKeyableVecCubicSpline_set_type(this.ptr, newValue);
 	}
 });
 
