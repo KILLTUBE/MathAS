@@ -111,6 +111,30 @@
 		</tests-js>
 
 		<tests-js>
+			<h1>AnimationKeyableNumCubicSpline</h1>
+			
+			<test-js>
+				var keyable = new AnimationKeyableNumCubicSpline(0.5, 1, 2, 3);
+				keyable
+			</test-js>
+
+			<test-js>
+				var keyable = new AnimationKeyableNumCubicSpline();
+				keyable.time = 0.5;
+				keyable.value = 1;
+				keyable.inTangent = 2;
+				keyable.outTangent = 3;
+				keyable
+			</test-js>
+
+			<test-js>
+			</test-js>
+
+			<test-js>
+			</test-js>
+		</tests-js>
+
+		<tests-js>
 			<h1>AnimationKeyableVec</h1>		
 			
 			<test-js>
@@ -136,6 +160,35 @@
 		</tests-js>
 
 		<tests-js>
+			<h1>AnimationKeyableVecCubicSpline</h1>
+			
+			<test-js>
+				var keyable = new AnimationKeyableVecCubicSpline(
+					0.5,
+					new pc.Vec3(1, 2, 3),
+					new pc.Vec3(11, 22, 33),
+					new pc.Vec3(111, 222, 333)
+				);
+				keyable
+			</test-js>
+
+			<test-js>
+				var keyable = new AnimationKeyableVecCubicSpline();
+				keyable.time = 0.5;
+				keyable.value.set(1, 2, 3);
+				keyable.inTangent.set(11, 22, 33);
+				keyable.outTangent.set(111, 222, 333);
+				keyable
+			</test-js>
+
+			<test-js>
+			</test-js>
+
+			<test-js>
+			</test-js>
+		</tests-js>
+
+		<tests-js>
 			<h1>AnimationKeyableQuat</h1>		
 			
 			<test-js>
@@ -154,6 +207,35 @@
 				var a = new AnimationKeyableQuat(1.1, new pc.Quat(2.2, 3.3, 4.4, 5.5));
 				var b = a.clone();
 				b.toStringFixed(2) == "new AnimationKeyableQuat(1.10, [2.20, 3.30, 4.40, 5.50]);";
+			</test-js>
+
+			<test-js>
+			</test-js>
+		</tests-js>
+
+		<tests-js>
+			<h1>AnimationKeyableQuatCubicSpline</h1>		
+			
+			<test-js>
+					var keyable = new AnimationKeyableQuatCubicSpline(
+						0.5,
+						new pc.Quat(1, 2, 3, 4),
+						new pc.Quat(11, 22, 33, 44),
+						new pc.Quat(111, 222, 333, 444)
+					);
+					keyable
+			</test-js>
+	
+			<test-js>
+				var keyable = new AnimationKeyableQuatCubicSpline();
+				keyable.time = 0.5;
+				keyable.value.set(1, 2, 3, 4);
+				keyable.inTangent.set(11, 22, 33, 33);
+				keyable.outTangent.set(111, 222, 333, 444);
+				keyable
+			</test-js>
+
+			<test-js>
 			</test-js>
 
 			<test-js>

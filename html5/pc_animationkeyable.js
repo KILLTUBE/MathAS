@@ -29,6 +29,7 @@ AnimationKeyableNum.prototype.clone = function() {
 
 AnimationKeyableNum.prototype.copy = function(other) {
 	AnimationKeyableNum_copy(this.ptr, other.ptr);
+	return this;
 }
 
 AnimationKeyableNum.prototype.linearBlend = function(lhs, rhs, alpha) {
@@ -36,11 +37,19 @@ AnimationKeyableNum.prototype.linearBlend = function(lhs, rhs, alpha) {
 }
 
 AnimationKeyableNum.prototype.toString = function() {
-	return "new AnimationKeyableNum(" + this.time + ", " + this.value + ");";
+	var tmp = "new AnimationKeyableNum(";
+	tmp += this.time + ", ";
+	tmp += this.value;
+	tmp += ");";
+	return tmp;
 }
 
 AnimationKeyableNum.prototype.toStringFixed = function(n) {
-	return "new AnimationKeyableNum(" + this.time.toFixed(n) + ", " + this.value.toFixed(n) + ");";
+	var tmp = "new AnimationKeyableNum(";
+	tmp += this.time.toFixed(n) + ", ";
+	tmp += this.value.toFixed(n);
+	tmp += ");";
+	return tmp;
 }
 
 Object.defineProperty(AnimationKeyableNum.prototype, 'time', {
@@ -48,7 +57,7 @@ Object.defineProperty(AnimationKeyableNum.prototype, 'time', {
 		return AnimationKeyableNum_get_time(this.ptr);
 	},
 	set: function(newValue) {
-		// todo
+		console.log("todo");
 	}
 });
 
@@ -57,7 +66,7 @@ Object.defineProperty(AnimationKeyableNum.prototype, 'type', {
 		return AnimationKeyableNum_get_type(this.ptr);
 	},
 	set: function(newValue) {
-		// todo
+		console.log("todo");
 	}
 });
 
@@ -66,7 +75,7 @@ Object.defineProperty(AnimationKeyableNum.prototype, 'value', {
 		return AnimationKeyableNum_get_value(this.ptr);
 	},
 	set: function(newValue) {
-		// todo
+		console.log("todo");
 	}
 });
 
@@ -107,6 +116,7 @@ AnimationKeyableNumCubicSpline.prototype.clone = function() {
 
 AnimationKeyableNumCubicSpline.prototype.copy = function(other) {
 	AnimationKeyableNumCubicSpline_copy(this.ptr, other.ptr);
+	return this;
 }
 
 AnimationKeyableNumCubicSpline.prototype.cubicHermite = function(lhs, rhs, alpha) {
@@ -114,7 +124,7 @@ AnimationKeyableNumCubicSpline.prototype.cubicHermite = function(lhs, rhs, alpha
 }
 
 AnimationKeyableNumCubicSpline.prototype.toString = function() {
-	tmp += "new AnimationKeyableNumCubicSpline(";
+	var tmp = "new AnimationKeyableNumCubicSpline(";
 	tmp += this.time + ", ";
 	tmp += this.value + ", ";
 	tmp += this.inTangent + ", ";
@@ -126,9 +136,9 @@ AnimationKeyableNumCubicSpline.prototype.toString = function() {
 AnimationKeyableNumCubicSpline.prototype.toStringFixed = function(n) {
 	var tmp = "new AnimationKeyableNumCubicSpline(";
 	tmp += this.time.toFixed(n) + ", ";
-	tmp += this.value.toFixed(n) + ", ";
-	tmp += this.inTangent.toFixed(n) + ", ";
-	tmp += this.outTangent.toFixed(n);
+	tmp += this.value.toStringFixed(n) + ", ";
+	tmp += this.inTangent.toStringFixed(n) + ", ";
+	tmp += this.outTangent.toStringFixed(n);
 	tmp += ");";
 	return tmp;
 }
@@ -138,7 +148,7 @@ Object.defineProperty(AnimationKeyableNumCubicSpline.prototype, 'time', {
 		return AnimationKeyableNumCubicSpline_get_time(this.ptr);
 	},
 	set: function(newValue) {
-		// todo
+		console.log("todo");
 	}
 });
 
@@ -147,7 +157,7 @@ Object.defineProperty(AnimationKeyableNumCubicSpline.prototype, 'type', {
 		return AnimationKeyableNumCubicSpline_get_type(this.ptr);
 	},
 	set: function(newValue) {
-		// todo
+		console.log("todo");
 	}
 });
 
@@ -156,7 +166,25 @@ Object.defineProperty(AnimationKeyableNumCubicSpline.prototype, 'value', {
 		return AnimationKeyableNumCubicSpline_get_value(this.ptr);
 	},
 	set: function(newValue) {
-		// todo
+		console.log("todo");
+	}
+});
+
+Object.defineProperty(AnimationKeyableNumCubicSpline.prototype, 'inTangent', {
+	get: function() {
+		return AnimationKeyableNumCubicSpline_get_inTangent(this.ptr);
+	},
+	set: function(newValue) {
+		console.log("todo");
+	}
+});
+
+Object.defineProperty(AnimationKeyableNumCubicSpline.prototype, 'outTangent', {
+	get: function() {
+		return AnimationKeyableNumCubicSpline_get_outTangent(this.ptr);
+	},
+	set: function(newValue) {
+		console.log("todo");
 	}
 });
 
@@ -191,6 +219,7 @@ AnimationKeyableQuat.prototype.clone = function() {
 
 AnimationKeyableQuat.prototype.copy = function(other) {
 	AnimationKeyableQuat_copy(this.ptr, other.ptr);
+	return this;
 }
 
 AnimationKeyableQuat.prototype.linearBlend = function(lhs, rhs, alpha) {
@@ -198,11 +227,19 @@ AnimationKeyableQuat.prototype.linearBlend = function(lhs, rhs, alpha) {
 }
 
 AnimationKeyableQuat.prototype.toString = function() {
-	return "new AnimationKeyableQuat(" + this.time + ", " + this.value + ");";
+	var tmp = "new AnimationKeyableQuat(";
+	tmp += this.time + ", ";
+	tmp += this.value;
+	tmp += ");";
+	return tmp;
 }
 
 AnimationKeyableQuat.prototype.toStringFixed = function(n) {
-	return "new AnimationKeyableQuat(" + this.time.toFixed(n) + ", " + this.value.toStringFixed(n) + ");";
+	var tmp = "new AnimationKeyableQuat(";
+	tmp += this.time.toFixed(n) + ", ";
+	tmp += this.value.toStringFixed(n);
+	tmp += ");";
+	return tmp;
 }
 
 Object.defineProperty(AnimationKeyableQuat.prototype, 'time', {
@@ -210,7 +247,7 @@ Object.defineProperty(AnimationKeyableQuat.prototype, 'time', {
 		return AnimationKeyableQuat_get_time(this.ptr);
 	},
 	set: function(newValue) {
-		// todo
+		console.log("todo");
 	}
 });
 
@@ -219,7 +256,7 @@ Object.defineProperty(AnimationKeyableQuat.prototype, 'type', {
 		return AnimationKeyableQuat_get_type(this.ptr);
 	},
 	set: function(newValue) {
-		// todo
+		console.log("todo");
 	}
 });
 
@@ -229,7 +266,7 @@ Object.defineProperty(AnimationKeyableQuat.prototype, 'value', {
 		return pc.Quat.wrap(ptr_value);
 	},
 	set: function(newValue) {
-		// todo
+		console.log("todo");
 	}
 });
 
@@ -248,7 +285,7 @@ AnimationKeyableQuatCubicSpline_set_time       = instance.exports["AnimationKeya
 AnimationKeyableQuatCubicSpline_set_type       = instance.exports["AnimationKeyableQuatCubicSpline#set:type"];
 AnimationKeyableQuatCubicSpline_set_value      = instance.exports["AnimationKeyableQuatCubicSpline#set:value"];
 
-AnimationKeyableQuatCubicSpline = function(time, value) {
+AnimationKeyableQuatCubicSpline = function(time, value, inTangent, outTangent) {
 	time = time || 0.0;
 	value = value || new pc.Quat();
 	inTangent = value || new pc.Quat();
@@ -270,18 +307,31 @@ AnimationKeyableQuatCubicSpline.prototype.clone = function() {
 
 AnimationKeyableQuatCubicSpline.prototype.copy = function(other) {
 	AnimationKeyableQuatCubicSpline_copy(this.ptr, other.ptr);
+	return this;
 }
 
-AnimationKeyableQuatCubicSpline.prototype.linearBlend = function(lhs, rhs, alpha) {
-	AnimationKeyableQuatCubicSpline_linearBlend(this.ptr, lhs.ptr, rhs.ptr, alpha);
+AnimationKeyableQuatCubicSpline.prototype.cubicHermite = function(lhs, rhs, alpha) {
+	AnimationKeyableQuatCubicSpline_cubicHermite(this.ptr, lhs.ptr, rhs.ptr, alpha);
 }
 
 AnimationKeyableQuatCubicSpline.prototype.toString = function() {
-	return "new AnimationKeyableQuatCubicSpline(" + this.time + ", " + this.value + ");";
+	var tmp = "new AnimationKeyableQuatCubicSpline(";
+	tmp += this.time + ", ";
+	tmp += this.value + ", ";
+	tmp += this.inTangent + ", ";
+	tmp += this.outTangent;
+	tmp += ");";
+	return tmp;
 }
 
 AnimationKeyableQuatCubicSpline.prototype.toStringFixed = function(n) {
-	return "new AnimationKeyableQuatCubicSpline(" + this.time.toFixed(n) + ", " + this.value.toStringFixed(n) + ");";
+	var tmp = "new AnimationKeyableQuatCubicSpline(";
+	tmp += this.time.toFixed(n) + ", ";
+	tmp += this.value.toFixed(n) + ", ";
+	tmp += this.inTangent.toFixed(n) + ", ";
+	tmp += this.outTangent.toFixed(n);
+	tmp += ");";
+	return tmp;
 }
 
 Object.defineProperty(AnimationKeyableQuatCubicSpline.prototype, 'time', {
@@ -289,7 +339,7 @@ Object.defineProperty(AnimationKeyableQuatCubicSpline.prototype, 'time', {
 		return AnimationKeyableQuatCubicSpline_get_time(this.ptr);
 	},
 	set: function(newValue) {
-		// todo
+		console.log("todo");
 	}
 });
 
@@ -298,7 +348,7 @@ Object.defineProperty(AnimationKeyableQuatCubicSpline.prototype, 'type', {
 		return AnimationKeyableQuatCubicSpline_get_type(this.ptr);
 	},
 	set: function(newValue) {
-		// todo
+		console.log("todo");
 	}
 });
 
@@ -308,7 +358,7 @@ Object.defineProperty(AnimationKeyableQuatCubicSpline.prototype, 'value', {
 		return pc.Quat.wrap(ptr_value);
 	},
 	set: function(newValue) {
-		// todo
+		console.log("todo");
 	}
 });
 
@@ -318,7 +368,7 @@ Object.defineProperty(AnimationKeyableQuatCubicSpline.prototype, 'inTangent', {
 		return pc.Quat.wrap(ptr_value);
 	},
 	set: function(newValue) {
-		// todo
+		console.log("todo");
 	}
 });
 
@@ -328,7 +378,7 @@ Object.defineProperty(AnimationKeyableQuatCubicSpline.prototype, 'outTangent', {
 		return pc.Quat.wrap(ptr_value);
 	},
 	set: function(newValue) {
-		// todo
+		console.log("todo");
 	}
 });
 
@@ -363,6 +413,7 @@ AnimationKeyableVec.prototype.clone = function() {
 
 AnimationKeyableVec.prototype.copy = function(other) {
 	AnimationKeyableVec_copy(this.ptr, other.ptr);
+	return this;
 }
 
 AnimationKeyableVec.prototype.linearBlend = function(lhs, rhs, alpha) {
@@ -370,11 +421,19 @@ AnimationKeyableVec.prototype.linearBlend = function(lhs, rhs, alpha) {
 }
 
 AnimationKeyableVec.prototype.toString = function() {
-	return "new AnimationKeyableVec(" + this.time + ", " + this.value + ");";
+	var tmp = "new AnimationKeyableVec(";
+	tmp += this.time + ", ";
+	tmp += this.value;
+	tmp += ");";
+	return tmp;
 }
 
 AnimationKeyableVec.prototype.toStringFixed = function(n) {
-	return "new AnimationKeyableVec(" + this.time.toFixed(n) + ", " + this.value.toStringFixed(n) + ");";
+	var tmp = "new AnimationKeyableVec(";
+	tmp += this.time.toFixed(n) + ", ";
+	tmp += this.value.toStringFixed(n);
+	tmp += ");";
+	return tmp;
 }
 
 Object.defineProperty(AnimationKeyableVec.prototype, 'time', {
@@ -382,7 +441,7 @@ Object.defineProperty(AnimationKeyableVec.prototype, 'time', {
 		return AnimationKeyableVec_get_time(this.ptr);
 	},
 	set: function(newValue) {
-		// todo
+		console.log("todo");
 	}
 });
 
@@ -391,7 +450,7 @@ Object.defineProperty(AnimationKeyableVec.prototype, 'type', {
 		return AnimationKeyableVec_get_type(this.ptr);
 	},
 	set: function(newValue) {
-		// todo
+		console.log("todo");
 	}
 });
 
@@ -401,7 +460,7 @@ Object.defineProperty(AnimationKeyableVec.prototype, 'value', {
 		return pc.Vec3.wrap(ptr_value);
 	},
 	set: function(newValue) {
-		// todo
+		console.log("todo");
 	}
 });
 
@@ -444,6 +503,7 @@ AnimationKeyableVecCubicSpline.prototype.clone = function() {
 
 AnimationKeyableVecCubicSpline.prototype.copy = function(other) {
 	AnimationKeyableVecCubicSpline_copy(this.ptr, other.ptr);
+	return this;
 }
 
 AnimationKeyableVecCubicSpline.prototype.cubicHermite = function(lhs, rhs, alpha) {
@@ -451,11 +511,23 @@ AnimationKeyableVecCubicSpline.prototype.cubicHermite = function(lhs, rhs, alpha
 }
 
 AnimationKeyableVecCubicSpline.prototype.toString = function() {
-	return "new AnimationKeyableVecCubicSpline(" + this.time + ", " + this.value + ");";
+	var tmp = "new AnimationKeyableVecCubicSpline(";
+	tmp += this.time + ", ";
+	tmp += this.value + ", ";
+	tmp += this.inTangent + ", ";
+	tmp += this.outTangent;
+	tmp += ");";
+	return tmp;
 }
 
 AnimationKeyableVecCubicSpline.prototype.toStringFixed = function(n) {
-	return "new AnimationKeyableVecCubicSpline(" + this.time.toFixed(n) + ", " + this.value.toStringFixed(n) + ");";
+	var tmp = "new AnimationKeyableVecCubicSpline(";
+	tmp += this.time.toFixed(n) + ", ";
+	tmp += this.value.toStringFixed(n) + ", ";
+	tmp += this.inTangent.toStringFixed(n) + ", ";
+	tmp += this.outTangent.toStringFixed(n);
+	tmp += ");";
+	return tmp;
 }
 
 Object.defineProperty(AnimationKeyableVecCubicSpline.prototype, 'time', {
@@ -463,7 +535,7 @@ Object.defineProperty(AnimationKeyableVecCubicSpline.prototype, 'time', {
 		return AnimationKeyableVecCubicSpline_get_time(this.ptr);
 	},
 	set: function(newValue) {
-		// todo
+		console.log("todo vec cs time");
 	}
 });
 
@@ -472,7 +544,7 @@ Object.defineProperty(AnimationKeyableVecCubicSpline.prototype, 'type', {
 		return AnimationKeyableVecCubicSpline_get_type(this.ptr);
 	},
 	set: function(newValue) {
-		// todo
+		console.log("todo vec cs type");
 	}
 });
 
@@ -482,7 +554,7 @@ Object.defineProperty(AnimationKeyableVecCubicSpline.prototype, 'value', {
 		return pc.Vec3.wrap(ptr_value);
 	},
 	set: function(newValue) {
-		// todo
+		console.log("todo vec value");
 	}
 });
 
@@ -492,7 +564,7 @@ Object.defineProperty(AnimationKeyableVecCubicSpline.prototype, 'inTangent', {
 		return pc.Vec3.wrap(ptr_value);
 	},
 	set: function(newValue) {
-		// todo
+		console.log("todo vec inTangent");
 	}
 });
 
@@ -502,6 +574,6 @@ Object.defineProperty(AnimationKeyableVecCubicSpline.prototype, 'outTangent', {
 		return pc.Vec3.wrap(ptr_value);
 	},
 	set: function(newValue) {
-		// todo
+		console.log("todo vec outTangent");
 	}
 });
