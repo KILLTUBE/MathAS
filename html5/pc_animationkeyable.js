@@ -85,7 +85,80 @@ AnimationKeyableNumCubicSpline_set_time          = instance.exports["AnimationKe
 AnimationKeyableNumCubicSpline_set_type          = instance.exports["AnimationKeyableNumCubicSpline#set:type"];
 AnimationKeyableNumCubicSpline_set_value         = instance.exports["AnimationKeyableNumCubicSpline#set:value"];
 
+AnimationKeyableNumCubicSpline = function(time, value, inTangent, outTangent) {
+	time = time || 0.0;
+	value = value || 0.0;
+	inTangent = inTangent || 0.0;
+	outTangent = outTangent || 0.0;
+	this.ptr = AnimationKeyableNumCubicSpline_constructor(0, time, value, inTangent, outTangent);
+}
 
+AnimationKeyableNumCubicSpline.wrap = function(ptr) {
+	var tmp = Object.create(AnimationKeyableNumCubicSpline.prototype);
+	tmp.ptr = ptr;
+	return tmp;
+}
+
+AnimationKeyableNumCubicSpline.prototype.clone = function() {
+	var ptr = AnimationKeyableNumCubicSpline_clone(this.ptr);
+	var tmp = AnimationKeyableNumCubicSpline.wrap(ptr);
+	return tmp;
+}
+
+AnimationKeyableNumCubicSpline.prototype.copy = function(other) {
+	AnimationKeyableNumCubicSpline_copy(this.ptr, other.ptr);
+}
+
+AnimationKeyableNumCubicSpline.prototype.cubicHermite = function(lhs, rhs, alpha) {
+	AnimationKeyableNumCubicSpline_cubicHermite(this.ptr, lhs.ptr, rhs.ptr, alpha);
+}
+
+AnimationKeyableNumCubicSpline.prototype.toString = function() {
+	tmp += "new AnimationKeyableNumCubicSpline(";
+	tmp += this.time + ", ";
+	tmp += this.value + ", ";
+	tmp += this.inTangent + ", ";
+	tmp += this.outTangent;
+	tmp += ");";
+	return tmp;
+}
+
+AnimationKeyableNumCubicSpline.prototype.toStringFixed = function(n) {
+	var tmp = "new AnimationKeyableNumCubicSpline(";
+	tmp += this.time.toFixed(n) + ", ";
+	tmp += this.value.toFixed(n) + ", ";
+	tmp += this.inTangent.toFixed(n) + ", ";
+	tmp += this.outTangent.toFixed(n);
+	tmp += ");";
+	return tmp;
+}
+
+Object.defineProperty(AnimationKeyableNumCubicSpline.prototype, 'time', {
+	get: function() {
+		return AnimationKeyableNumCubicSpline_get_time(this.ptr);
+	},
+	set: function(newValue) {
+		// todo
+	}
+});
+
+Object.defineProperty(AnimationKeyableNumCubicSpline.prototype, 'type', {
+	get: function() {
+		return AnimationKeyableNumCubicSpline_get_type(this.ptr);
+	},
+	set: function(newValue) {
+		// todo
+	}
+});
+
+Object.defineProperty(AnimationKeyableNumCubicSpline.prototype, 'value', {
+	get: function() {
+		return AnimationKeyableNumCubicSpline_get_value(this.ptr);
+	},
+	set: function(newValue) {
+		// todo
+	}
+});
 
 AnimationKeyableQuat_clone        = instance.exports["AnimationKeyableQuat#clone"];
 AnimationKeyableQuat_constructor  = instance.exports["AnimationKeyableQuat#constructor"];
@@ -175,6 +248,90 @@ AnimationKeyableQuatCubicSpline_set_time       = instance.exports["AnimationKeya
 AnimationKeyableQuatCubicSpline_set_type       = instance.exports["AnimationKeyableQuatCubicSpline#set:type"];
 AnimationKeyableQuatCubicSpline_set_value      = instance.exports["AnimationKeyableQuatCubicSpline#set:value"];
 
+AnimationKeyableQuatCubicSpline = function(time, value) {
+	time = time || 0.0;
+	value = value || new pc.Quat();
+	inTangent = value || new pc.Quat();
+	outTangent = value || new pc.Quat();
+	this.ptr = AnimationKeyableQuatCubicSpline_constructor(0, time, value.ptr, inTangent.ptr, outTangent.ptr);
+}
+
+AnimationKeyableQuatCubicSpline.wrap = function(ptr) {
+	var tmp = Object.create(AnimationKeyableQuatCubicSpline.prototype);
+	tmp.ptr = ptr;
+	return tmp;
+}
+
+AnimationKeyableQuatCubicSpline.prototype.clone = function() {
+	var ptr = AnimationKeyableQuatCubicSpline_clone(this.ptr);
+	var tmp = AnimationKeyableQuatCubicSpline.wrap(ptr);
+	return tmp;
+}
+
+AnimationKeyableQuatCubicSpline.prototype.copy = function(other) {
+	AnimationKeyableQuatCubicSpline_copy(this.ptr, other.ptr);
+}
+
+AnimationKeyableQuatCubicSpline.prototype.linearBlend = function(lhs, rhs, alpha) {
+	AnimationKeyableQuatCubicSpline_linearBlend(this.ptr, lhs.ptr, rhs.ptr, alpha);
+}
+
+AnimationKeyableQuatCubicSpline.prototype.toString = function() {
+	return "new AnimationKeyableQuatCubicSpline(" + this.time + ", " + this.value + ");";
+}
+
+AnimationKeyableQuatCubicSpline.prototype.toStringFixed = function(n) {
+	return "new AnimationKeyableQuatCubicSpline(" + this.time.toFixed(n) + ", " + this.value.toStringFixed(n) + ");";
+}
+
+Object.defineProperty(AnimationKeyableQuatCubicSpline.prototype, 'time', {
+	get: function() {
+		return AnimationKeyableQuatCubicSpline_get_time(this.ptr);
+	},
+	set: function(newValue) {
+		// todo
+	}
+});
+
+Object.defineProperty(AnimationKeyableQuatCubicSpline.prototype, 'type', {
+	get: function() {
+		return AnimationKeyableQuatCubicSpline_get_type(this.ptr);
+	},
+	set: function(newValue) {
+		// todo
+	}
+});
+
+Object.defineProperty(AnimationKeyableQuatCubicSpline.prototype, 'value', {
+	get: function() {
+		var ptr_value = AnimationKeyableQuatCubicSpline_get_value(this.ptr);
+		return pc.Quat.wrap(ptr_value);
+	},
+	set: function(newValue) {
+		// todo
+	}
+});
+
+Object.defineProperty(AnimationKeyableQuatCubicSpline.prototype, 'inTangent', {
+	get: function() {
+		var ptr_value = AnimationKeyableQuatCubicSpline_get_inTangent(this.ptr);
+		return pc.Quat.wrap(ptr_value);
+	},
+	set: function(newValue) {
+		// todo
+	}
+});
+
+Object.defineProperty(AnimationKeyableQuatCubicSpline.prototype, 'outTangent', {
+	get: function() {
+		var ptr_value = AnimationKeyableQuatCubicSpline_get_outTangent(this.ptr);
+		return pc.Quat.wrap(ptr_value);
+	},
+	set: function(newValue) {
+		// todo
+	}
+});
+
 AnimationKeyableVec_clone         = instance.exports["AnimationKeyableVec#clone"];
 AnimationKeyableVec_constructor   = instance.exports["AnimationKeyableVec#constructor"];
 AnimationKeyableVec_copy          = instance.exports["AnimationKeyableVec#copy"];
@@ -263,3 +420,88 @@ AnimationKeyableVecCubicSpline_set_outTangent  = instance.exports["AnimationKeya
 AnimationKeyableVecCubicSpline_set_time        = instance.exports["AnimationKeyableVecCubicSpline#set:time"];
 AnimationKeyableVecCubicSpline_set_type        = instance.exports["AnimationKeyableVecCubicSpline#set:type"];
 AnimationKeyableVecCubicSpline_set_value       = instance.exports["AnimationKeyableVecCubicSpline#set:value"];
+
+
+AnimationKeyableVecCubicSpline = function(time, value, inTangent, outTangent) {
+	time = time || 0.0;
+	value = value || new pc.Vec3();
+	inTangent = inTangent || new pc.Vec3();
+	outTangent = outTangent || new pc.Vec3();
+	this.ptr = AnimationKeyableVecCubicSpline_constructor(0, time, value.ptr, inTangent.ptr, outTangent.ptr);
+}
+
+AnimationKeyableVecCubicSpline.wrap = function(ptr) {
+	var tmp = Object.create(AnimationKeyableVecCubicSpline.prototype);
+	tmp.ptr = ptr;
+	return tmp;
+}
+
+AnimationKeyableVecCubicSpline.prototype.clone = function() {
+	var ptr = AnimationKeyableVecCubicSpline_clone(this.ptr);
+	var tmp = AnimationKeyableVecCubicSpline.wrap(ptr);
+	return tmp;
+}
+
+AnimationKeyableVecCubicSpline.prototype.copy = function(other) {
+	AnimationKeyableVecCubicSpline_copy(this.ptr, other.ptr);
+}
+
+AnimationKeyableVecCubicSpline.prototype.cubicHermite = function(lhs, rhs, alpha) {
+	AnimationKeyableVecCubicSpline_cubicHermite(this.ptr, lhs.ptr, rhs.ptr, alpha);
+}
+
+AnimationKeyableVecCubicSpline.prototype.toString = function() {
+	return "new AnimationKeyableVecCubicSpline(" + this.time + ", " + this.value + ");";
+}
+
+AnimationKeyableVecCubicSpline.prototype.toStringFixed = function(n) {
+	return "new AnimationKeyableVecCubicSpline(" + this.time.toFixed(n) + ", " + this.value.toStringFixed(n) + ");";
+}
+
+Object.defineProperty(AnimationKeyableVecCubicSpline.prototype, 'time', {
+	get: function() {
+		return AnimationKeyableVecCubicSpline_get_time(this.ptr);
+	},
+	set: function(newValue) {
+		// todo
+	}
+});
+
+Object.defineProperty(AnimationKeyableVecCubicSpline.prototype, 'type', {
+	get: function() {
+		return AnimationKeyableVecCubicSpline_get_type(this.ptr);
+	},
+	set: function(newValue) {
+		// todo
+	}
+});
+
+Object.defineProperty(AnimationKeyableVecCubicSpline.prototype, 'value', {
+	get: function() {
+		var ptr_value = AnimationKeyableVecCubicSpline_get_value(this.ptr);
+		return pc.Vec3.wrap(ptr_value);
+	},
+	set: function(newValue) {
+		// todo
+	}
+});
+
+Object.defineProperty(AnimationKeyableVecCubicSpline.prototype, 'inTangent', {
+	get: function() {
+		var ptr_value = AnimationKeyableVecCubicSpline_get_inTangent(this.ptr);
+		return pc.Vec3.wrap(ptr_value);
+	},
+	set: function(newValue) {
+		// todo
+	}
+});
+
+Object.defineProperty(AnimationKeyableVecCubicSpline.prototype, 'outTangent', {
+	get: function() {
+		var ptr_value = AnimationKeyableVecCubicSpline_get_outTangent(this.ptr);
+		return pc.Vec3.wrap(ptr_value);
+	},
+	set: function(newValue) {
+		// todo
+	}
+});
