@@ -1,7 +1,7 @@
 import { Vec3 } from "./Vec3";
 import { Quat } from "./Quat";
 
-enum AnimationKeyableType {
+export enum AnimationKeyableType {
     NUM               = 0,
     VEC2              = 1,
     VEC               = 2, // todo: rename to VEC3
