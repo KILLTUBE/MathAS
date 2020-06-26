@@ -6,7 +6,7 @@
 
 **Installation of node**
 
-Make sure to install/activate node (whatever version, even node 8.10.0 works):
+Make sure to install/activate at least node v10 (that is the recommended minimal version, but even v8.10.0 works for me):
 
 ```shell
 # Tool for easy unpacking:
