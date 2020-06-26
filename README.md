@@ -1,29 +1,29 @@
 # MathAS
 
 * Live demo: http://mathas.killtube.org/html5/
-* Discord: https://discord.gg/HSxy24J
+* Discord: https://discord.gg/assemblyscript
 * Donate: https://www.paypal.me/kungfooman/10
 
-**Installation**
+**Installation of node**
 
-Make sure to install at least node v10 (or any newer version):
+Make sure to install/activate node (whatever version, even node 8.10.0 works):
 
 ```shell
-# tool for easy unpacking:
+# Tool for easy unpacking:
 apt-get install unp
 
-# just download a prebuilt node:
+# Just download a prebuilt node:
 wget https://nodejs.org/dist/v10.15.1/node-v10.15.1-linux-x64.tar.xz
 
-# unpack node
+# Unpack node:
 unp node-v10.15.1-linux-x64.tar.xz
 
-# add this to the end of your ~/.bashrc
-# otherwise an old/unsupported node version might be used
+# Add this to the end of your ~/.bashrc
+# Otherwise an old/unsupported node version might be used
 PATH=~/node-v10.15.0-linux-x64/bin:$PATH
 
-# then restart the shell/terminal/putty/whatever session
-# make sure this shows: v10.15.1
+# Then restart the shell/terminal/putty/whatever session
+# This should show: v10.15.1
 node -v
 ```
 
@@ -34,7 +34,7 @@ git clone https://github.com/KILLTUBE/MathAS
 cd MathAS
 npm install
 
-# now we can actually generate the `build/untouched.wasm` file:
+# Now we can actually generate the `build/untouched.wasm` file:
 
 npm run build
 ```
