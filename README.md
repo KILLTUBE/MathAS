@@ -6,7 +6,7 @@
 
 **Installation**
 
-Make sure to install node v10 first:
+Make sure to install at least node v10 (or any newer version):
 
 ```shell
 # tool for easy unpacking:
@@ -27,7 +27,7 @@ PATH=~/node-v10.15.0-linux-x64/bin:$PATH
 node -v
 ```
 
-After node v10 is installed:
+After node is installed:
 
 ```
 git clone https://github.com/KILLTUBE/MathAS
@@ -36,19 +36,23 @@ npm install
 
 # now we can actually generate the `build/untouched.wasm` file:
 
-./doit.sh
+npm run build
 ```
 
-Currently some unit tests will fail, because this `sin/cos/tan` PR isn't merged yet: 
-
-https://github.com/AssemblyScript/assemblyscript/pull/491
-
-Please overwrite `node_modules/assemblyscript/std/assembly/math.ts` manually with `std/assembly/math.ts` from that PR.
-
-**webserver stuff**
+**Webserver Issues**
 
 To use the JavaScript unit testing system, please install apache2 or lighttpd and clone MathAS either in `/var/www` or `/home/someUser/public_html`.
 
-Make sure to add `application/wasm wasm` to your `MIME` config, otherwise e.g. the `Chrome` browser doesn't accept the `build/untouched.wasm` file!
+Make sure to add `application/wasm wasm` to your `MIME` config, otherwise e.g. the `Chrome` browser won't instantiate/load the `build/untouched.wasm` file!
 
-`Lighttpd`: add `application/wasm wasm` to `/etc/mime.types` and restart it: `/etc/init.d/lighttpd restart`
+*Lighttpd*
+
+* Open e.g. `/etc/mime.types`
+* Add the line `application/wasm wasm`
+* Restart lighttpd: `/etc/init.d/lighttpd restart`
+
+*Apache2 / XAMPP*
+
+* Open e.g. `C:\xampp\apache\conf\mime.types`
+* Add the line `application/wasm wasm`
+* Restart Apache2/XAMPP
